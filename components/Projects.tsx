@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, ArrowRight, Sparkles } from 'lucide-react';
+import { ExternalLink, ArrowRight, Sparkles, Trophy, Users, FileText, Clock } from 'lucide-react';
 import { PROJECTS, CONTACT_INFO } from '../constants';
 
 const TABS = ['All', 'Data Analysis', 'Sports Analytics', 'Data Science'];
@@ -99,6 +99,52 @@ const Projects: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               
+              {/* --- SPORTS ANALYTICS SPECIAL STATS --- */}
+              {activeTab === 'Sports Analytics' && (
+                <div className="mb-16">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    {/* Stat 1 */}
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                      <FileText className="text-blue-500 mb-3" size={24} />
+                      <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">715+</div>
+                      <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Content Contributions</div>
+                    </div>
+                    {/* Stat 2 */}
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                      <Trophy className="text-blue-500 mb-3" size={24} />
+                      <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">20+</div>
+                      <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Diverse Projects</div>
+                    </div>
+                    {/* Stat 3 */}
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                      <Users className="text-blue-500 mb-3" size={24} />
+                      <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">17k+</div>
+                      <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Community Followers</div>
+                    </div>
+                    {/* Stat 4 */}
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                      <Clock className="text-blue-500 mb-3" size={24} />
+                      <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">5</div>
+                      <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Projects Coming Soon</div>
+                    </div>
+                  </div>
+
+                  {/* Trusted Clients Bar */}
+                  <div className="w-full py-4 px-6 rounded-xl border border-white/5 bg-gradient-to-r from-blue-900/10 to-transparent flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center">
+                     <span className="text-slate-400 text-sm font-medium">Worked with:</span>
+                     <div className="flex items-center gap-6 text-sm md:text-base font-display font-bold text-white flex-wrap justify-center">
+                        <span className="opacity-90 hover:opacity-100 hover:text-blue-400 transition-colors cursor-default">433</span>
+                        <span className="w-1 h-1 rounded-full bg-slate-700"></span>
+                        <span className="opacity-90 hover:opacity-100 hover:text-blue-400 transition-colors cursor-default">B/R Reports</span>
+                        <span className="w-1 h-1 rounded-full bg-slate-700"></span>
+                        <span className="opacity-90 hover:opacity-100 hover:text-blue-400 transition-colors cursor-default">ESPN</span>
+                        <span className="w-1 h-1 rounded-full bg-slate-700"></span>
+                        <span className="text-slate-400 font-normal">and 10+ other firms</span>
+                     </div>
+                  </div>
+                </div>
+              )}
+
               {/* --- FLAGSHIP DEPLOYMENTS (SPOTLIGHT) --- */}
               {showSpotlightSection && (
                 <div className="mb-16">

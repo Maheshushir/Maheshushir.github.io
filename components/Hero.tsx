@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Download, BarChart2 } from 'lucide-react';
-import { SOCIAL_STATS } from '../constants';
+import { ArrowRight, Download } from 'lucide-react';
 
 const ROLES = [
   { 
@@ -117,7 +116,7 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Action Buttons - Flex Wrap to avoid overlap */}
-          <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-12 relative z-10 w-full">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4 relative z-10 w-full">
             <a 
               href="#projects" 
               onClick={(e) => handleScrollToSection(e, 'projects')}
@@ -132,25 +131,6 @@ const Hero: React.FC = () => {
             </a>
           </div>
 
-          {/* Social Proof Stats */}
-          <div className="grid grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-8 w-full max-w-2xl">
-            {SOCIAL_STATS.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 + (index * 0.1) }}
-                className="flex flex-col items-center lg:items-start"
-              >
-                <div className="flex items-center gap-2 text-white font-bold text-2xl md:text-3xl mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-[10px] md:text-xs text-slate-500 uppercase tracking-wider font-medium text-center lg:text-left">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
 
         {/* IMAGE / VISUAL - Side 2 */}
@@ -162,21 +142,14 @@ const Hero: React.FC = () => {
         >
           <div className="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/5] w-full max-w-md">
             <img 
-              src="https://picsum.photos/seed/mahesh/800/1000" 
+              src="/mahesh.jpg" 
+              onError={(e) => {
+                e.currentTarget.src = "https://github.com/maheshushir.png"; // Fallback to GitHub
+                e.currentTarget.onerror = null; // Prevent infinite loop
+              }}
               alt="Mahesh Ushir" 
-              className="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-700" 
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
             />
-            
-            {/* Floating Badge */}
-            <div className="absolute bottom-6 left-6 right-6 glass-card p-4 rounded-xl flex items-center gap-4">
-              <div className="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400">
-                <BarChart2 size={24} />
-              </div>
-              <div>
-                <div className="text-white font-bold text-lg">Top Rated</div>
-                <div className="text-slate-400 text-sm">Sports Analytics Voice</div>
-              </div>
-            </div>
           </div>
           
           {/* Decorative Elements */}
