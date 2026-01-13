@@ -1,0 +1,209 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Brain, Trophy, BarChart3, Cpu, Code2, Sparkles, Zap } from 'lucide-react';
+import { SKILL_CATEGORIES } from '../constants';
+
+const beliefs = [
+  {
+    icon: BarChart3,
+    label: 'Automation',
+    title: 'Data Analyst',
+    color: 'text-emerald-400',
+    bgColor: 'bg-emerald-500/10',
+    description: 'Transforming raw numbers into strategic business growth. I automate workflows and visualize complex data for clear decision making.'
+  },
+  {
+    icon: Trophy,
+    label: 'Community',
+    title: 'Freelance Sports Analyst',
+    color: 'text-blue-400',
+    bgColor: 'bg-blue-500/10',
+    description: 'A voice in sports analytics. My Quora community has over 17K followers where I break down tournaments with statistical depth.'
+  },
+  {
+    icon: Brain,
+    label: 'Intelligence',
+    title: 'Aspiring Data Scientist',
+    color: 'text-violet-400',
+    bgColor: 'bg-violet-500/10',
+    description: 'Pushing boundaries with Machine Learning. Building predictive models for bankruptcy detection and market forecasting.'
+  }
+];
+
+const About: React.FC = () => {
+  return (
+    <section id="about" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            className="inline-block mb-4"
+          >
+            <span className="py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-widest uppercase border border-emerald-500/20">
+              The Vision
+            </span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="font-display font-bold text-4xl md:text-5xl mb-6"
+          >
+            Data driven. <span className="text-slate-500">Future focused.</span>
+          </motion.h2>
+          <motion.p
+             initial={{ opacity: 0, y: 15 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true, amount: 0.5 }}
+             transition={{ delay: 0.2, duration: 0.6 }}
+             className="text-slate-400 max-w-2xl mx-auto text-lg"
+          >
+            Dynamic Analytics & Automation Strategist with 2+ years of experience and a digital footprint of <strong>2.3M+ views</strong>. I have delivered high-impact insights for global sports media leaders like <strong>Bleacher Report & 433</strong>, alongside 10+ jewelry brands and 35+ D2C businesses.
+          </motion.p>
+        </div>
+
+        {/* Identity Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {beliefs.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
+              className="glass-card p-8 rounded-2xl group hover:bg-white/5 transition-colors relative overflow-hidden"
+            >
+              <div className={`w-14 h-14 ${item.bgColor} rounded-xl flex items-center justify-center ${item.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                <item.icon size={28} />
+              </div>
+              <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">{item.label}</div>
+              <h3 className={`text-xl font-bold ${item.color} mb-4`}>{item.title}</h3>
+              <p className="text-slate-400 leading-relaxed">{item.description}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Process/Methodology Block */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="rounded-3xl bg-gradient-to-r from-emerald-900/20 to-blue-900/20 border border-white/5 p-8 md:p-12 mb-24 relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
+          
+          <div className="flex flex-col md:flex-row gap-8 items-center relative z-10">
+            <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-white shrink-0">
+              <Cpu size={32} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-display font-bold text-white mb-3">The Soloist Methodology</h3>
+              <p className="text-slate-300 text-lg leading-relaxed font-light">
+                "Leveraged Generative AI and Low-Code frameworks to rapidly prototype and deploy full-stack data applications, focusing on architectural logic and business ROI rather than manual boilerplate coding."
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Comprehensive Skills Matrix */}
+        <div className="space-y-12">
+           <motion.h3 
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             viewport={{ once: true }}
+             className="text-2xl font-display font-bold text-center mb-8"
+           >
+             Strategic Capabilities & Technology Stack
+           </motion.h3>
+
+           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+             {SKILL_CATEGORIES.map((category, catIndex) => {
+               // Determine layout span: AI is typically wider or full width if preferred, 
+               // but here we can make them equal or give AI more prominence.
+               // Let's make AI take full width (12), and others take 6.
+               const isHighlight = category.highlight;
+               const colSpan = isHighlight ? "lg:col-span-12" : "lg:col-span-6";
+               const bgClass = isHighlight ? "bg-[#0A0A0A] border-emerald-500/30" : "glass-card";
+
+               return (
+                 <motion.div
+                   key={category.title}
+                   initial={{ opacity: 0, y: 20 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true, margin: "-50px" }}
+                   transition={{ delay: catIndex * 0.1, duration: 0.6 }}
+                   className={`rounded-3xl p-8 border ${isHighlight ? 'border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.05)]' : 'border-white/5'} ${isHighlight ? 'relative overflow-hidden' : ''} ${colSpan} flex flex-col`}
+                 >
+                   {isHighlight && (
+                      <div className="absolute top-0 right-0 p-4 opacity-10 text-emerald-500">
+                        <Sparkles size={120} />
+                      </div>
+                   )}
+                   
+                   <div className="flex items-center gap-3 mb-8">
+                      {isHighlight ? <Zap className="text-emerald-400" size={24} /> : <Code2 className="text-slate-500" size={24} />}
+                      <h4 className={`text-2xl font-bold ${isHighlight ? 'text-white' : 'text-slate-200'}`}>
+                        {category.title}
+                      </h4>
+                   </div>
+
+                   <div className={`grid gap-6 ${isHighlight ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-1'}`}>
+                      {category.groups.map((group) => (
+                        <div key={group.name} className="relative">
+                          <h5 className={`text-xs font-bold uppercase tracking-wider mb-3 ${isHighlight ? 'text-emerald-500/80' : 'text-slate-500'}`}>
+                            {group.name}
+                          </h5>
+                          <div className="flex flex-wrap gap-2">
+                            {group.skills.map((skill) => (
+                              <span 
+                                key={skill} 
+                                className={`text-sm px-3 py-1.5 rounded-md font-medium border ${
+                                  isHighlight 
+                                  ? 'bg-emerald-950/30 border-emerald-500/20 text-emerald-100' 
+                                  : 'bg-white/5 border-white/5 text-slate-300'
+                                }`}
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                   </div>
+                 </motion.div>
+               );
+             })}
+           </div>
+        </div>
+
+        {/* Quote Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-24 pt-12 border-t border-white/5 text-center relative max-w-4xl mx-auto"
+        >
+          <div className="text-4xl md:text-5xl text-emerald-500/10 absolute -top-4 left-1/2 -translate-x-1/2 select-none">❝</div>
+          <blockquote className="relative z-10">
+            <p className="text-xl md:text-2xl font-light text-slate-300 italic mb-6 leading-relaxed">
+              "Automation applied to an efficient operation will magnify the efficiency. Automation applied to an inefficient operation will magnify the inefficiency."
+            </p>
+            <footer className="text-sm font-bold tracking-widest text-emerald-500 uppercase">
+              — Bill Gates
+            </footer>
+          </blockquote>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+export default About;
