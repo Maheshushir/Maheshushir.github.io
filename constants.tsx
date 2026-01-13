@@ -135,8 +135,8 @@ export const PROJECTS: Project[] = [
     description: 'Client demand-based creative dashboard for UEFA Euro 1960-2024 stats. Statistics of finals with a tournament summary.',
     techStack: ['Power BI', 'Excel', 'Data Viz'],
     link: '#', 
-    // Vibrant Soccer/Stadium Image
-    image: 'https://images.unsplash.com/photo-1579952363873-27f3bde9be2b?auto=format&fit=crop&q=80&w=800',
+    // New reliable soccer ball on field image
+    image: 'https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&q=80&w=800',
     featured: true
   },
   {
@@ -156,7 +156,6 @@ export const PROJECTS: Project[] = [
     description: 'Developed a Support Vector Classifier (SVC) model to predict bankruptcy, achieving 93% accuracy with hyperparameter tuning.',
     techStack: ['Python', 'Scikit-Learn', 'ML'],
     link: '#',
-    // Financial Crisis / Graph Analysis Image
     image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&q=80&w=800',
     featured: false
   },
