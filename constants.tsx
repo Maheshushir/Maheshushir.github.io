@@ -113,7 +113,7 @@ export const PROJECTS: Project[] = [
     description: 'Focuses on Descriptive Analytics—taking historical inventory data and visualizing "trapped capital" for liquidation strategies.',
     techStack: ['Inventory Intelligence', 'Relational Logic', 'Business Automation'],
     link: 'https://jeweller-dead-stock-auditor.vercel.app/',
-    image: 'https://picsum.photos/seed/jeweller/800/600',
+    image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&q=80&w=800',
     featured: true,
     spotlight: true
   },
@@ -124,7 +124,7 @@ export const PROJECTS: Project[] = [
     description: 'Focuses on Predictive & Prescriptive Analytics—using RFM and Churn logic to forecast future customer behavior and retention.',
     techStack: ['RFM Segmentation', 'Predictive Analytics', 'Growth Engineering'],
     link: 'https://d2c-analytics-pro.vercel.app/',
-    image: 'https://picsum.photos/seed/d2c/800/600',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
     featured: true,
     spotlight: true
   },
@@ -135,7 +135,8 @@ export const PROJECTS: Project[] = [
     description: 'Client demand-based creative dashboard for UEFA Euro 1960-2024 stats. Statistics of finals with a tournament summary.',
     techStack: ['Power BI', 'Excel', 'Data Viz'],
     link: '#', 
-    image: 'https://picsum.photos/seed/euro/800/600',
+    // Vibrant Soccer/Stadium Image
+    image: 'https://images.unsplash.com/photo-1579952363873-27f3bde9be2b?auto=format&fit=crop&q=80&w=800',
     featured: true
   },
   {
@@ -145,7 +146,7 @@ export const PROJECTS: Project[] = [
     description: 'Comprehensive review of loan repayment data across 30,000 accounts. Identified patterns informing risk assessment strategies leading to reduced delinquency.',
     techStack: ['SQL', 'Power BI', 'Tableau', 'Excel'],
     link: '#',
-    image: 'https://picsum.photos/seed/bank/800/600',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800',
     featured: false
   },
   {
@@ -155,7 +156,8 @@ export const PROJECTS: Project[] = [
     description: 'Developed a Support Vector Classifier (SVC) model to predict bankruptcy, achieving 93% accuracy with hyperparameter tuning.',
     techStack: ['Python', 'Scikit-Learn', 'ML'],
     link: '#',
-    image: 'https://picsum.photos/seed/ml/800/600',
+    // Financial Crisis / Graph Analysis Image
+    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&q=80&w=800',
     featured: false
   },
   {
@@ -165,7 +167,7 @@ export const PROJECTS: Project[] = [
     description: 'In-depth exploration of customer purchasing behavior and sales trends targeting chip categories with soaring demand.',
     techStack: ['Data Analysis', 'Python', 'Commercial Insights'],
     link: '#',
-    image: 'https://picsum.photos/seed/retail/800/600',
+    image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&q=80&w=800',
     featured: false
   }
 ];

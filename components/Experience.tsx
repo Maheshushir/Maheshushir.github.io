@@ -6,15 +6,15 @@ import { EXPERIENCE } from '../constants';
 const Experience: React.FC = () => {
   return (
     <section id="experience" className="py-24 bg-surface/50 relative">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex items-center gap-4 mb-12"
+          className="flex items-center gap-4 mb-16"
         >
           <div className="h-px bg-white/10 flex-1"></div>
-          <h2 className="font-display font-bold text-3xl text-center">Professional Journey</h2>
+          <h2 className="font-display font-bold text-3xl md:text-4xl text-center">Professional Journey</h2>
           <div className="h-px bg-white/10 flex-1"></div>
         </motion.div>
 
@@ -35,7 +35,7 @@ const Experience: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
-              className={`relative flex flex-col md:flex-row gap-8 ${
+              className={`relative flex flex-col md:flex-row items-center ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
               }`}
             >
@@ -45,37 +45,41 @@ const Experience: React.FC = () => {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 + 0.2, type: "spring", stiffness: 200 }}
-                className="absolute left-7 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-emerald-500 rounded-full border-4 border-[#0F0F0F] z-10 top-1 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+                className="absolute left-7 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-emerald-500 rounded-full border-4 border-[#0F0F0F] z-10 top-8 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
               ></motion.div>
 
               {/* Content Card */}
-              <div className="ml-16 md:ml-0 md:w-1/2">
-                <div className={`glass-card p-6 rounded-xl relative hover:border-emerald-500/30 transition-colors duration-300 ${
-                    index % 2 === 0 ? 'md:mr-8' : 'md:ml-8'
+              <div className="w-full pl-16 md:pl-0 md:w-1/2">
+                <div className={`glass-card p-8 rounded-2xl relative hover:border-emerald-500/30 transition-colors duration-300 w-full ${
+                    index % 2 === 0 ? 'md:mr-12' : 'md:ml-12'
                 }`}>
-                  <div className="flex justify-between items-start mb-2">
-                    <span className="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-white/10 text-slate-300">
-                      {exp.type}
-                    </span>
-                    <span className="text-xs text-emerald-400 font-mono">{exp.period}</span>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-white">{exp.role}</h3>
+                    <div className="flex items-center gap-3 shrink-0">
+                       <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-slate-300 border border-white/5">
+                        {exp.type}
+                      </span>
+                      <span className="text-xs text-emerald-400 font-mono font-medium whitespace-nowrap">{exp.period}</span>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-1">{exp.role}</h3>
-                  <div className="flex items-center gap-2 text-slate-400 text-sm mb-4 font-medium">
-                    <Briefcase size={14} />
-                    {exp.company}
+                  
+                  <div className="flex items-center gap-2 text-slate-400 text-sm mb-6 font-medium border-b border-white/5 pb-4">
+                    <Briefcase size={16} className="text-emerald-500" />
+                    <span className="text-slate-300">{exp.company}</span>
                   </div>
-                  <ul className="space-y-2">
+
+                  <ul className="space-y-3">
                     {exp.description.map((point, i) => (
-                      <li key={i} className="text-slate-400 text-sm leading-relaxed flex items-start gap-2">
-                        <span className="text-emerald-500 mt-1.5">•</span>
-                        {point}
+                      <li key={i} className="text-slate-400 text-sm md:text-base leading-relaxed flex items-start gap-3">
+                        <span className="text-emerald-500 mt-1.5 min-w-[6px] h-1.5 rounded-full bg-emerald-500/50"></span>
+                        <span>{point}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
               
-              {/* Empty space for the other side */}
+              {/* Empty space for the other side to maintain structure */}
               <div className="hidden md:block md:w-1/2" />
             </motion.div>
           ))}

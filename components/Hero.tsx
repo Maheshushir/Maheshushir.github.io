@@ -39,41 +39,53 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 4000); // Increased to 4s to allow time to read descriptions
+    }, 8000); // Increased time to read longer text
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-        <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-emerald-900/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[100px]" />
-      </div>
+  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 80; // Navbar height buffer
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-      <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  return (
+    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+      {/* Main Container: Fluid Width with constraints */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
         
-        {/* Text Content */}
+        {/* TEXT CONTENT - Side 1 */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="order-2 lg:order-1"
+          className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-sm font-medium mb-6">
+          {/* Availability Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-sm font-medium mb-8">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            Available for freelance projects
+            Open for work
           </div>
 
-          <h1 className="font-display font-extrabold text-5xl md:text-7xl leading-[1.1] mb-6">
+          <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6">
             Hi, I'm <br />
             <span className="text-gradient">Mahesh Ushir</span>
           </h1>
 
-          <div className="h-12 md:h-16 mb-6 flex items-center">
+          {/* Rotating Roles */}
+          <div className="h-12 md:h-16 mb-6 flex items-center justify-center lg:justify-start w-full">
             <AnimatePresence mode="wait">
               <motion.h2
                 key={roleIndex}
@@ -81,15 +93,15 @@ const Hero: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.5 }}
-                className={`text-2xl md:text-4xl font-light ${ROLES[roleIndex].color}`}
+                className={`text-2xl md:text-3xl lg:text-4xl font-light ${ROLES[roleIndex].color}`}
               >
                 {ROLES[roleIndex].text}
               </motion.h2>
             </AnimatePresence>
           </div>
 
-          {/* Dynamic Description Area */}
-          <div className="min-h-[140px] md:min-h-[100px] mb-8 relative">
+          {/* Fixed Height Description Area - Increased height for longer text */}
+          <div className="min-h-[280px] md:min-h-[200px] lg:min-h-[180px] mb-8 relative w-full flex justify-center lg:justify-start">
             <AnimatePresence mode="wait">
               <motion.p
                 key={roleIndex}
@@ -97,15 +109,20 @@ const Hero: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 10 }}
                 transition={{ duration: 0.4 }}
-                className="text-lg text-slate-400 max-w-lg leading-relaxed absolute top-0 left-0"
+                className="text-lg text-slate-400 max-w-2xl leading-relaxed absolute top-0"
               >
                 {ROLES[roleIndex].description}
               </motion.p>
             </AnimatePresence>
           </div>
 
-          <div className="flex flex-wrap gap-4 mb-12 relative z-10">
-            <a href="#projects" className="group px-7 py-3.5 bg-white text-black font-semibold rounded-full flex items-center gap-2 hover:bg-slate-200 transition-colors">
+          {/* Action Buttons - Flex Wrap to avoid overlap */}
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-12 relative z-10 w-full">
+            <a 
+              href="#projects" 
+              onClick={(e) => handleScrollToSection(e, 'projects')}
+              className="group px-7 py-3.5 bg-white text-black font-semibold rounded-full flex items-center gap-2 hover:bg-slate-200 transition-colors"
+            >
               View Work
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </a>
@@ -115,19 +132,20 @@ const Hero: React.FC = () => {
             </a>
           </div>
 
-          {/* Social Proof */}
-          <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
+          {/* Social Proof Stats */}
+          <div className="grid grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-8 w-full max-w-2xl">
             {SOCIAL_STATS.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 + (index * 0.1) }}
+                className="flex flex-col items-center lg:items-start"
               >
                 <div className="flex items-center gap-2 text-white font-bold text-2xl md:text-3xl mb-1">
                   {stat.value}
                 </div>
-                <div className="text-xs md:text-sm text-slate-500 uppercase tracking-wider font-medium">
+                <div className="text-[10px] md:text-xs text-slate-500 uppercase tracking-wider font-medium text-center lg:text-left">
                   {stat.label}
                 </div>
               </motion.div>
@@ -135,14 +153,14 @@ const Hero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Visual / Image */}
+        {/* IMAGE / VISUAL - Side 2 */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="order-1 lg:order-2 relative"
+          className="w-full lg:w-2/5 order-1 lg:order-2 relative flex justify-center lg:justify-end"
         >
-          <div className="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/5] max-w-md mx-auto">
+          <div className="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/5] w-full max-w-md">
             <img 
               src="https://picsum.photos/seed/mahesh/800/1000" 
               alt="Mahesh Ushir" 

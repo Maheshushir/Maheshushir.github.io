@@ -33,7 +33,7 @@ const beliefs = [
 const About: React.FC = () => {
   return (
     <section id="about" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
         
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -64,12 +64,12 @@ const About: React.FC = () => {
              transition={{ delay: 0.2, duration: 0.6 }}
              className="text-slate-400 max-w-2xl mx-auto text-lg"
           >
-            Dynamic Analytics & Automation Strategist with 2+ years of experience and a digital footprint of <strong>2.3M+ views</strong>. I have delivered high-impact insights for global sports media leaders like <strong>Bleacher Report & 433</strong>, alongside 10+ jewelry brands and 35+ D2C businesses.
+            Dynamic Analytics & Automation Strategist with 2+ years of experience and a digital footprint of <strong>2.3M+ views</strong>.
           </motion.p>
         </div>
 
-        {/* Identity Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {/* Identity Cards: Staggered grid (1 col mobile, 2 tablet, 3 PC) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
           {beliefs.map((item, index) => (
             <motion.div
               key={item.title}
@@ -77,7 +77,7 @@ const About: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
-              className="glass-card p-8 rounded-2xl group hover:bg-white/5 transition-colors relative overflow-hidden"
+              className={`glass-card p-8 rounded-2xl group hover:bg-white/5 transition-colors relative overflow-hidden flex flex-col items-center text-center md:items-start md:text-left ${index === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}
             >
               <div className={`w-14 h-14 ${item.bgColor} rounded-xl flex items-center justify-center ${item.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
                 <item.icon size={28} />
@@ -89,12 +89,12 @@ const About: React.FC = () => {
           ))}
         </div>
 
-        {/* Process/Methodology Block */}
+        {/* Process Block */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="rounded-3xl bg-gradient-to-r from-emerald-900/20 to-blue-900/20 border border-white/5 p-8 md:p-12 mb-24 relative overflow-hidden"
+          className="rounded-3xl bg-gradient-to-r from-emerald-900/20 to-blue-900/20 border border-white/5 p-8 md:p-12 mb-24 relative overflow-hidden text-center md:text-left"
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
           
@@ -105,13 +105,13 @@ const About: React.FC = () => {
             <div>
               <h3 className="text-2xl font-display font-bold text-white mb-3">The Soloist Methodology</h3>
               <p className="text-slate-300 text-lg leading-relaxed font-light">
-                "Leveraged Generative AI and Low-Code frameworks to rapidly prototype and deploy full-stack data applications, focusing on architectural logic and business ROI rather than manual boilerplate coding."
+                "Leveraged Generative AI and Low-Code frameworks to rapidly prototype and deploy full-stack data applications, focusing on architectural logic and business ROI."
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Comprehensive Skills Matrix */}
+        {/* Technical Arsenal Grid */}
         <div className="space-y-12">
            <motion.h3 
              initial={{ opacity: 0 }}
@@ -122,15 +122,15 @@ const About: React.FC = () => {
              Strategic Capabilities & Technology Stack
            </motion.h3>
 
-           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+           {/* Responsive Grid: 1 -> 2 -> 3 columns */}
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
              {SKILL_CATEGORIES.map((category, catIndex) => {
-               // Determine layout span: AI is typically wider or full width if preferred, 
-               // but here we can make them equal or give AI more prominence.
-               // Let's make AI take full width (12), and others take 6.
+               // On PC, let the "Highlight" category span 2 columns if preferred, or keep uniform.
+               // Based on request "3 (or 4 for skills) on PC to smartly fill", we will use uniform 3 cols for now,
+               // but can span the first one if it's large.
                const isHighlight = category.highlight;
-               const colSpan = isHighlight ? "lg:col-span-12" : "lg:col-span-6";
-               const bgClass = isHighlight ? "bg-[#0A0A0A] border-emerald-500/30" : "glass-card";
-
+               const colSpan = isHighlight ? "md:col-span-2 lg:col-span-3" : "lg:col-span-1";
+               
                return (
                  <motion.div
                    key={category.title}
@@ -138,28 +138,22 @@ const About: React.FC = () => {
                    whileInView={{ opacity: 1, y: 0 }}
                    viewport={{ once: true, margin: "-50px" }}
                    transition={{ delay: catIndex * 0.1, duration: 0.6 }}
-                   className={`rounded-3xl p-8 border ${isHighlight ? 'border border-emerald-500/20 shadow-[0_0_30px_rgba(16,185,129,0.05)]' : 'border-white/5'} ${isHighlight ? 'relative overflow-hidden' : ''} ${colSpan} flex flex-col`}
+                   className={`rounded-3xl p-8 border ${isHighlight ? 'border-emerald-500/20 bg-[#0A0A0A] shadow-[0_0_30px_rgba(16,185,129,0.05)]' : 'border-white/5 glass-card'} ${colSpan} flex flex-col`}
                  >
-                   {isHighlight && (
-                      <div className="absolute top-0 right-0 p-4 opacity-10 text-emerald-500">
-                        <Sparkles size={120} />
-                      </div>
-                   )}
-                   
-                   <div className="flex items-center gap-3 mb-8">
+                   <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
                       {isHighlight ? <Zap className="text-emerald-400" size={24} /> : <Code2 className="text-slate-500" size={24} />}
                       <h4 className={`text-2xl font-bold ${isHighlight ? 'text-white' : 'text-slate-200'}`}>
                         {category.title}
                       </h4>
                    </div>
 
-                   <div className={`grid gap-6 ${isHighlight ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-1'}`}>
+                   <div className={`grid gap-6 ${isHighlight ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
                       {category.groups.map((group) => (
-                        <div key={group.name} className="relative">
+                        <div key={group.name} className="relative text-center md:text-left">
                           <h5 className={`text-xs font-bold uppercase tracking-wider mb-3 ${isHighlight ? 'text-emerald-500/80' : 'text-slate-500'}`}>
                             {group.name}
                           </h5>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                             {group.skills.map((skill) => (
                               <span 
                                 key={skill} 
@@ -181,25 +175,6 @@ const About: React.FC = () => {
              })}
            </div>
         </div>
-
-        {/* Quote Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="mt-24 pt-12 border-t border-white/5 text-center relative max-w-4xl mx-auto"
-        >
-          <div className="text-4xl md:text-5xl text-emerald-500/10 absolute -top-4 left-1/2 -translate-x-1/2 select-none">❝</div>
-          <blockquote className="relative z-10">
-            <p className="text-xl md:text-2xl font-light text-slate-300 italic mb-6 leading-relaxed">
-              "Automation applied to an efficient operation will magnify the efficiency. Automation applied to an inefficient operation will magnify the inefficiency."
-            </p>
-            <footer className="text-sm font-bold tracking-widest text-emerald-500 uppercase">
-              — Bill Gates
-            </footer>
-          </blockquote>
-        </motion.div>
 
       </div>
     </section>

@@ -21,11 +21,6 @@ const getCategoryStyles = (category: string) => {
 const Projects: React.FC = () => {
   const [activeTab, setActiveTab] = useState('All');
 
-  // Logic: 
-  // 1. Separate Spotlight projects (Flagships)
-  // 2. Separate Standard projects
-  // 3. Apply tab filters to both
-  
   const allSpotlight = PROJECTS.filter(p => p.spotlight);
   const allStandard = PROJECTS.filter(p => !p.spotlight);
 
@@ -39,16 +34,13 @@ const Projects: React.FC = () => {
     return project.category === activeTab;
   });
 
-  // Featured logic for standard projects (if no spotlight is present, we might want to highlight a standard one, 
-  // but if spotlight exists, they take precedence)
   const showSpotlightSection = filteredSpotlight.length > 0;
-  
-  // Standard grid items
   const standardProjects = filteredStandard;
 
   return (
     <section id="projects" className="py-24">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* Container constraint to match Hero */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
         
         {/* Header & Tabs */}
         <motion.div 
@@ -56,14 +48,14 @@ const Projects: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8 text-center md:text-left"
         >
-          <div>
+          <div className="flex flex-col items-center md:items-start w-full md:w-auto">
             <span className="text-emerald-500 font-bold tracking-widest uppercase text-xs mb-2 block">Portfolio</span>
             <h2 className="font-display font-bold text-4xl mb-6">Selected Work</h2>
             
             {/* Tabs */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap justify-center md:justify-start gap-2">
               {TABS.map((tab) => {
                  const styles = getCategoryStyles(tab);
                  const isActive = activeTab === tab;
@@ -85,7 +77,7 @@ const Projects: React.FC = () => {
             </div>
           </div>
 
-          <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white flex items-center gap-2 text-sm font-medium group transition-colors self-start md:self-end mb-2">
+          <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white flex items-center gap-2 text-sm font-medium group transition-colors self-center md:self-end mb-2">
             View Github
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </a>
@@ -110,7 +102,7 @@ const Projects: React.FC = () => {
               {/* --- FLAGSHIP DEPLOYMENTS (SPOTLIGHT) --- */}
               {showSpotlightSection && (
                 <div className="mb-16">
-                  <div className="flex items-center gap-2 mb-6 opacity-80">
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-6 opacity-80">
                     <Sparkles size={16} className="text-yellow-500" />
                     <span className="text-xs font-bold uppercase tracking-widest text-yellow-500">Flagship Deployments</span>
                   </div>
@@ -131,7 +123,6 @@ const Projects: React.FC = () => {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80" />
                           
-                          {/* Tags on Image */}
                           <div className="absolute bottom-4 left-6 flex flex-wrap gap-2">
                             <span className={`px-2 py-1 ${getCategoryStyles(project.category).bg} text-white text-[10px] font-bold uppercase rounded shadow-lg`}>
                                Live App
@@ -140,11 +131,10 @@ const Projects: React.FC = () => {
                         </div>
 
                         {/* Content Area */}
-                        <div className="p-8 flex flex-col flex-grow relative">
-                           {/* Subtle Glow Border effect on hover */}
+                        <div className="p-8 flex flex-col flex-grow relative text-center md:text-left">
                            <div className="absolute inset-0 border border-white/5 rounded-3xl pointer-events-none group-hover:border-white/20 transition-colors" />
 
-                           <div className="flex justify-between items-start mb-4">
+                           <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-4 gap-2">
                              <h3 className="text-2xl font-display font-bold text-white group-hover:text-emerald-400 transition-colors">{project.title}</h3>
                              <a href={project.link || '#'} className="text-slate-400 hover:text-white transition-colors p-2 bg-white/5 rounded-full hover:bg-white/10">
                                 <ExternalLink size={20} />
@@ -155,9 +145,8 @@ const Projects: React.FC = () => {
                              {project.description}
                            </p>
 
-                           {/* Soloist Tags */}
-                           <div className="mt-auto">
-                              <div className="flex flex-wrap gap-2">
+                           <div className="mt-auto flex justify-center md:justify-start">
+                              <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                                 {project.techStack.map(tech => (
                                   <span key={tech} className="text-[11px] font-medium text-slate-300 bg-white/5 px-3 py-1.5 rounded-md border border-white/5 hover:border-white/10 transition-colors">
                                     {tech}
@@ -176,9 +165,10 @@ const Projects: React.FC = () => {
               {standardProjects.length > 0 && (
                 <div>
                    {showSpotlightSection && (
-                     <div className="flex items-center gap-2 mb-6 mt-12 opacity-50">
-                       <div className="h-px bg-white/20 w-8"></div>
+                     <div className="flex items-center justify-center md:justify-start gap-2 mb-6 mt-12 opacity-50">
+                       <div className="h-px bg-white/20 w-8 hidden md:block"></div>
                        <span className="text-xs font-bold uppercase tracking-widest text-slate-500">Other Work</span>
+                       <div className="h-px bg-white/20 w-8 md:hidden"></div>
                      </div>
                    )}
 
@@ -187,7 +177,7 @@ const Projects: React.FC = () => {
                       <motion.div
                         key={project.id}
                         layout
-                        className="glass-card rounded-2xl overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col h-full"
+                        className="glass-card rounded-2xl overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col h-full text-center md:text-left"
                       >
                         <div className="h-48 overflow-hidden relative flex-shrink-0">
                           <img 
@@ -212,9 +202,6 @@ const Projects: React.FC = () => {
                                     {t}
                                   </span>
                                 ))}
-                                {project.techStack.length > 2 && (
-                                  <span className="text-[10px] text-slate-500 py-0.5">+</span>
-                                )}
                             </div>
                             <a href={project.link || '#home'} className="text-slate-300 hover:text-white transition-colors">
                               <ExternalLink size={16} />
@@ -225,12 +212,6 @@ const Projects: React.FC = () => {
                     ))}
                   </div>
                 </div>
-              )}
-              
-              {filteredSpotlight.length === 0 && filteredStandard.length === 0 && (
-                 <div className="text-center py-20 text-slate-500">
-                   No projects found in this category yet.
-                 </div>
               )}
             </motion.div>
           </AnimatePresence>

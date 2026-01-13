@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, BarChart2, Mail, Phone, Linkedin, Send, Copy, Check, ExternalLink } from 'lucide-react';
+import { Menu, X, Mail, Phone, Linkedin, Send, Copy, Check, ExternalLink } from 'lucide-react';
 import { NAV_ITEMS, CONTACT_INFO } from '../constants';
 
 const Navbar: React.FC = () => {
@@ -14,22 +14,44 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Simple spy logic
+      // Improved ScrollSpy Logic
       const sections = NAV_ITEMS.map(item => item.href.substring(1));
-      const current = sections.find(section => {
+      
+      for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top >= 0 && rect.top <= 300;
+          // Check if section is active (top is near top of viewport, or covering significant portion)
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            setActiveSection(section);
+            break;
+          }
         }
-        return false;
-      });
-      if (current) setActiveSection(current);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.substring(1);
+    const element = document.getElementById(targetId);
+    if (element) {
+      const offset = 80; // Navbar height buffer
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      
+      setActiveSection(targetId);
+      setIsMobileMenuOpen(false);
+    }
+  };
 
   const handleCopy = (text: string, field: string) => {
     navigator.clipboard.writeText(text);
@@ -48,7 +70,11 @@ const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-2 group">
+          <a 
+            href="#home" 
+            className="flex items-center gap-2 group"
+            onClick={(e) => handleNavClick(e, '#home')}
+          >
             <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:scale-105 transition-transform duration-300">
               M
             </div>
@@ -68,7 +94,7 @@ const Navbar: React.FC = () => {
                     ? 'text-white'
                     : 'text-slate-400 hover:text-white'
                 }`}
-                onClick={() => setActiveSection(item.href.substring(1))}
+                onClick={(e) => handleNavClick(e, item.href)}
               >
                 {item.label}
                 <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-emerald-500 transition-all duration-300 group-hover:w-full ${
@@ -115,8 +141,12 @@ const Navbar: React.FC = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-xl font-medium text-slate-300 hover:text-white transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`text-xl font-medium transition-colors ${
+                    activeSection === item.href.substring(1) 
+                    ? 'text-emerald-500' 
+                    : 'text-slate-300 hover:text-white'
+                  }`}
+                  onClick={(e) => handleNavClick(e, item.href)}
                 >
                   {item.label}
                 </a>
