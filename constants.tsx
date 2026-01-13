@@ -129,13 +129,22 @@ export const PROJECTS: Project[] = [
     spotlight: true
   },
   {
+    id: '5',
+    title: 'Global Weather Intelligence Repository',
+    category: 'Data Analysis',
+    description: 'Real-time global monitoring system utilizing Power BI and Excel to track atmospheric variables across multiple regions.',
+    techStack: ['Power BI', 'Excel', 'Real-time Reporting'],
+    link: '#',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
+    featured: true
+  },
+  {
     id: '1',
     title: 'Euro Tournament 2024 Dashboard',
     category: 'Sports Analytics',
     description: 'Client demand-based creative dashboard for UEFA Euro 1960-2024 stats. Statistics of finals with a tournament summary.',
     techStack: ['Power BI', 'Excel', 'Data Viz'],
     link: '#', 
-    // New reliable soccer ball on field image
     image: 'https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&q=80&w=800',
     featured: true
   },
@@ -168,6 +177,28 @@ export const PROJECTS: Project[] = [
     link: '#',
     image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&q=80&w=800',
     featured: false
+  },
+  {
+    id: '6',
+    title: 'Global Treasury & Currency Intelligence',
+    category: 'Data Analysis',
+    description: 'Developed a comprehensive treasury analytics suite monitoring 93 global currencies against the USD to support strategic financial decision-making.',
+    techStack: ['Power BI', 'Excel', 'Financial Modeling', 'FX Analytics'],
+    link: '#',
+    image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&q=80&w=800',
+    featured: true
+  },
+  {
+    id: '7',
+    title: 'Telecom Customer Churn Predictor',
+    category: 'Data Science',
+    description: 'Engineered a predictive intelligence system to forecast customer attrition using advanced machine learning algorithms to identify at-risk segments.',
+    techStack: ['Python', 'XGBoost', 'SMOTE', 'Predictive Modeling'],
+    link: '#',
+    image: 'https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?auto=format&fit=crop&q=80&w=800',
+    featured: true,
+    live: true,
+    badge: 'Predictive Model'
   }
 ];
 

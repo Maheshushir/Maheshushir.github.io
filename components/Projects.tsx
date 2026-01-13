@@ -125,7 +125,7 @@ const Projects: React.FC = () => {
                           
                           <div className="absolute bottom-4 left-6 flex flex-wrap gap-2">
                             <span className={`px-2 py-1 ${getCategoryStyles(project.category).bg} text-white text-[10px] font-bold uppercase rounded shadow-lg`}>
-                               Live App
+                               {project.badge || "Live App"}
                             </span>
                           </div>
                         </div>
@@ -186,24 +186,41 @@ const Projects: React.FC = () => {
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-60" />
+                          
+                          {/* Category Badge */}
                           <div className="absolute bottom-4 left-4">
                             <span className={`text-[10px] font-bold text-white ${getCategoryStyles(project.category).bg} backdrop-blur-md px-2 py-1 rounded`}>
                               {project.category}
                             </span>
                           </div>
+
+                          {/* Live App / Custom Badge for Standard Cards */}
+                          {(project.live || project.badge) && (
+                            <div className="absolute top-4 right-4">
+                               <span className="flex items-center gap-1.5 px-2 py-1 bg-emerald-500/90 text-white text-[10px] font-bold uppercase tracking-wide rounded-full shadow-lg backdrop-blur-sm border border-emerald-400/50">
+                                 <span className="relative flex h-2 w-2">
+                                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                                   <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                                 </span>
+                                 {project.badge || "Live App"}
+                               </span>
+                            </div>
+                          )}
                         </div>
                         <div className="p-6 flex flex-col flex-grow">
-                          <h3 className="text-lg font-bold text-white mb-2 line-clamp-1">{project.title}</h3>
-                          <p className="text-xs text-slate-400 mb-4 line-clamp-3 leading-relaxed">{project.description}</p>
+                          <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 min-h-[3.5rem] flex items-center md:items-start justify-center md:justify-start">{project.title}</h3>
+                          <p className="text-xs text-slate-400 mb-4 line-clamp-3 leading-relaxed flex-grow">
+                            {project.description}
+                          </p>
                           <div className="mt-auto pt-4 flex items-center justify-between border-t border-white/5">
-                            <div className="flex gap-2">
-                                {project.techStack.slice(0, 2).map(t => (
-                                  <span key={t} className="text-[10px] uppercase text-slate-500 border border-slate-800 px-2 py-0.5 rounded">
+                            <div className="flex gap-2 flex-wrap justify-center md:justify-start">
+                                {project.techStack.slice(0, 4).map(t => (
+                                  <span key={t} className="text-[10px] uppercase text-slate-500 border border-slate-800 px-2 py-0.5 rounded whitespace-nowrap">
                                     {t}
                                   </span>
                                 ))}
                             </div>
-                            <a href={project.link || '#home'} className="text-slate-300 hover:text-white transition-colors">
+                            <a href={project.link || '#home'} className="text-slate-300 hover:text-white transition-colors shrink-0 ml-2">
                               <ExternalLink size={16} />
                             </a>
                           </div>

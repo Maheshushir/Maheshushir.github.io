@@ -10,6 +10,8 @@ export interface Project {
   image: string;
   featured?: boolean;
   spotlight?: boolean; // New property for Flagship apps
+  live?: boolean; // New property for Live App badge on standard cards
+  badge?: string; // Custom text for the badge (e.g., "Predictive Model")
 }
 
 export interface Experience {
