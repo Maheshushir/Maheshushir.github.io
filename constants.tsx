@@ -11,6 +11,10 @@ import {
 } from 'lucide-react';
 import { Project, Experience, SocialStat, SkillCategory, NavItem } from './types';
 
+// Using GitHub profile image for reliability.
+// To use a local image, save it as 'hero.png' in the 'public' folder and set this to "/hero.png"
+export const HERO_IMAGE = "https://github.com/maheshushir.png";
+
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Download, Linkedin, Github } from 'lucide-react';
-import { CONTACT_INFO } from '../constants';
+import { CONTACT_INFO, HERO_IMAGE } from '../constants';
 
 const ROLES = [
   { 
@@ -35,6 +35,12 @@ const ROLES = [
 
 const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [imgSrc, setImgSrc] = useState(HERO_IMAGE);
+
+  // Update image if constant changes
+  useEffect(() => {
+    setImgSrc(HERO_IMAGE);
+  }, [HERO_IMAGE]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -109,7 +115,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Main Container: Fluid Width with constraints */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
         
         {/* TEXT CONTENT - Side 1 */}
         <motion.div
@@ -214,27 +220,72 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="w-full lg:w-2/5 order-1 lg:order-2 relative flex justify-center lg:justify-end"
+          className="w-full lg:w-2/5 order-1 lg:order-2 flex justify-center lg:justify-end"
         >
-          <div className="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/5] w-full max-w-md transform-gpu">
-            <img 
-              src="/mahesh.jpg" 
-              onError={(e) => {
-                e.currentTarget.src = "https://github.com/maheshushir.png"; // Fallback to GitHub
-                e.currentTarget.onerror = null; // Prevent infinite loop
-              }}
-              alt="Mahesh Ushir" 
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
-              loading="eager"
-              decoding="async"
-              // @ts-ignore
-              fetchPriority="high"
+          {/* Centering Wrapper: Ensures orbits align with the image regardless of container flex alignment */}
+          <div className="relative">
+            
+            {/* Circular Image Container */}
+            <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/5 shadow-2xl bg-slate-900/50 transform-gpu group">
+              <img 
+                src={imgSrc} 
+                alt="Mahesh Ushir" 
+                onError={() => setImgSrc("https://github.com/maheshushir.png")}
+                className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700" 
+                loading="eager"
+                decoding="async"
+                // @ts-ignore
+                fetchPriority="high"
+              />
+            </div>
+
+            {/* CREATIVE ANIMATION: Cybernetic Solar System - Centered on Wrapper */}
+            
+            {/* Orbit 1: Inner Emerald - Fast */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[350px] md:h-[350px] rounded-full border border-emerald-500/20 -z-10 pointer-events-none">
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                  className="w-full h-full relative"
+                >
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-emerald-400 rounded-full shadow-[0_0_15px_#34d399] blur-[0.5px]" />
+                </motion.div>
+            </div>
+
+            {/* Orbit 2: Outer Blue - Slow & Reverse */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] md:w-[450px] md:h-[450px] rounded-full border border-blue-500/10 border-dashed -z-20 pointer-events-none">
+                <motion.div 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="w-full h-full relative"
+                >
+                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full shadow-[0_0_20px_#3b82f6]" />
+                </motion.div>
+            </div>
+
+            {/* Floating Data Particles */}
+            <motion.div
+                animate={{ y: [-15, 15, -15], opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-0 right-0 text-emerald-500/20 text-4xl font-mono pointer-events-none"
+            >
+                +
+            </motion.div>
+            <motion.div
+                animate={{ y: [20, -20, 20], opacity: [0.1, 0.3, 0.1] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute bottom-10 -left-10 text-blue-500/20 text-6xl font-mono pointer-events-none"
+            >
+                .
+            </motion.div>
+
+            {/* Core Glow */}
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-emerald-500/20 rounded-full blur-[80px] -z-30 pointer-events-none" 
             />
           </div>
-          
-          {/* Decorative Elements */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-white/5 rounded-full -z-10 animate-[spin_60s_linear_infinite]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-white/5 rounded-full -z-10 animate-[spin_80s_linear_infinite_reverse]" />
         </motion.div>
 
       </div>
