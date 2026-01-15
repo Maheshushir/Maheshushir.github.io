@@ -48,4 +48,6 @@ export interface SkillCategory {
   title: string;
   groups: SkillGroup[];
   highlight?: boolean; // To give extra emphasis to AI/Automation
+  theme?: 'emerald' | 'blue' | 'violet';
+  icon?: React.ElementType;
 }

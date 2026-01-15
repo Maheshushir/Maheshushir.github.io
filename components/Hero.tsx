@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Linkedin, Github } from 'lucide-react';
+import { CONTACT_INFO } from '../constants';
 
 const ROLES = [
   { 
@@ -59,6 +60,54 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+      
+      {/* Dynamic Mesh Background - Hero Specific */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none transform-gpu">
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.15, 0.3, 0.15], 
+              x: [0, 100, 0],
+              y: [0, -50, 0]
+            }}
+            transition={{ 
+              duration: 18, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-blue-600/30 rounded-full blur-[120px] will-change-transform"
+          />
+          <motion.div 
+             animate={{ 
+              scale: [1, 1.1, 1],
+              opacity: [0.15, 0.4, 0.15], 
+              x: [0, -50, 0],
+              y: [0, 100, 0]
+            }}
+            transition={{ 
+              duration: 25, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-emerald-600/30 rounded-full blur-[100px] will-change-transform"
+          />
+           <motion.div 
+             animate={{ 
+              scale: [1, 1.3, 1],
+              opacity: [0.1, 0.3, 0.1], 
+              x: [0, 30, 0],
+            }}
+            transition={{ 
+              duration: 20, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 5
+            }}
+            className="absolute top-[20%] left-[30%] w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[130px] will-change-transform"
+          />
+      </div>
+
       {/* Main Container: Fluid Width with constraints */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
         
@@ -70,7 +119,7 @@ const Hero: React.FC = () => {
           className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
         >
           {/* Availability Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-sm font-medium mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-sm font-medium mb-8 backdrop-blur-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -115,20 +164,47 @@ const Hero: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Action Buttons - Flex Wrap to avoid overlap */}
-          <div className="flex flex-wrap justify-center lg:justify-start gap-4 relative z-10 w-full">
-            <a 
-              href="#projects" 
-              onClick={(e) => handleScrollToSection(e, 'projects')}
-              className="group px-7 py-3.5 bg-white text-black font-semibold rounded-full flex items-center gap-2 hover:bg-slate-200 transition-colors"
-            >
-              View Work
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a href="#home" className="px-7 py-3.5 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2">
-              Download CV
-              <Download size={18} />
-            </a>
+          {/* Action Buttons & Socials */}
+          <div className="flex flex-col sm:flex-row items-center gap-6 relative z-10 w-full justify-center lg:justify-start">
+            
+            {/* Main CTAs */}
+            <div className="flex flex-wrap justify-center gap-4">
+              <a 
+                href="#projects" 
+                onClick={(e) => handleScrollToSection(e, 'projects')}
+                className="group px-7 py-3.5 bg-white text-black font-semibold rounded-full flex items-center gap-2 hover:bg-slate-200 transition-colors transform active:scale-95 shadow-lg shadow-white/5"
+              >
+                View Work
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a href="#home" className="px-7 py-3.5 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2 transform active:scale-95 backdrop-blur-sm">
+                Download CV
+                <Download size={18} />
+              </a>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-4">
+               <div className="hidden sm:block w-px h-8 bg-white/10 mr-2"></div>
+               <a 
+                  href={CONTACT_INFO.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:text-white hover:bg-[#0077b5] hover:border-[#0077b5] border border-white/10 transition-all duration-300"
+                  aria-label="LinkedIn"
+               >
+                  <Linkedin size={20} />
+               </a>
+               <a 
+                  href={CONTACT_INFO.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:text-white hover:bg-[#333] hover:border-[#333] border border-white/10 transition-all duration-300"
+                  aria-label="GitHub"
+               >
+                  <Github size={20} />
+               </a>
+            </div>
           </div>
 
         </motion.div>
@@ -140,7 +216,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="w-full lg:w-2/5 order-1 lg:order-2 relative flex justify-center lg:justify-end"
         >
-          <div className="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/5] w-full max-w-md">
+          <div className="relative z-10 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/5] w-full max-w-md transform-gpu">
             <img 
               src="/mahesh.jpg" 
               onError={(e) => {
@@ -149,6 +225,10 @@ const Hero: React.FC = () => {
               }}
               alt="Mahesh Ushir" 
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" 
+              loading="eager"
+              decoding="async"
+              // @ts-ignore
+              fetchPriority="high"
             />
           </div>
           

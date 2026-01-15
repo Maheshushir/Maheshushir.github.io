@@ -37,6 +37,14 @@ const Projects: React.FC = () => {
   const showSpotlightSection = filteredSpotlight.length > 0;
   const standardProjects = filteredStandard;
 
+  const isExternalLink = (url?: string) => url && url.startsWith('http');
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, url?: string) => {
+    if (!url || url === '#' || url === '#home') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <section id="projects" className="py-24">
       {/* Container constraint to match Hero */}
@@ -64,7 +72,7 @@ const Projects: React.FC = () => {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border active:scale-95 ${
                       isActive
                         ? `${tab === 'All' ? 'bg-white text-black border-white' : `${styles.bg} text-white ${styles.border}`}`
                         : 'bg-transparent text-slate-400 border-slate-800 hover:border-slate-600 hover:text-white'
@@ -77,9 +85,14 @@ const Projects: React.FC = () => {
             </div>
           </div>
 
-          <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white flex items-center gap-2 text-sm font-medium group transition-colors self-center md:self-end mb-2">
+          <a 
+            href={CONTACT_INFO.github} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-emerald-400 hover:text-emerald-300 flex items-center gap-3 text-lg font-bold group transition-all self-center md:self-end mb-2 tracking-wide"
+          >
             View Github
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={22} className="group-hover:translate-x-2 transition-transform" />
           </a>
         </motion.div>
 
@@ -104,25 +117,25 @@ const Projects: React.FC = () => {
                 <div className="mb-16">
                   <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     {/* Stat 1 */}
-                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors transform-gpu">
                       <FileText className="text-blue-500 mb-3" size={24} />
                       <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">715+</div>
                       <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Content Contributions</div>
                     </div>
                     {/* Stat 2 */}
-                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors transform-gpu">
                       <Trophy className="text-blue-500 mb-3" size={24} />
                       <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">20+</div>
                       <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Diverse Projects</div>
                     </div>
                     {/* Stat 3 */}
-                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors transform-gpu">
                       <Users className="text-blue-500 mb-3" size={24} />
                       <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">17k+</div>
                       <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Community Followers</div>
                     </div>
                     {/* Stat 4 */}
-                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors">
+                    <div className="glass-card p-6 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-white/5 transition-colors transform-gpu">
                       <Clock className="text-blue-500 mb-3" size={24} />
                       <div className="text-3xl font-display font-bold text-white mb-1 group-hover:scale-110 transition-transform">5</div>
                       <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-bold">Projects Coming Soon</div>
@@ -158,7 +171,7 @@ const Projects: React.FC = () => {
                       <motion.div
                         key={project.id}
                         layout
-                        className="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#0A0A0A] flex flex-col"
+                        className="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#0A0A0A] flex flex-col transform-gpu"
                       >
                         {/* Image Area */}
                         <div className="h-64 overflow-hidden relative">
@@ -166,6 +179,8 @@ const Projects: React.FC = () => {
                             src={project.image} 
                             alt={project.title} 
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                            loading="lazy"
+                            decoding="async"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-80" />
                           
@@ -182,7 +197,13 @@ const Projects: React.FC = () => {
 
                            <div className="flex flex-col md:flex-row justify-between items-center md:items-start mb-4 gap-2">
                              <h3 className="text-2xl font-display font-bold text-white group-hover:text-emerald-400 transition-colors">{project.title}</h3>
-                             <a href={project.link || '#'} className="text-slate-400 hover:text-white transition-colors p-2 bg-white/5 rounded-full hover:bg-white/10">
+                             <a 
+                               href={project.link || '#'} 
+                               target={isExternalLink(project.link) ? "_blank" : undefined}
+                               rel={isExternalLink(project.link) ? "noopener noreferrer" : undefined}
+                               onClick={(e) => handleLinkClick(e, project.link)}
+                               className="text-slate-400 hover:text-white transition-colors p-2 bg-white/5 rounded-full hover:bg-white/10"
+                             >
                                 <ExternalLink size={20} />
                              </a>
                            </div>
@@ -223,13 +244,15 @@ const Projects: React.FC = () => {
                       <motion.div
                         key={project.id}
                         layout
-                        className="glass-card rounded-2xl overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col h-full text-center md:text-left"
+                        className="glass-card rounded-2xl overflow-hidden group hover:-translate-y-1 transition-transform duration-300 flex flex-col h-full text-center md:text-left transform-gpu"
                       >
                         <div className="h-48 overflow-hidden relative flex-shrink-0">
                           <img 
                             src={project.image} 
                             alt={project.title} 
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                            loading="lazy"
+                            decoding="async"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-60" />
                           
@@ -266,7 +289,13 @@ const Projects: React.FC = () => {
                                   </span>
                                 ))}
                             </div>
-                            <a href={project.link || '#home'} className="text-slate-300 hover:text-white transition-colors shrink-0 ml-2">
+                            <a 
+                              href={project.link || '#'} 
+                              target={isExternalLink(project.link) ? "_blank" : undefined}
+                              rel={isExternalLink(project.link) ? "noopener noreferrer" : undefined}
+                              onClick={(e) => handleLinkClick(e, project.link)}
+                              className="text-slate-300 hover:text-white transition-colors shrink-0 ml-2"
+                            >
                               <ExternalLink size={16} />
                             </a>
                           </div>

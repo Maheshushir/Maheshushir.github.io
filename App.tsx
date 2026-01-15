@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import HireModal from './components/HireModal';
 
 const App: React.FC = () => {
+  const [isHireModalOpen, setIsHireModalOpen] = useState(false);
+
   return (
     <div className="font-sans antialiased text-slate-200 bg-background selection:bg-emerald-500/30 selection:text-emerald-200 relative overflow-x-hidden">
-      <Navbar />
+      <Navbar onOpenHireModal={() => setIsHireModalOpen(true)} />
       <main className="relative z-10">
         <Hero />
         <About />
         <Experience />
         <Projects />
       </main>
-      <Contact />
+      <Contact onOpenHireModal={() => setIsHireModalOpen(true)} />
+      
+      <HireModal 
+        isOpen={isHireModalOpen} 
+        onClose={() => setIsHireModalOpen(false)} 
+      />
       
       {/* Mesh Gradient Background */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">

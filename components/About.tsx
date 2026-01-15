@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Trophy, BarChart3, Cpu, Code2, Sparkles, Zap } from 'lucide-react';
+import { Brain, Trophy, BarChart3, Cpu } from 'lucide-react';
 import { SKILL_CATEGORIES } from '../constants';
 
 const beliefs = [
@@ -29,6 +29,34 @@ const beliefs = [
     description: 'Pushing boundaries with Machine Learning. Building predictive models for bankruptcy detection and market forecasting.'
   }
 ];
+
+// Color palette definitions for skill cards
+const THEME_STYLES = {
+  emerald: {
+    border: 'border-emerald-500/20',
+    shadow: 'shadow-[0_0_30px_rgba(16,185,129,0.05)]',
+    icon: 'text-emerald-400',
+    title: 'text-white', 
+    header: 'text-emerald-500/80',
+    tag: 'bg-emerald-950/30 border-emerald-500/20 text-emerald-100'
+  },
+  blue: {
+    border: 'border-blue-500/20',
+    shadow: 'shadow-[0_0_30px_rgba(59,130,246,0.05)]',
+    icon: 'text-blue-400',
+    title: 'text-white',
+    header: 'text-blue-500/80',
+    tag: 'bg-blue-950/30 border-blue-500/20 text-blue-100'
+  },
+  violet: {
+    border: 'border-violet-500/20',
+    shadow: 'shadow-[0_0_30px_rgba(139,92,246,0.05)]',
+    icon: 'text-violet-400',
+    title: 'text-white',
+    header: 'text-violet-500/80',
+    tag: 'bg-violet-950/30 border-violet-500/20 text-violet-100'
+  }
+};
 
 const About: React.FC = () => {
   return (
@@ -125,12 +153,13 @@ const About: React.FC = () => {
            {/* Responsive Grid: 1 -> 2 -> 3 columns */}
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
              {SKILL_CATEGORIES.map((category, catIndex) => {
-               // On PC, let the "Highlight" category span 2 columns if preferred, or keep uniform.
-               // Based on request "3 (or 4 for skills) on PC to smartly fill", we will use uniform 3 cols for now,
-               // but can span the first one if it's large.
                const isHighlight = category.highlight;
                const colSpan = isHighlight ? "md:col-span-2 lg:col-span-3" : "lg:col-span-1";
                
+               const theme = category.theme || 'emerald';
+               const styles = THEME_STYLES[theme];
+               const Icon = category.icon || Cpu;
+
                return (
                  <motion.div
                    key={category.title}
@@ -138,11 +167,11 @@ const About: React.FC = () => {
                    whileInView={{ opacity: 1, y: 0 }}
                    viewport={{ once: true, margin: "-50px" }}
                    transition={{ delay: catIndex * 0.1, duration: 0.6 }}
-                   className={`rounded-3xl p-8 border ${isHighlight ? 'border-emerald-500/20 bg-[#0A0A0A] shadow-[0_0_30px_rgba(16,185,129,0.05)]' : 'border-white/5 glass-card'} ${colSpan} flex flex-col`}
+                   className={`rounded-3xl p-8 border ${styles.border} ${isHighlight ? 'bg-[#0A0A0A]' : 'glass-card'} ${styles.shadow} ${colSpan} flex flex-col`}
                  >
                    <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
-                      {isHighlight ? <Zap className="text-emerald-400" size={24} /> : <Code2 className="text-slate-500" size={24} />}
-                      <h4 className={`text-2xl font-bold ${isHighlight ? 'text-white' : 'text-slate-200'}`}>
+                      <Icon className={styles.icon} size={24} />
+                      <h4 className={`text-2xl font-bold ${styles.title}`}>
                         {category.title}
                       </h4>
                    </div>
@@ -150,18 +179,14 @@ const About: React.FC = () => {
                    <div className={`grid gap-6 ${isHighlight ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
                       {category.groups.map((group) => (
                         <div key={group.name} className="relative text-center md:text-left">
-                          <h5 className={`text-xs font-bold uppercase tracking-wider mb-3 ${isHighlight ? 'text-emerald-500/80' : 'text-slate-500'}`}>
+                          <h5 className={`text-xs font-bold uppercase tracking-wider mb-3 ${styles.header}`}>
                             {group.name}
                           </h5>
                           <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                             {group.skills.map((skill) => (
                               <span 
                                 key={skill} 
-                                className={`text-sm px-3 py-1.5 rounded-md font-medium border ${
-                                  isHighlight 
-                                  ? 'bg-emerald-950/30 border-emerald-500/20 text-emerald-100' 
-                                  : 'bg-white/5 border-white/5 text-slate-300'
-                                }`}
+                                className={`text-sm px-3 py-1.5 rounded-md font-medium border ${styles.tag}`}
                               >
                                 {skill}
                               </span>

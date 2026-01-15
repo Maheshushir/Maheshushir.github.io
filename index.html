@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
@@ -31,6 +33,7 @@
     <style>
       html {
         scroll-padding-top: 100px;
+        scroll-behavior: smooth;
       }
       body {
         background-color: #050505;
@@ -56,6 +59,7 @@
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.05);
+        will-change: transform; /* Performance hint */
       }
       .glass-nav {
         background: rgba(5, 5, 5, 0.7);
