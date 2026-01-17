@@ -6,6 +6,8 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import HireModal from './components/HireModal';
+import DataParticles from './components/DataParticles';
+import FloatingConnect from './components/FloatingConnect';
 
 const App: React.FC = () => {
   const [isHireModalOpen, setIsHireModalOpen] = useState(false);
@@ -13,12 +15,14 @@ const App: React.FC = () => {
   return (
     <div className="font-sans antialiased text-slate-200 bg-background selection:bg-emerald-500/30 selection:text-emerald-200 relative overflow-x-hidden">
       <Navbar onOpenHireModal={() => setIsHireModalOpen(true)} />
+      
       <main className="relative z-10">
         <Hero />
         <About />
         <Experience />
         <Projects />
       </main>
+      
       <Contact onOpenHireModal={() => setIsHireModalOpen(true)} />
       
       <HireModal 
@@ -26,6 +30,11 @@ const App: React.FC = () => {
         onClose={() => setIsHireModalOpen(false)} 
       />
       
+      <FloatingConnect onClick={() => setIsHireModalOpen(true)} />
+      
+      {/* Background Elements */}
+      <DataParticles />
+
       {/* Mesh Gradient Background */}
       <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-emerald-900/10 rounded-full blur-[120px] animate-pulse" />
