@@ -133,7 +133,7 @@ const About: React.FC = () => {
             <div>
               <h3 className="text-2xl font-display font-bold text-white mb-3">The Soloist Methodology</h3>
               <p className="text-slate-300 text-lg leading-relaxed font-light">
-                "Leveraged Generative AI and Low-Code frameworks to rapidly prototype and deploy full-stack data applications, focusing on architectural logic and business ROI."
+                Leveraged Generative AI and Low-Code frameworks to rapidly prototype and deploy full-stack data applications, focusing on architectural logic and business ROI.
               </p>
             </div>
           </div>

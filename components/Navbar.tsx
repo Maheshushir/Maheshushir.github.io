@@ -13,42 +13,39 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenHireModal }) => {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
-
-          // Improved ScrollSpy Logic with throttle
-          const sections = NAV_ITEMS.map(item => item.href.substring(1));
-          let currentSection = activeSection;
-
-          for (const section of sections) {
-            const element = document.getElementById(section);
-            if (element) {
-              const rect = element.getBoundingClientRect();
-              // Standard ScrollSpy logic with offset buffer
-              if (rect.top <= 150 && rect.bottom >= 150) {
-                currentSection = section;
-                break;
-              }
-            }
-          }
-          
-          if (currentSection !== activeSection) {
-            setActiveSection(currentSection);
-          }
-          
-          ticking = false;
-        });
-        ticking = true;
-      }
+      const shouldBeScrolled = window.scrollY > 50;
+      setIsScrolled(prev => prev !== shouldBeScrolled ? shouldBeScrolled : prev);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeSection]);
+  }, []);
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    NAV_ITEMS.forEach((item) => {
+      const element = document.getElementById(item.href.substring(1));
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
