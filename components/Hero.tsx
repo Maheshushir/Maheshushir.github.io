@@ -154,20 +154,29 @@ const Hero: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          {/* Fixed Height Description Area - Increased height for longer text */}
-          <div className="min-h-[280px] md:min-h-[200px] lg:min-h-[180px] mb-8 relative w-full flex justify-center lg:justify-start">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={roleIndex}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-                transition={{ duration: 0.4 }}
-                className="text-lg text-slate-400 max-w-2xl leading-relaxed absolute top-0"
-              >
-                {ROLES[roleIndex].description}
-              </motion.p>
-            </AnimatePresence>
+          {/* Flexible Height Description Area */}
+          {/* Using a spacer approach to ensure the container is always as tall as the longest text */}
+          <div className="mb-10 relative w-full max-w-2xl mx-auto lg:mx-0">
+             {/* Invisible Spacer using the longest text (Role 1: Sports Analyst) */}
+             <div className="invisible pointer-events-none text-base md:text-lg leading-relaxed select-none" aria-hidden="true">
+               {ROLES[1].description}
+             </div>
+
+             {/* Animated Content Layer */}
+             <div className="absolute top-0 left-0 w-full h-full">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={roleIndex}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    transition={{ duration: 0.4 }}
+                    className="text-base md:text-lg text-slate-400 leading-relaxed"
+                  >
+                    {ROLES[roleIndex].description}
+                  </motion.p>
+                </AnimatePresence>
+             </div>
           </div>
 
           {/* Action Buttons & Socials */}
