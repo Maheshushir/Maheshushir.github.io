@@ -39,9 +39,10 @@ const HireModal: React.FC<HireModalProps> = ({ isOpen, onClose }) => {
             
             <button 
               onClick={onClose}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-2 bg-white/5 rounded-full z-10"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors w-10 h-10 flex items-center justify-center bg-white/5 hover:bg-white/10 rounded-full z-20 cursor-pointer"
+              aria-label="Close modal"
             >
-              <X size={20} />
+              <X size={20} className="pointer-events-none" />
             </button>
 
             <div className="relative z-10">
