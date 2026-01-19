@@ -8,6 +8,7 @@ import Contact from './components/Contact';
 import HireModal from './components/HireModal';
 import DataParticles from './components/DataParticles';
 import FloatingConnect from './components/FloatingConnect';
+import BackToTop from './components/BackToTop';
 
 const App: React.FC = () => {
   const [isHireModalOpen, setIsHireModalOpen] = useState(false);
@@ -31,6 +32,7 @@ const App: React.FC = () => {
       />
       
       <FloatingConnect onClick={() => setIsHireModalOpen(true)} />
+      <BackToTop />
       
       {/* Background Elements */}
       <DataParticles />
