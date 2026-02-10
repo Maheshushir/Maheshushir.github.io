@@ -37,11 +37,11 @@ const App: React.FC = () => {
       {/* Background Elements */}
       <DataParticles />
 
-      {/* Mesh Gradient Background */}
-      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-emerald-900/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-blue-900/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] bg-violet-900/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '4s' }} />
+      {/* Mesh Gradient Background - Hardware Accelerated */}
+      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none transform-gpu translate-z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-emerald-900/10 rounded-full blur-[120px] animate-pulse will-change-transform" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-blue-900/10 rounded-full blur-[120px] animate-pulse will-change-transform" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] bg-violet-900/10 rounded-full blur-[100px] animate-pulse will-change-transform" style={{ animationDelay: '4s' }} />
       </div>
 
       {/* Global Grain/Noise Overlay */}

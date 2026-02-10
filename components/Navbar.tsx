@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { NAV_ITEMS } from '../constants';
@@ -11,15 +11,24 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenHireModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const scrollRaf = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const shouldBeScrolled = window.scrollY > 50;
-      setIsScrolled(prev => prev !== shouldBeScrolled ? shouldBeScrolled : prev);
+      if (scrollRaf.current) return;
+      
+      scrollRaf.current = requestAnimationFrame(() => {
+        const shouldBeScrolled = window.scrollY > 50;
+        setIsScrolled(prev => prev !== shouldBeScrolled ? shouldBeScrolled : prev);
+        scrollRaf.current = null;
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollRaf.current) cancelAnimationFrame(scrollRaf.current);
+    };
   }, []);
 
   useEffect(() => {
