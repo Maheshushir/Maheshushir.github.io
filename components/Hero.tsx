@@ -243,8 +243,6 @@ const Hero: React.FC = () => {
                 className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700" 
                 loading="eager"
                 decoding="async"
-                // @ts-ignore
-                fetchPriority="high"
               />
             </div>
 

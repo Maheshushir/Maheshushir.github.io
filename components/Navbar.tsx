@@ -109,11 +109,21 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenHireModal }) => {
                 }`}></span>
               </a>
             ))}
+            
+            {/* Highlighted CTA Button */}
             <button
               onClick={onOpenHireModal}
-              className="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium backdrop-blur-sm border border-white/5 transition-all hover:scale-105 active:scale-95"
+              className="relative group px-6 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 overflow-hidden border border-emerald-400/30"
             >
-              Hire Me
+               <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-500 opacity-100" />
+               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 ease-in-out z-10" />
+               <span className="relative z-20 flex items-center gap-2">
+                 Hire Me
+                 <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-200 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                 </span>
+               </span>
             </button>
           </div>
 
@@ -164,9 +174,13 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenHireModal }) => {
                   setIsMobileMenuOpen(false);
                   onOpenHireModal();
                 }}
-                className="px-5 py-3 rounded-full bg-emerald-500 text-white font-bold text-center mt-4 active:scale-95 transition-transform"
+                className="px-5 py-4 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-bold text-center mt-4 shadow-[0_0_20px_rgba(16,185,129,0.4)] active:scale-95 transition-all text-lg flex items-center justify-center gap-3"
               >
                 Hire Me
+                <span className="flex h-2.5 w-2.5 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                 </span>
               </button>
             </div>
           </motion.div>

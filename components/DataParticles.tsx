@@ -11,9 +11,68 @@ const DataParticles: React.FC = () => {
 
     let particles: Particle[] = [];
     let animationFrameId: number;
+    // Initialize mouse off-screen
     let mouse = { x: -1000, y: -1000 };
 
+    class Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      value: string;
+      size: number;
+      color: string;
+      
+      constructor(canvasWidth: number, canvasHeight: number) {
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
+        this.vx = (Math.random() - 0.5) * 0.3; // Very slow drift
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.value = Math.random() > 0.5 ? '1' : '0';
+        this.size = Math.random() * 12 + 10; 
+        // Tech colors: Emerald and Blue with low opacity
+        this.color = Math.random() > 0.5 
+          ? 'rgba(16, 185, 129, 0.15)' 
+          : 'rgba(59, 130, 246, 0.15)';
+      }
+
+      update(width: number, height: number, mouseX: number, mouseY: number) {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Wrap around screen
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
+      }
+
+      draw(context: CanvasRenderingContext2D) {
+        context.font = `${this.size}px monospace`;
+        context.fillStyle = this.color;
+        context.fillText(this.value, this.x, this.y);
+      }
+    }
+
+    const initParticles = () => {
+      particles = [];
+      const w = canvas.width;
+      const h = canvas.height;
+      if (w === 0 || h === 0) return;
+
+      const density = 10000; 
+      const numberOfParticles = Math.floor((w * h) / density); 
+      
+      // Safety cap to prevent too many particles on huge screens
+      const safeLimit = Math.min(numberOfParticles, 500);
+
+      for (let i = 0; i < safeLimit; i++) {
+        particles.push(new Particle(w, h));
+      }
+    };
+
     const handleResize = () => {
+      if (!canvas) return;
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       initParticles();
@@ -24,95 +83,35 @@ const DataParticles: React.FC = () => {
       mouse.y = e.clientY;
     };
 
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      value: string;
-      size: number;
-      color: string;
-      baseX: number;
-      baseY: number;
-
-      constructor() {
-        this.x = Math.random() * canvas!.width;
-        this.y = Math.random() * canvas!.height;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.vx = (Math.random() - 0.5) * 0.3; // Very slow drift
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.value = Math.random() > 0.5 ? '1' : '0';
-        this.size = Math.random() * 12 + 10; 
-        // Tech colors: Emerald and Blue
-        this.color = Math.random() > 0.5 
-          ? 'rgba(16, 185, 129, 0.15)' // Emerald
-          : 'rgba(59, 130, 246, 0.15)'; // Blue
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Wrap around screen
-        if (this.x < 0) this.x = canvas!.width;
-        if (this.x > canvas!.width) this.x = 0;
-        if (this.y < 0) this.y = canvas!.height;
-        if (this.y > canvas!.height) this.y = 0;
-
-        // Mouse interaction
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        // Connect to mouse if close
-        if (distance < 150) {
-            // No movement change, just connection handled in draw
-        }
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.font = `${this.size}px monospace`;
-        ctx.fillStyle = this.color;
-        ctx.fillText(this.value, this.x, this.y);
-      }
-    }
-
-    const initParticles = () => {
-      particles = [];
-      const density = 10000; // Lower is more dense
-      const numberOfParticles = Math.floor((window.innerWidth * window.innerHeight) / density); 
-      for (let i = 0; i < numberOfParticles; i++) {
-        particles.push(new Particle());
-      }
-    };
-
     const animate = () => {
-      if (!ctx) return;
+      if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw connections first so they are behind text
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // Draw connections
       ctx.lineWidth = 1;
       particles.forEach(p => {
         // Connect to mouse
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx*dx + dy*dy);
+        
         if (dist < 150) {
             ctx.beginPath();
             // Gradient line fading out
             const opacity = 1 - (dist / 150);
-            ctx.strokeStyle = p.color.replace('0.15)', `${opacity * 0.4})`); 
-            ctx.moveTo(p.x + 5, p.y - 5); // Approximate center of text
+            // Replace opacity in rgba string
+            const colorBase = p.color.substring(0, p.color.lastIndexOf(','));
+            ctx.strokeStyle = `${colorBase}, ${opacity * 0.4})`; 
+            ctx.moveTo(p.x + 5, p.y - 5); 
             ctx.lineTo(mouse.x, mouse.y);
             ctx.stroke();
         }
-      });
 
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
+        p.update(w, h, mouse.x, mouse.y);
+        p.draw(ctx);
       });
       
       animationFrameId = requestAnimationFrame(animate);
@@ -121,6 +120,7 @@ const DataParticles: React.FC = () => {
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouseMove);
     
+    // Initial setup
     handleResize();
     animate();
 
