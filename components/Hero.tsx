@@ -192,7 +192,12 @@ const Hero: React.FC = () => {
                 View Work
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
-              <a href="#home" className="px-7 py-3.5 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2 transform active:scale-95 backdrop-blur-sm">
+              <a 
+                href="https://docs.google.com/document/d/1BHoDy0UIRJepMD0Tuuesh1QhVen0hSJA/edit?usp=sharing&ouid=114320922323598235260&rtpof=true&sd=true" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-7 py-3.5 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2 transform active:scale-95 backdrop-blur-sm"
+              >
                 Download CV
                 <Download size={18} />
               </a>
