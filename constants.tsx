@@ -75,9 +75,10 @@ export const EXPERIENCE: Experience[] = [
     period: 'Mar 2025 – Present',
     type: 'Full-time',
     description: [
-      'Leading multi-niche projects using advanced data strategies and automation tools.',
-      'Building scalable solutions for coaches and business leaders across industries.',
-      'Spearheading analytics initiatives informed by earlier success at IMpulse Consultancy.'
+      'Architected a full-stack BI dashboard integrated with Shopify API signals, automating multi-niche reporting for 50+ founders and reclaiming 15+ hours/week of CEO operational time.',
+      'Engineered a "Jewellers Dead Stock Analyser" implementing ITR logic to identify slow-moving capital (ITR < 3.0x) in gold and diamond assets for high-value manufacturers.',
+      'Developed automated modules for RFM Segmentation and Retention Funnels, improving client decision-making speed by 40% via real-time visibility into unit economics and fiscal health.',
+      'Managed direct feedback loops with CEOs to translate complex business friction into automated software logic with a 100% adoption rate across the community of D2C founders.'
     ]
   },
   {
@@ -87,9 +88,9 @@ export const EXPERIENCE: Experience[] = [
     period: 'Dec 2024 – Mar 2025',
     type: 'Full-time',
     description: [
-      'Led data analysis on coaches, CEOs, and business performance, guiding strategic decisions.',
-      'Developed and launched Impulse Automation Hub from market research and insights.',
-      'Contributed to building consultancy offerings by blending data analytics with automation strategies.'
+      'Launched the "Impulse Automation Hub" portal, blending market research with data-driven workflow strategies to scale consultancy offerings and performance auditing.',
+      'Delivered strategic reports on coach and CEO performance metrics that guided high-level resource allocation and internal scaling strategies.',
+      'Promoted to the parent company (HyperScale) within 3 months based on the technical success and scalability of the developed systems.'
     ]
   },
   {
@@ -99,9 +100,10 @@ export const EXPERIENCE: Experience[] = [
     period: 'Aug 2022 – Present',
     type: 'Freelance',
     description: [
-      'Built a thriving community of over 17,000 dedicated followers.',
-      'Curated 600+ insightful contributions with statistical analysis and live coverage.',
-      'Generated 2.3M+ views through consistent, high-quality content strategies.'
+      'Processed 715+ match narratives and statistical deep-dives for global media leaders including Bleacher Report and 433.',
+      'Delivered comprehensive tactical scouting and live-match performance tracking meeting international coverage standards.',
+      'Scaled organic Quora community to 17K+ followers and 2.3M+ views via data storytelling and trend analysis.',
+      'Ensured 100% data accuracy for international clients under high-pressure, live-match delivery windows.'
     ]
   },
   {
@@ -111,9 +113,8 @@ export const EXPERIENCE: Experience[] = [
     period: 'Jan 2024 – Nov 2024',
     type: 'Internship',
     description: [
-      'Hands-on experience utilizing Python for data analysis and ML tasks.',
-      'Utilized various tools including Excel, Power BI, IBM Cognos, Tableau & SQL.',
-      'Implemented machine learning algorithms for business insights.'
+      'Developed a Bankruptcy Detection model achieving 93% accuracy, reducing potential loan default exposure for banking clients by an estimated 15%.',
+      'Audited 30,000+ loan accounts using SQL and Power BI to identify delinquency patterns and inform risk assessment strategies.'
     ]
   }
 ];
