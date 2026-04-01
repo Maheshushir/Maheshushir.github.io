@@ -90,9 +90,10 @@ const About: React.FC = () => {
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true, amount: 0.5 }}
              transition={{ delay: 0.2, duration: 0.6 }}
-             className="text-slate-400 max-w-2xl mx-auto text-lg"
+             className="text-slate-400 max-w-2xl mx-auto text-lg italic"
           >
-            Dynamic Analytics & Automation Strategist with 2+ years of experience and a digital footprint of <strong>2.3M+ views</strong>.
+            "Without data, you're just another person with an opinion."
+            <span className="block mt-2 text-sm text-slate-500 font-medium not-italic">— W. Edwards Deming</span>
           </motion.p>
         </div>
 

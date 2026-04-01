@@ -136,8 +136,8 @@ const HireModal: React.FC<HireModalProps> = ({ isOpen, onClose }) => {
               </div>
               
               <div className="mt-6 text-center">
-                <p className="text-xs text-slate-500">
-                  Typically responds within 24 hours
+                <p className="text-xs text-slate-500 italic">
+                  "Turning data into decisions, and processes into automation."
                 </p>
               </div>
             </div>
