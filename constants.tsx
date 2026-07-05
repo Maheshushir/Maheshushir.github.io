@@ -13,7 +13,7 @@ import { Project, Experience, SocialStat, SkillCategory, NavItem } from './types
 
 // Using GitHub profile image for reliability.
 // To use a local image, save it as 'hero.png' in the 'public' folder and set this to "/hero.png"
-export const HERO_IMAGE = "https://github.com/maheshushir.png";
+export const HERO_IMAGE = "https://avatars.githubusercontent.com/u/161416107?s=400&u=e99fc8656d6b4a2bed75f20c90110d919c6ccfcb&v=4";
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '#home' },
@@ -72,49 +72,48 @@ export const EXPERIENCE: Experience[] = [
     id: '1',
     role: 'Data Analyst | Automation Strategist',
     company: 'HyperScale Leaders Tribe',
-    period: 'Mar 2025 – Present',
+    period: 'Mar 2025 - Present',
     type: 'Full-time',
     description: [
-      'Architected a full-stack BI dashboard integrated with Shopify API signals, automating multi-niche reporting for 50+ founders and reclaiming 15+ hours/week of CEO operational time.',
-      'Engineered a "Jewellers Dead Stock Analyser" implementing ITR logic to identify slow-moving capital (ITR < 3.0x) in gold and diamond assets for high-value manufacturers.',
-      'Developed automated modules for RFM Segmentation and Retention Funnels, improving client decision-making speed by 40% via real-time visibility into unit economics and fiscal health.',
-      'Managed direct feedback loops with CEOs to translate complex business friction into automated software logic with a 100% adoption rate across the community of D2C founders.'
+      'Powered INR 50 Cr (~$6M) in client revenue by building the RFM segmentation and retention models that directed targeting and re-activation campaigns for high-value customer cohorts.',
+      'Built the centralized data & reporting layer of an internal ERP (300+ users), unifying operations and inventory data and eliminating 60+ hours/month of manual reporting.',
+      'Delivered a live analytics pipeline (Shopify app connector → CEO/founder dashboard) enabling real-time KPI tracking during leadership decision-making meetings.',
+      'Automated repetitive Google Sheets workflows with Pabbly, saving the team an additional 40+ hours/month of manual effort.',
+      'Delivered full-stack BI dashboards on Shopify Admin API data for 50+ D2C founders, and engineered a "Jewellers Dead Stock Analyser" (ITR < 3.0x) to surface slow-moving inventory capital.'
     ]
   },
   {
     id: '2',
     role: 'Data Analyst | Automation Strategist',
-    company: 'IMpulse Consultancy',
-    period: 'Dec 2024 – Mar 2025',
+    company: 'Impulse Consultancy',
+    period: 'Dec 2024 - Mar 2025',
     type: 'Full-time',
     description: [
-      'Launched the "Impulse Automation Hub" portal, blending market research with data-driven workflow strategies to scale consultancy offerings and performance auditing.',
-      'Delivered strategic reports on coach and CEO performance metrics that guided high-level resource allocation and internal scaling strategies.',
-      'Promoted to the parent company (HyperScale) within 3 months based on the technical success and scalability of the developed systems.'
+      'Launched the "Impulse Automation Hub" and delivered performance-metric reports on coach/CEO KPIs that guided resource allocation and scaling decisions.',
+      'Promoted to parent company (HyperScale) within 3 months on the strength of the analytics systems delivered.'
     ]
   },
   {
     id: '3',
-    role: 'Freelance Sports Analyst | Mod',
-    company: 'QUORA',
-    period: 'Aug 2022 – Present',
-    type: 'Freelance',
+    role: 'Data Analyst & Data Scientist Intern',
+    company: 'AI Variant',
+    period: 'Jan 2024 - Nov 2024',
+    type: 'Internship',
     description: [
-      'Processed 715+ match narratives and statistical deep-dives for global media leaders including Bleacher Report and 433.',
-      'Delivered comprehensive tactical scouting and live-match performance tracking meeting international coverage standards.',
-      'Scaled organic Quora community to 17K+ followers and 2.3M+ views via data storytelling and trend analysis.',
-      'Ensured 100% data accuracy for international clients under high-pressure, live-match delivery windows.'
+      'Built a bankruptcy-detection model (SVM, hyperparameter-tuned) at 93% accuracy, cutting estimated loan-default exposure by ~15%.',
+      'Audited 30,000+ loan accounts in SQL and Power BI to surface delinquency patterns informing risk-assessment strategy.'
     ]
   },
   {
     id: '4',
-    role: 'Data Analyst & Data Scientist Intern',
-    company: 'AI Variant',
-    period: 'Jan 2024 – Nov 2024',
-    type: 'Internship',
+    role: 'Football Data Analyst (Freelance)',
+    company: 'Independent / Quora',
+    period: 'Aug 2022 - Present',
+    type: 'Freelance',
     description: [
-      'Developed a Bankruptcy Detection model achieving 93% accuracy, reducing potential loan default exposure for banking clients by an estimated 15%.',
-      'Audited 30,000+ loan accounts using SQL and Power BI to identify delinquency patterns and inform risk assessment strategies.'
+      'Produced 925+ statistical match analyses for global sports media including Bleacher Report and 433.',
+      'Grew an organic analytics community to 17K+ followers and 2.4M+ views through data storytelling and trend analysis.',
+      'Maintained 100% data accuracy under high-pressure, live-match delivery windows.'
     ]
   }
 ];

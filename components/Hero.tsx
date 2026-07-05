@@ -9,25 +9,7 @@ const ROLES = [
     color: "text-emerald-400",
     description: (
       <>
-        A strategic Solution Engineer with <strong className="text-emerald-400 font-semibold">2+ years of experience</strong> transforming raw data into growth engines. I specialize in architecting automated BI dashboards and cloud-based workflows that have empowered <strong className="text-emerald-400 font-semibold">10+ jewelry brands</strong> and <strong className="text-emerald-400 font-semibold">35+ D2C businesses</strong> to scale operations. By leveraging an AI-native <strong className="text-emerald-400 font-semibold">'vibe coding'</strong> approach, I deploy complex analytical systems <strong className="text-emerald-400 font-semibold">10x faster</strong>, moving from founder vision to production-ready tools with extreme efficiency.
-      </>
-    )
-  },
-  { 
-    text: "Freelance Sports Analyst", 
-    color: "text-blue-400",
-    description: (
-      <>
-        Scaled a sports analytics community to <strong className="text-blue-400 font-semibold">17K+ followers</strong> and <strong className="text-blue-400 font-semibold">2.3M+ content views</strong>. I have delivered <strong className="text-blue-400 font-semibold">715+ high-level match insights</strong> and statistical deep-dives for global sports media leaders, including <strong className="text-blue-400 font-semibold">Bleacher Report and 433</strong>. I specialize in processing real-time football data into structured reports and technical narratives that meet the rigorous standards of international sports coverage.
-      </>
-    )
-  },
-  { 
-    text: "Aspiring Data Scientist", 
-    color: "text-violet-400",
-    description: (
-      <>
-        <strong className="text-violet-400 font-semibold">MSc Data Science</strong> candidate with a background in <strong className="text-violet-400 font-semibold">BSc Physics</strong>, specializing in high-accuracy predictive modeling and intelligence systems. I have developed machine learning solutions including <strong className="text-violet-400 font-semibold">bankruptcy detection (93% accuracy)</strong> and churn probability models grounded in statistical inference. I leverage <strong className="text-violet-400 font-semibold">AI-assisted prototyping</strong> to engineer scientifically sound algorithms into functional data applications at an accelerated pace.
+        Data Analyst with <strong className="text-emerald-400 font-semibold">2.5+ years of experience</strong> turning raw business data into revenue and decisions across D2C, retail, and financial-services data. Built RFM segmentation and analytical models that powered <strong className="text-emerald-400 font-semibold">INR 50 Cr (~$6M)</strong> in client revenue, plus BI dashboards, an internal ERP (300+ users), and cohort/churn/inventory-turnover (ITR) analysis. Strong in <strong className="text-emerald-400 font-semibold">SQL, Python, and BI (Power BI, Tableau)</strong>, amplified by an automation stack (n8n, Pabbly, Shopify Admin API, Supabase) that reclaimed <strong className="text-emerald-400 font-semibold">100+ hours/month</strong> of leadership and team time. IBM | NASSCOM certified.
       </>
     )
   }
@@ -157,9 +139,9 @@ const Hero: React.FC = () => {
           {/* Flexible Height Description Area */}
           {/* Using a spacer approach to ensure the container is always as tall as the longest text */}
           <div className="mb-10 relative w-full max-w-2xl mx-auto lg:mx-0">
-             {/* Invisible Spacer using the longest text (Role 1: Sports Analyst) */}
+             {/* Invisible Spacer using the longest text */}
              <div className="invisible pointer-events-none text-base md:text-lg leading-relaxed select-none" aria-hidden="true">
-               {ROLES[1].description}
+               {ROLES[0].description}
              </div>
 
              {/* Animated Content Layer */}
@@ -193,7 +175,7 @@ const Hero: React.FC = () => {
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
-                href="https://docs.google.com/document/d/1BHoDy0UIRJepMD0Tuuesh1QhVen0hSJA/edit?usp=sharing&ouid=114320922323598235260&rtpof=true&sd=true" 
+                href="https://drive.google.com/file/d/1dXnNC-0pQO-JuZ8RaBz3VrzLkXVKEEDU/view?usp=sharing" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="px-7 py-3.5 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2 transform active:scale-95 backdrop-blur-sm"
