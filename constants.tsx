@@ -108,7 +108,7 @@ export const EXPERIENCE: Experience[] = [
     id: '4',
     role: 'Football Data Analyst (Freelance)',
     company: 'Independent / Quora',
-    period: 'Aug 2022 - Present',
+    period: 'Aug 2022 - Dec 2025',
     type: 'Freelance',
     description: [
       'Produced 925+ statistical match analyses for global sports media including Bleacher Report and 433.',

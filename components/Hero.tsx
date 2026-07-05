@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Download, Linkedin, Github } from 'lucide-react';
 import { CONTACT_INFO, HERO_IMAGE } from '../constants';
 
@@ -16,20 +16,12 @@ const ROLES = [
 ];
 
 const Hero: React.FC = () => {
-  const [roleIndex, setRoleIndex] = useState(0);
   const [imgSrc, setImgSrc] = useState(HERO_IMAGE);
 
   // Update image if constant changes
   useEffect(() => {
     setImgSrc(HERO_IMAGE);
   }, [HERO_IMAGE]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 8000); // Increased time to read longer text
-    return () => clearInterval(interval);
-  }, []);
 
   const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -120,45 +112,28 @@ const Hero: React.FC = () => {
             <span className="text-gradient">Mahesh Ushir</span>
           </h1>
 
-          {/* Rotating Roles */}
-          <div className="h-12 md:h-16 mb-6 flex items-center justify-center lg:justify-start w-full">
-            <AnimatePresence mode="wait">
-              <motion.h2
-                key={roleIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className={`text-2xl md:text-3xl lg:text-4xl font-light ${ROLES[roleIndex].color}`}
-              >
-                {ROLES[roleIndex].text}
-              </motion.h2>
-            </AnimatePresence>
+          {/* Role */}
+          <div className="mb-6 flex items-center justify-center lg:justify-start w-full">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className={`text-2xl md:text-3xl lg:text-4xl font-light ${ROLES[0].color}`}
+            >
+              {ROLES[0].text}
+            </motion.h2>
           </div>
 
           {/* Flexible Height Description Area */}
-          {/* Using a spacer approach to ensure the container is always as tall as the longest text */}
-          <div className="mb-10 relative w-full max-w-2xl mx-auto lg:mx-0">
-             {/* Invisible Spacer using the longest text */}
-             <div className="invisible pointer-events-none text-base md:text-lg leading-relaxed select-none" aria-hidden="true">
+          <div className="mb-10 w-full max-w-2xl mx-auto lg:mx-0">
+             <motion.p
+               initial={{ opacity: 0, x: -10 }}
+               animate={{ opacity: 1, x: 0 }}
+               transition={{ duration: 0.4 }}
+               className="text-base md:text-lg text-slate-400 leading-relaxed"
+             >
                {ROLES[0].description}
-             </div>
-
-             {/* Animated Content Layer */}
-             <div className="absolute top-0 left-0 w-full h-full">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={roleIndex}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 10 }}
-                    transition={{ duration: 0.4 }}
-                    className="text-base md:text-lg text-slate-400 leading-relaxed"
-                  >
-                    {ROLES[roleIndex].description}
-                  </motion.p>
-                </AnimatePresence>
-             </div>
+             </motion.p>
           </div>
 
           {/* Action Buttons & Socials */}

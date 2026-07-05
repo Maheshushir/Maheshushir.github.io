@@ -6,27 +6,27 @@ import { SKILL_CATEGORIES } from '../constants';
 const beliefs = [
   {
     icon: BarChart3,
-    label: 'Automation',
-    title: 'Data Analyst',
+    label: 'BI & Visualization',
+    title: 'Insight Generation',
     color: 'text-emerald-400',
     bgColor: 'bg-emerald-500/10',
-    description: 'Transforming raw numbers into strategic business growth. I automate workflows and visualize complex data for clear decision making.'
+    description: 'Transforming raw data into strategic business growth. Building comprehensive BI dashboards for immediate, clear decision making.'
   },
   {
-    icon: Trophy,
-    label: 'Community',
-    title: 'Freelance Sports Analyst',
+    icon: Cpu,
+    label: 'Automation',
+    title: 'Data Engineering',
     color: 'text-blue-400',
     bgColor: 'bg-blue-500/10',
-    description: 'A voice in sports analytics. My Quora community has over 17K followers where I break down tournaments with statistical depth.'
+    description: 'Streamlining data pipelines. Leveraging tools like n8n and Python to automate complex workflows, saving hundreds of manual hours.'
   },
   {
     icon: Brain,
-    label: 'Intelligence',
-    title: 'Aspiring Data Scientist',
+    label: 'Predictive',
+    title: 'Advanced Analytics',
     color: 'text-violet-400',
     bgColor: 'bg-violet-500/10',
-    description: 'Pushing boundaries with Machine Learning. Building predictive models for bankruptcy detection and market forecasting.'
+    description: 'Forecasting the future with data. Using RFM segmentation, churn models, and ML algorithms to uncover actionable growth opportunities.'
   }
 ];
 
