@@ -49,24 +49,40 @@ const Experience: React.FC = () => {
               ></motion.div>
 
               {/* Content Card */}
-              <div className="w-full pl-16 md:pl-0 md:w-1/2">
-                <div className={`glass-card p-8 rounded-2xl relative hover:border-emerald-500/30 transition-colors duration-300 w-full ${
-                    index % 2 === 0 ? 'md:mr-12' : 'md:ml-12'
-                }`}>
+              <div className={`w-full pl-16 md:w-1/2 ${index % 2 === 0 ? 'md:pl-12 md:pr-0' : 'md:pr-12 md:pl-0'}`}>
+                <div className="glass-card p-8 rounded-2xl relative hover:border-emerald-500/30 transition-colors duration-300 w-full">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
                     <h3 className="text-xl md:text-2xl font-bold text-white">{exp.role}</h3>
-                    <div className="flex items-center gap-3 shrink-0">
-                       <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-slate-300 border border-white/5">
+                    <div className="flex items-center gap-3 shrink-0"> 
+                      <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-slate-300 border border-white/5">
                         {exp.type}
                       </span>
                       <span className="text-xs text-emerald-400 font-mono font-medium whitespace-nowrap">{exp.period}</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center gap-2 text-slate-400 text-sm mb-6 font-medium border-b border-white/5 pb-4">
-                    <Briefcase size={16} className="text-emerald-500" />
-                    <span className="text-slate-300">{exp.company}</span>
+                  <div className="flex flex-col mb-6 pb-4 border-b border-white/5">
+                    <div className="flex items-center gap-2 text-slate-400 text-sm font-medium mb-1">
+                      <Briefcase size={16} className="text-emerald-500" />
+                      <span className="text-slate-300">{exp.company}</span>
+                    </div>
+                    {exp.companyDescriptor && (
+                      <div className="text-xs text-slate-500 pl-6 italic">
+                        {exp.companyDescriptor}
+                      </div>
+                    )}
                   </div>
+                  
+                  {exp.subRoles && (
+                    <div className="mb-6 space-y-3 pl-2 border-l-2 border-white/10">
+                      {exp.subRoles.map((sub, i) => (
+                        <div key={i} className="pl-4">
+                          <h4 className="text-sm font-bold text-slate-200">{sub.role}</h4>
+                          <span className="text-[11px] text-emerald-400 font-mono font-medium block mt-0.5">{sub.period}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   <ul className="space-y-3">
                     {exp.description.map((point, i) => (

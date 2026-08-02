@@ -18,9 +18,14 @@ export interface Experience {
   id: string;
   role: string;
   company: string;
+  companyDescriptor?: string;
   period: string;
   description: string[];
   type: 'Full-time' | 'Freelance' | 'Internship';
+  subRoles?: {
+    role: string;
+    period: string;
+  }[];
 }
 
 export interface SocialStat {

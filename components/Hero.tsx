@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Linkedin, Github } from 'lucide-react';
+import { ArrowRight, Download, Linkedin, Github, BarChart3, Database, TrendingUp } from 'lucide-react';
 import { CONTACT_INFO, HERO_IMAGE } from '../constants';
 
 const ROLES = [
@@ -9,7 +9,7 @@ const ROLES = [
     color: "text-emerald-400",
     description: (
       <>
-        Data Analyst with <strong className="text-emerald-400 font-semibold">2.5+ years of experience</strong> turning raw business data into revenue and decisions across D2C, retail, and financial-services data. Built RFM segmentation and analytical models that powered <strong className="text-emerald-400 font-semibold">INR 50 Cr (~$6M)</strong> in client revenue, plus BI dashboards, an internal ERP (300+ users), and cohort/churn/inventory-turnover (ITR) analysis. Strong in <strong className="text-emerald-400 font-semibold">SQL, Python, and BI (Power BI, Tableau)</strong>, amplified by an automation stack (n8n, Pabbly, Shopify Admin API, Supabase) that reclaimed <strong className="text-emerald-400 font-semibold">100+ hours/month</strong> of leadership and team time. IBM | NASSCOM certified.
+        Data Analyst with <strong className="text-emerald-400 font-semibold">2.5+ years of experience</strong> turning raw business data into revenue and decisions across D2C, retail, and financial-services data. Built RFM segmentation and analytical models that powered <strong className="text-emerald-400 font-semibold">INR 50 Cr (~$6M)</strong> in client revenue, plus BI dashboards, an internal ERP managing 300+ active founder accounts, and cohort/churn/inventory-turnover (ITR) analysis. Strong in <strong className="text-emerald-400 font-semibold">SQL, Python, and BI (Power BI, Tableau)</strong>, amplified by an automation stack (n8n, Pabbly, Shopify Admin API, Supabase) that reclaimed <strong className="text-emerald-400 font-semibold">100+ hours/month</strong> of leadership and team time. IBM | NASSCOM certified.
       </>
     )
   }
@@ -104,7 +104,7 @@ const Hero: React.FC = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            Available for New Projects
+            Open to Data Analyst roles
           </div>
 
           <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6">
@@ -150,7 +150,7 @@ const Hero: React.FC = () => {
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
-                href="https://drive.google.com/file/d/1dXnNC-0pQO-JuZ8RaBz3VrzLkXVKEEDU/view?usp=sharing" 
+                href="https://drive.google.com/file/d/1y_mLwTdoD25GG-w4jahcvqy8OkErxuf5/view?usp=sharing" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="px-7 py-3.5 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2 transform active:scale-95 backdrop-blur-sm"
@@ -208,45 +208,13 @@ const Hero: React.FC = () => {
               />
             </div>
 
-            {/* CREATIVE ANIMATION: Cybernetic Solar System - Centered on Wrapper */}
-            
-            {/* Orbit 1: Inner Emerald - Fast */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[350px] md:h-[350px] rounded-full border border-emerald-500/20 -z-10 pointer-events-none">
-                <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                  className="w-full h-full relative"
-                >
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-emerald-400 rounded-full shadow-[0_0_15px_#34d399] blur-[0.5px]" />
-                </motion.div>
-            </div>
-
-            {/* Orbit 2: Outer Blue - Slow & Reverse */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] md:w-[450px] md:h-[450px] rounded-full border border-blue-500/10 border-dashed -z-20 pointer-events-none">
-                <motion.div 
-                  animate={{ rotate: -360 }}
-                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                  className="w-full h-full relative"
-                >
-                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full shadow-[0_0_20px_#3b82f6]" />
-                </motion.div>
-            </div>
-
-            {/* Floating Data Particles */}
-            <motion.div
-                animate={{ y: [-15, 15, -15], opacity: [0.2, 0.5, 0.2] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-0 right-0 text-emerald-500/20 text-4xl font-mono pointer-events-none"
+            {/* Grid Pattern Background */}
+            <div 
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] md:w-[450px] md:h-[450px] rounded-full border border-white/5 -z-20 pointer-events-none overflow-hidden"
+              style={{ maskImage: 'radial-gradient(circle, black 40%, transparent 70%)', WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)' }}
             >
-                +
-            </motion.div>
-            <motion.div
-                animate={{ y: [20, -20, 20], opacity: [0.1, 0.3, 0.1] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-10 -left-10 text-blue-500/20 text-6xl font-mono pointer-events-none"
-            >
-                .
-            </motion.div>
+               <div className="w-full h-full opacity-20" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+            </div>
 
             {/* Core Glow */}
             <motion.div 

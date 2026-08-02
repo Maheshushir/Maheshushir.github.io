@@ -19,20 +19,33 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Education', href: '#education' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ];
 
 export const SOCIAL_STATS: SocialStat[] = [
   { label: 'Quora Followers', value: '17K+', icon: Users },
-  { label: 'Content Views', value: '2.3M+', icon: Eye },
-  { label: 'Contributions', value: '700+', icon: BarChart3 },
+  { label: 'Content Views', value: '2.4M+', icon: Eye },
+  { label: 'Contributions', value: '925+', icon: BarChart3 },
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    title: "AI & Automation Suite",
+    title: "Data & Analytics",
     highlight: true,
+    theme: 'blue',
+    icon: Terminal,
+    groups: [
+      { name: "Programming & Databases", skills: ["Python", "SQL (MySQL, PostgreSQL)"] },
+      { name: "Business Intelligence", skills: ["Power BI", "Tableau", "IBM Cognos", "Power Query", "DAX"] },
+      { name: "Data Science & Analysis", skills: ["Pandas", "NumPy", "Machine Learning", "Statistical Analysis"] },
+      { name: "Data Visualization", skills: ["Seaborn", "Matplotlib"] },
+      { name: "Engineering Tools", skills: ["MS Excel", "GitHub", "Anaconda"] }
+    ]
+  },
+  {
+    title: "AI & Automation Suite",
     theme: 'emerald',
     icon: Zap,
     groups: [
@@ -44,15 +57,13 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     ]
   },
   {
-    title: "Technical Arsenal",
+    title: "Data Engineering & Quality",
     theme: 'blue',
-    icon: Terminal,
+    icon: Database,
     groups: [
-      { name: "Programming & Databases", skills: ["Python", "SQL (MySQL)"] },
-      { name: "Business Intelligence", skills: ["Power BI", "Tableau", "IBM Cognos"] },
-      { name: "Data Science & Analysis", skills: ["Pandas", "NumPy", "Machine Learning", "Statistical Analysis"] },
-      { name: "Data Visualization", skills: ["Seaborn", "Matplotlib"] },
-      { name: "Engineering Tools", skills: ["MS Excel", "GitHub", "Anaconda"] }
+      { name: "Pipelines & ETL", skills: ["ETL", "Data Pipelines", "Data Modeling", "Supabase", "Shopify Admin API", "REST APIs"] },
+      { name: "Data Quality", skills: ["Data Validation", "Reconciliation", "Source-to-Target Mapping", "Data Dictionaries"] },
+      { name: "Analytics Techniques", skills: ["RFM Segmentation", "Cohort Analysis", "Churn & Retention", "Credit Risk & Delinquency Analysis", "Inventory Turnover (ITR)"] }
     ]
   },
   {
@@ -70,33 +81,37 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 export const EXPERIENCE: Experience[] = [
   {
     id: '1',
-    role: 'Data Analyst | Automation Strategist',
+    role: 'Data Analyst',
     company: 'HyperScale Leaders Tribe',
-    period: 'Mar 2025 - Present',
+    companyDescriptor: 'D2C growth consultancy serving 300+ active founders',
+    period: 'Dec 2024 - Present',
     type: 'Full-time',
+    subRoles: [
+      {
+        role: 'Data Analyst',
+        period: 'Mar 2025 - Present'
+      },
+      {
+        role: 'Data Analyst, Impulse Consultancy (group company)',
+        period: 'Dec 2024 - Mar 2025'
+      }
+    ],
     description: [
       'Powered INR 50 Cr (~$6M) in client revenue by building the RFM segmentation and retention models that directed targeting and re-activation campaigns for high-value customer cohorts.',
-      'Built the centralized data & reporting layer of an internal ERP (300+ users), unifying operations and inventory data and eliminating 60+ hours/month of manual reporting.',
-      'Delivered a live analytics pipeline (Shopify app connector → CEO/founder dashboard) enabling real-time KPI tracking during leadership decision-making meetings.',
+      'Built the centralized data & reporting layer of an internal ERP managing 300+ active founder accounts, unifying operations and inventory data and eliminating 60+ hours/month of manual reporting.',
+      'Architected an end-to-end data pipeline (custom-built Shopify app to Shopify API to Supabase to dashboards) with automated daily metric delivery, owning the flow of data from source to consumption.',
+      'Acted as the validation checkpoint across every stage and field before data entered the ERP, tracing data-quality issues back to the source system and reconciling spend-to-revenue and ROAS reporting.',
       'Automated repetitive Google Sheets workflows with Pabbly, saving the team an additional 40+ hours/month of manual effort.',
-      'Delivered full-stack BI dashboards on Shopify Admin API data for 50+ D2C founders, and engineered a "Jewellers Dead Stock Analyser" (ITR < 3.0x) to surface slow-moving inventory capital.'
-    ]
-  },
-  {
-    id: '2',
-    role: 'Data Analyst | Automation Strategist',
-    company: 'Impulse Consultancy',
-    period: 'Dec 2024 - Mar 2025',
-    type: 'Full-time',
-    description: [
+      'Delivered full-stack BI dashboards on Shopify Admin API data for D2C founders, and engineered a "Jewellers Dead Stock Analyser" (ITR < 3.0x) to surface slow-moving inventory capital.',
       'Launched the "Impulse Automation Hub" and delivered performance-metric reports on coach/CEO KPIs that guided resource allocation and scaling decisions.',
       'Promoted to parent company (HyperScale) within 3 months on the strength of the analytics systems delivered.'
     ]
   },
   {
-    id: '3',
+    id: '2',
     role: 'Data Analyst & Data Scientist Intern',
     company: 'AI Variant',
+    companyDescriptor: 'Data science and analytics services firm',
     period: 'Jan 2024 - Nov 2024',
     type: 'Internship',
     description: [
@@ -105,7 +120,7 @@ export const EXPERIENCE: Experience[] = [
     ]
   },
   {
-    id: '4',
+    id: '3',
     role: 'Football Data Analyst (Freelance)',
     company: 'Independent / Quora',
     period: 'Aug 2022 - Dec 2025',
@@ -197,7 +212,7 @@ export const PROJECTS: Project[] = [
     category: 'Data Analysis',
     description: 'Developed a comprehensive treasury analytics suite monitoring 93 global currencies against the USD to support strategic financial decision-making.',
     techStack: ['Power BI', 'Excel', 'Financial Modeling', 'FX Analytics'],
-    link: 'https://www.linkedin.com/posts/mahesh-ushir_global-weather-repository-power-bi-dashboard-activity-7273362289834008576-UUbP?utm_source=share&utm_medium=member_desktop&rcm=ACoAADX7iq8BhTPW1dIGxiwHFZfNjMTkYfHbJqk',
+    link: 'https://github.com/Maheshushir/Treasury-Exchange-Rate-Report',
     image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?fm=webp&fit=crop&q=80&w=800',
     featured: true
   },
