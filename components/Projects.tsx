@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, ArrowRight, Sparkles, Trophy, Users, FileText, Clock } from 'lucide-react';
 import { PROJECTS, CONTACT_INFO } from '../constants';
 
-const TABS = ['All', 'Data Analysis', 'Sports Analytics', 'Data Science'];
+const TABS = ['All', 'Data Engineering', 'Data Analysis', 'Sports Analytics', 'Data Science'];
 
 const getCategoryStyles = (category: string) => {
   switch (category) {
@@ -13,6 +13,8 @@ const getCategoryStyles = (category: string) => {
       return { bg: 'bg-blue-500', text: 'text-blue-400', border: 'border-blue-500' };
     case 'Data Science':
       return { bg: 'bg-violet-500', text: 'text-violet-400', border: 'border-violet-500' };
+    case 'Data Engineering':
+      return { bg: 'bg-amber-500', text: 'text-amber-400', border: 'border-amber-500' };
     default:
       return { bg: 'bg-white', text: 'text-slate-400', border: 'border-white' };
   }

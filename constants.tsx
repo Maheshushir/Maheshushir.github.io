@@ -37,7 +37,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     theme: 'blue',
     icon: Terminal,
     groups: [
-      { name: "Programming & Databases", skills: ["Python", "SQL (MySQL, PostgreSQL)"] },
+      { name: "Programming & Databases", skills: ["Python", "SQL (MySQL, PostgreSQL)", "Snowflake", "AWS Athena", "DuckDB"] },
       { name: "Business Intelligence", skills: ["Power BI", "Tableau", "IBM Cognos", "Power Query", "DAX"] },
       { name: "Data Science & Analysis", skills: ["Pandas", "NumPy", "Machine Learning", "Statistical Analysis"] },
       { name: "Data Visualization", skills: ["Seaborn", "Matplotlib"] },
@@ -61,8 +61,9 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     theme: 'blue',
     icon: Database,
     groups: [
-      { name: "Pipelines & ETL", skills: ["ETL", "Data Pipelines", "Data Modeling", "Supabase", "Shopify Admin API", "REST APIs"] },
-      { name: "Data Quality", skills: ["Data Validation", "Reconciliation", "Source-to-Target Mapping", "Data Dictionaries"] },
+      { name: "Pipelines & ETL", skills: ["ETL", "ELT", "Data Pipelines", "Data Modeling", "Star Schema", "Supabase", "Shopify Admin API", "REST APIs"] },
+      { name: "Cloud & Warehousing", skills: ["AWS S3", "AWS Glue", "AWS Athena", "Snowflake", "DuckDB", "Parquet", "Partitioning"] },
+      { name: "Data Quality", skills: ["Data Validation", "Reconciliation", "Source-to-Target Mapping", "Data Dictionaries", "Expectation Suites", "Quarantine Patterns", "CI Testing"] },
       { name: "Analytics Techniques", skills: ["RFM Segmentation", "Cohort Analysis", "Churn & Retention", "Credit Risk & Delinquency Analysis", "Inventory Turnover (ITR)"] }
     ]
   },
@@ -155,6 +156,61 @@ export const PROJECTS: Project[] = [
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?fm=webp&fit=crop&q=80&w=800',
     featured: true,
     spotlight: true
+  },
+  {
+    id: 'de-1',
+    title: 'NYC Taxi ETL Pipeline',
+    category: 'Data Engineering',
+    description: 'ETL over 9.55M real NYC TLC trip records. 369,850 invalid rows are quarantined with the rule that rejected them, so counts still reconcile exactly to source.',
+    techStack: ['Python', 'DuckDB', 'SQL', 'Parquet', 'Data Quality'],
+    link: 'https://github.com/Maheshushir/nyc-taxi-etl-pipeline',
+    image: 'https://raw.githubusercontent.com/Maheshushir/nyc-taxi-etl-pipeline/main/outputs/charts/01_demand_surface.png',
+    featured: true,
+    badge: '9.5M rows'
+  },
+  {
+    id: 'de-2',
+    title: 'IMDb SQL Portfolio',
+    category: 'Data Engineering',
+    description: "15 queries over IMDb's full 141M-row dataset, including a recursive-CTE traversal computing degrees of separation across 18,120 actors in 2.2s.",
+    techStack: ['SQL', 'DuckDB', 'Recursive CTE', 'Window Functions'],
+    link: 'https://github.com/Maheshushir/imdb-sql-portfolio',
+    image: 'https://raw.githubusercontent.com/Maheshushir/imdb-sql-portfolio/main/outputs/charts/01_bacon_numbers.png',
+    featured: true,
+    badge: '141M rows'
+  },
+  {
+    id: 'de-3',
+    title: 'Superstore Cloud Analytics',
+    category: 'Data Engineering',
+    description: 'Medallion pipeline to partitioned Parquet on S3, catalogued in Glue and queried via Athena. Found $135K of margin lost to discounts above 20%.',
+    techStack: ['AWS S3', 'Glue', 'Athena', 'SQL', 'QuickSight'],
+    link: 'https://github.com/Maheshushir/superstore-cloud-analytics',
+    image: 'https://raw.githubusercontent.com/Maheshushir/superstore-cloud-analytics/main/outputs/charts/01_discount_cliff.png',
+    featured: true,
+    badge: 'AWS Pipeline'
+  },
+  {
+    id: 'de-4',
+    title: 'Netflix ELT & Data Cleaning',
+    category: 'Data Engineering',
+    description: 'Layered staging-to-marts ELT with 10 data tests, correcting defects that made a naive distinct-country count report 681 instead of the real 117.',
+    techStack: ['SQL', 'DuckDB', 'dbt-style Modelling', 'Data Testing'],
+    link: 'https://github.com/Maheshushir/netflix-elt-data-cleaning',
+    image: 'https://raw.githubusercontent.com/Maheshushir/netflix-elt-data-cleaning/main/outputs/charts/01_cleaning_impact.png',
+    featured: true,
+    badge: 'Tested ELT'
+  },
+  {
+    id: 'de-5',
+    title: 'Yelp Reviews on Snowflake',
+    category: 'Data Engineering',
+    description: 'S3 external stage to a VARIANT landing table to a flattened star schema, with a lexicon sentiment score validated against held-out star ratings.',
+    techStack: ['Snowflake', 'AWS S3', 'Python', 'SQL', 'Text Analytics'],
+    link: 'https://github.com/Maheshushir/yelp-reviews-snowflake',
+    image: 'https://raw.githubusercontent.com/Maheshushir/yelp-reviews-snowflake/main/outputs/charts/01_length_and_intensity.png',
+    featured: true,
+    badge: 'Snowflake'
   },
   {
     id: '5',
