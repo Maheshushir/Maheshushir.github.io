@@ -485,6 +485,8 @@ export const EXPERIENCE: Role[] = [
       'Architected an end-to-end pipeline, custom Shopify app to Shopify API to Supabase to dashboards, with automated daily metric delivery.',
       'Acted as the validation checkpoint before data entered the ERP, tracing quality issues to source and reconciling spend-to-revenue and ROAS reporting.',
       'Automated Google Sheets workflows with Pabbly, saving another 40+ hours a month.',
+      'Delivered full-stack BI dashboards on Shopify Admin API data for D2C founders, and engineered a “Jewellers Dead Stock Analyser” (ITR < 3.0x) to surface slow-moving inventory capital.',
+      'Launched the “Impulse Automation Hub” and delivered performance-metric reports on coach/CEO KPIs that guided resource allocation and scaling decisions.',
       'Promoted to the parent company within 3 months on the strength of the analytics systems delivered.',
     ],
   },
