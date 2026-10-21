@@ -1,232 +1,120 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Download, Linkedin, Github, BarChart3, Database, TrendingUp } from 'lucide-react';
-import { CONTACT_INFO, HERO_IMAGE } from '../constants';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'motion/react';
+import { ArrowDown } from 'lucide-react';
+import GravityLetters from '@/components/ui/gravity-letters';
+import AnimatedCounter from '@/components/ui/animated-counter';
+import { Button, SplitWords } from '@/components/primitives';
+import { HERO_METRICS, PROFILE, type Metric } from '@/lib/content';
+import { EASE } from '@/lib/motion';
 
-const ROLES = [
-  { 
-    text: "Data Analyst", 
-    color: "text-emerald-400",
-    description: (
-      <>
-        Data Analyst with <strong className="text-emerald-400 font-semibold">2.5+ years of experience</strong> turning raw business data into revenue and decisions across D2C, retail, and financial-services data. Built RFM segmentation and analytical models that powered <strong className="text-emerald-400 font-semibold">INR 50 Cr (~$6M)</strong> in client revenue, plus BI dashboards, an internal ERP managing 300+ active founder accounts, and cohort/churn/inventory-turnover (ITR) analysis. Strong in <strong className="text-emerald-400 font-semibold">SQL, Python, and BI (Power BI, Tableau)</strong>, amplified by an automation stack (n8n, Pabbly, Shopify Admin API, Supabase) that reclaimed <strong className="text-emerald-400 font-semibold">100+ hours/month</strong> of leadership and team time. IBM | NASSCOM certified.
-      </>
-    )
-  }
-];
+// What falls when a visitor clicks the hero: digits and the notation of the trade.
+const GLYPHS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '%', 'Σ', 'μ', 'σ', 'Δ', '∑', 'n', 'x̄', '≈', '±'];
 
-const Hero: React.FC = () => {
-  const [imgSrc, setImgSrc] = useState(HERO_IMAGE);
+const fade = (delay: number) => ({
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, ease: EASE, delay },
+});
 
-  // Update image if constant changes
+function Counter({ metric, delay }: { metric: Metric; delay: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [value, setValue] = useState(0);
+
   useEffect(() => {
-    setImgSrc(HERO_IMAGE);
-  }, [HERO_IMAGE]);
-
-  const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; // Navbar height buffer
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
+    if (!inView) return;
+    const id = setTimeout(() => setValue(metric.value), delay * 1000);
+    return () => clearTimeout(id);
+  }, [inView, metric.value, delay]);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
-      
-      {/* Dynamic Mesh Background - Hero Specific */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none transform-gpu">
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.15, 0.3, 0.15], 
-              x: [0, 100, 0],
-              y: [0, -50, 0]
-            }}
-            transition={{ 
-              duration: 18, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-blue-600/30 rounded-full blur-[120px] will-change-transform"
-          />
-          <motion.div 
-             animate={{ 
-              scale: [1, 1.1, 1],
-              opacity: [0.15, 0.4, 0.15], 
-              x: [0, -50, 0],
-              y: [0, 100, 0]
-            }}
-            transition={{ 
-              duration: 25, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 2
-            }}
-            className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-emerald-600/30 rounded-full blur-[100px] will-change-transform"
-          />
-           <motion.div 
-             animate={{ 
-              scale: [1, 1.3, 1],
-              opacity: [0.1, 0.3, 0.1], 
-              x: [0, 30, 0],
-            }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 5
-            }}
-            className="absolute top-[20%] left-[30%] w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[130px] will-change-transform"
-          />
-      </div>
+    <div ref={ref} className="border-t border-line pt-4 md:border-t-0 md:border-l md:pt-0 md:pl-6">
+      <AnimatedCounter
+        value={value}
+        duration={1.1}
+        prefix={metric.prefix}
+        suffix={metric.suffix}
+        className="text-[clamp(2rem,3.4vw,3.25rem)] leading-none font-medium tracking-[-0.04em]"
+        aria-label={`${metric.prefix ?? ''}${metric.value}${metric.suffix ?? ''}`}
+      />
+      <p className="mt-3 max-w-[22ch] text-sm leading-snug text-muted">{metric.label}</p>
+    </div>
+  );
+}
 
-      {/* Main Container: Fluid Width with constraints */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
-        
-        {/* TEXT CONTENT - Side 1 */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="w-full lg:w-3/5 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
-        >
-          {/* Availability Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400 text-sm font-medium mb-8 backdrop-blur-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            Open to Data Analyst roles
-          </div>
-
-          <h1 className="font-display font-extrabold text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6">
-            Hi, I'm <br />
-            <span className="text-gradient">Mahesh Ushir</span>
-          </h1>
-
-          {/* Role */}
-          <div className="mb-6 flex items-center justify-center lg:justify-start w-full">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className={`text-2xl md:text-3xl lg:text-4xl font-light ${ROLES[0].color}`}
-            >
-              {ROLES[0].text}
-            </motion.h2>
-          </div>
-
-          {/* Flexible Height Description Area */}
-          <div className="mb-10 w-full max-w-2xl mx-auto lg:mx-0">
-             <motion.p
-               initial={{ opacity: 0, x: -10 }}
-               animate={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.4 }}
-               className="text-base md:text-lg text-slate-400 leading-relaxed"
-             >
-               {ROLES[0].description}
-             </motion.p>
-          </div>
-
-          {/* Action Buttons & Socials */}
-          <div className="flex flex-col sm:flex-row items-center gap-6 relative z-10 w-full justify-center lg:justify-start">
-            
-            {/* Main CTAs */}
-            <div className="flex flex-wrap justify-center gap-4">
-              <a 
-                href="#projects" 
-                onClick={(e) => handleScrollToSection(e, 'projects')}
-                className="group px-7 py-3.5 bg-white text-black font-semibold rounded-full flex items-center gap-2 hover:bg-slate-200 transition-colors transform active:scale-95 shadow-lg shadow-white/5"
-              >
-                View Work
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a 
-                href="https://drive.google.com/file/d/1y_mLwTdoD25GG-w4jahcvqy8OkErxuf5/view?usp=sharing" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="px-7 py-3.5 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-colors flex items-center gap-2 transform active:scale-95 backdrop-blur-sm"
-              >
-                Download CV
-                <Download size={18} />
-              </a>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-               <div className="hidden sm:block w-px h-8 bg-white/10 mr-2"></div>
-               <a 
-                  href={CONTACT_INFO.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:text-white hover:bg-[#0077b5] hover:border-[#0077b5] border border-white/10 transition-all duration-300"
-                  aria-label="LinkedIn"
-               >
-                  <Linkedin size={20} />
-               </a>
-               <a 
-                  href={CONTACT_INFO.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-11 h-11 flex items-center justify-center rounded-full bg-white/5 text-slate-400 hover:text-white hover:bg-[#333] hover:border-[#333] border border-white/10 transition-all duration-300"
-                  aria-label="GitHub"
-               >
-                  <Github size={20} />
-               </a>
-            </div>
-          </div>
-
+const Hero: React.FC = () => {
+  return (
+    <GravityLetters
+      id="home"
+      items={GLYPHS}
+      size={30}
+      color="#2b2b2b"
+      maxGlyphs={160}
+      deviceTilt={false}
+      className="relative flex min-h-[100svh] flex-col font-mono"
+    >
+      <section aria-labelledby="hero-title" className="shell relative z-10 flex flex-1 flex-col pt-28 pb-8 font-sans md:pt-32">
+        {/* Masthead row */}
+        <motion.div {...fade(0.1)} className="label grid grid-cols-2 gap-y-3 text-muted md:grid-cols-4">
+          <span>Data Analyst<span className="hidden sm:inline"> / Strategist</span></span>
+          <span className="text-right md:text-left">{PROFILE.location}</span>
+          <span className="hidden md:block">Analytics · BI · Automation</span>
+          <span className="col-span-2 flex items-center gap-2 text-fg md:col-span-1 md:justify-end">
+            <span aria-hidden className="size-1.5 rounded-full bg-fg" />
+            {PROFILE.availability}
+          </span>
         </motion.div>
 
-        {/* IMAGE / VISUAL - Side 2 */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="w-full lg:w-2/5 order-1 lg:order-2 flex justify-center lg:justify-end"
-        >
-          {/* Centering Wrapper: Ensures orbits align with the image regardless of container flex alignment */}
-          <div className="relative">
-            
-            {/* Circular Image Container */}
-            <div className="relative z-10 w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/5 shadow-2xl bg-slate-900/50 transform-gpu group">
-              <img 
-                src={imgSrc} 
-                alt="Mahesh Ushir" 
-                onError={() => setImgSrc("https://github.com/maheshushir.png")}
-                className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700" 
-                loading="eager"
-                decoding="async"
-              />
-            </div>
-
-            {/* Grid Pattern Background */}
-            <div 
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] md:w-[450px] md:h-[450px] rounded-full border border-white/5 -z-20 pointer-events-none overflow-hidden"
-              style={{ maskImage: 'radial-gradient(circle, black 40%, transparent 70%)', WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 70%)' }}
-            >
-               <div className="w-full h-full opacity-20" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-            </div>
-
-            {/* Core Glow */}
-            <motion.div 
-              animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-emerald-500/20 rounded-full blur-[80px] -z-30 pointer-events-none" 
+        {/* Headline */}
+        <div className="flex flex-1 flex-col justify-center py-14 md:py-16">
+          <h1 id="hero-title">
+            <motion.span {...fade(0.2)} className="mb-6 block text-lg font-normal tracking-tight text-muted md:mb-8 md:text-2xl">
+              <span className="text-fg">{PROFILE.name}</span> — Data Analyst & Strategist
+            </motion.span>
+            <SplitWords
+              immediate
+              delay={0.1}
+              stagger={0.05}
+              className="block text-display font-medium"
+              text={'Turning complex data\ninto *smarter* decisions.'}
             />
-          </div>
-        </motion.div>
+          </h1>
+        </div>
 
-      </div>
-    </section>
+        {/* Supporting copy, actions and evidence */}
+        <div className="grid gap-12 md:grid-cols-12 md:items-end md:gap-8">
+          <motion.div {...fade(0.9)} className="md:col-span-5">
+            <p className="max-w-[44ch] text-lead text-muted">
+              I turn raw data into decisions people can act on, through analytics, business
+              intelligence, automation and careful problem-solving.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button href="/#projects">Explore my work</Button>
+              <Button href={PROFILE.resume} variant="outline">
+                Download resume
+              </Button>
+            </div>
+          </motion.div>
+
+          <motion.div {...fade(1.05)} className="grid gap-6 sm:grid-cols-3 md:col-span-7 md:gap-0">
+            {HERO_METRICS.map((m, i) => (
+              <Counter key={m.label} metric={m} delay={1.1 + i * 0.12} />
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Footer rail */}
+        <motion.div {...fade(1.3)} className="label mt-14 flex items-center justify-between border-t border-line pt-5 text-faint md:mt-20">
+          <a href="#about" className="group inline-flex items-center gap-3 hover:text-fg">
+            <ArrowDown aria-hidden size={14} strokeWidth={1.5} className="transition-transform duration-200 group-hover:translate-y-0.5" />
+            Scroll
+          </a>
+          <span aria-hidden className="hidden md:[@media(pointer:fine)]:inline">
+            Click anywhere to drop some data
+          </span>
+        </motion.div>
+      </section>
+    </GravityLetters>
   );
 };
 

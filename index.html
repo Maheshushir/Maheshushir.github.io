@@ -1,101 +1,84 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mahesh Ushir | Data Analyst & Strategist</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://images.unsplash.com">
-    <link rel="dns-prefetch" href="https://images.unsplash.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-              display: ['"Outfit"', 'sans-serif'],
-            },
-            colors: {
-              background: '#050505',
-              surface: '#0F0F0F',
-              primary: '#10b981', // Emerald for Data/Growth vibe
-              secondary: '#3b82f6', // Blue for Trust/Tech
-              accent: '#8b5cf6', // Violet for Creative/Modern
-            }
-          }
-        }
+    <meta
+      name="description"
+      content="Mahesh Ushir is a Data Analyst in Pune, India, working across SQL, Python, Power BI and Tableau. Portfolio of analytics, BI dashboards and data engineering case studies."
+    />
+    <meta name="author" content="Mahesh Ushir" />
+    <meta name="theme-color" content="#090909" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="canonical" href="https://maheshushir.vercel.app/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mahesh Ushir" />
+    <meta property="og:title" content="Mahesh Ushir | Data Analyst & Strategist" />
+    <meta
+      property="og:description"
+      content="Turning complex data into smarter decisions. Analytics, BI dashboards and data engineering case studies."
+    />
+    <meta property="og:url" content="https://maheshushir.vercel.app/" />
+    <meta property="og:image" content="https://maheshushir.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Mahesh Ushir, Data Analyst and Strategist" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mahesh Ushir | Data Analyst & Strategist" />
+    <meta
+      name="twitter:description"
+      content="Turning complex data into smarter decisions. Analytics, BI dashboards and data engineering case studies."
+    />
+    <meta name="twitter:image" content="https://maheshushir.vercel.app/og.png" />
+
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mahesh Ushir",
+        "jobTitle": "Data Analyst",
+        "url": "https://maheshushir.vercel.app/",
+        "image": "https://maheshushir.vercel.app/mahesh-ushir.webp",
+        "email": "mailto:135790mahesh@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Pune",
+          "addressCountry": "IN"
+        },
+        "worksFor": { "@type": "Organization", "name": "HyperScale Leaders Tribe" },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Savitribai Phule Pune University" }
+        ],
+        "knowsAbout": [
+          "Data Analysis",
+          "SQL",
+          "Python",
+          "Power BI",
+          "Tableau",
+          "Business Intelligence",
+          "Data Engineering",
+          "RFM Segmentation"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/mahesh-ushir/",
+          "https://github.com/maheshushir"
+        ]
       }
     </script>
-    <style>
-      html {
-        scroll-padding-top: 100px;
-        scroll-behavior: smooth;
-      }
-      body {
-        background-color: #050505;
-        color: #e2e8f0;
-        overflow-x: hidden;
-      }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #050505; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #333; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #444; 
-      }
-      .glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        will-change: transform; /* Performance hint */
-      }
-      .glass-nav {
-        background: rgba(5, 5, 5, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      .text-gradient {
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-image: linear-gradient(to right, #10b981, #3b82f6);
-      }
-      .text-gradient-purple {
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-image: linear-gradient(to right, #c084fc, #6366f1);
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "framer-motion": "https://esm.sh/framer-motion@^12.26.1",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
+  </head>
   <body>
+    <noscript>
+      <p style="padding:24px;font-family:system-ui">
+        Mahesh Ushir, Data Analyst in Pune, India. Email 135790mahesh@gmail.com ·
+        <a href="https://www.linkedin.com/in/mahesh-ushir/">LinkedIn</a> ·
+        <a href="https://github.com/maheshushir">GitHub</a>
+      </p>
+    </noscript>
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>

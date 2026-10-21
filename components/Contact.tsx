@@ -1,172 +1,147 @@
-import React from 'react';
-import { Mail, Phone, MapPin, Linkedin, Github, Globe } from 'lucide-react';
-import { CONTACT_INFO } from '../constants';
+import React, { useState } from 'react';
+import { ArrowUp, ArrowUpRight, Check, Copy } from 'lucide-react';
+import { Reveal, SplitWords } from '@/components/primitives';
+import { CONTACT, PROFILE } from '@/lib/content';
+import { scrollToId } from '@/lib/router';
+import { cn } from '@/lib/utils';
 
-interface ContactProps {
-  onOpenHireModal: () => void;
-}
-
-const Contact: React.FC<ContactProps> = ({ onOpenHireModal }) => {
-  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80; // Navbar height buffer
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+function useCopy() {
+  const [copied, setCopied] = useState<string | null>(null);
+  const copy = async (value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(value);
+      setTimeout(() => setCopied(null), 2000);
+    } catch {
+      // Clipboard blocked (insecure context or permissions): the value stays visible to copy by hand.
     }
   };
+  return { copied, copy };
+}
+
+const CHANNELS = [
+  { label: 'LinkedIn', value: 'mahesh-ushir', href: CONTACT.linkedin },
+  { label: 'GitHub', value: 'maheshushir', href: CONTACT.github },
+  { label: 'Resume', value: 'View / download', href: PROFILE.resume },
+  { label: 'Telegram', value: CONTACT.telegramHandle, href: CONTACT.telegram },
+];
+
+const Contact: React.FC = () => {
+  const { copied, copy } = useCopy();
 
   return (
-    <footer id="contact" className="bg-[#020202] border-t border-white/5 pt-20 pb-10">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            <a 
-              href="#home" 
-              onClick={(e) => handleScrollTo(e, 'home')}
-              className="text-2xl font-display font-bold text-white mb-6 block"
-            >
-              Mahesh U<span className="text-emerald-500">.</span>
-            </a>
-            <p className="text-slate-400 text-sm leading-relaxed mb-4">
-              Transforming data into strategies. Open for freelance opportunities and full-time roles in Data Science and Analytics.
+    <section id="contact" className="bg-ink pt-24 md:pt-36" aria-labelledby="contact-title">
+      <div className="shell">
+        <Reveal className="label flex items-center gap-4 text-muted">
+          <span>(05)</span>
+          <span>Contact</span>
+          <span aria-hidden className="h-px flex-1 bg-line" />
+        </Reveal>
+
+        <h2 id="contact-title" className="mt-12 text-display font-medium md:mt-20">
+          <SplitWords text={'Let’s make data\n*mean* something.'} />
+        </h2>
+
+        <div className="mt-14 grid gap-12 md:mt-20 md:grid-cols-12 md:gap-8">
+          <Reveal className="md:col-span-5">
+            <p className="max-w-[40ch] text-lead text-muted">
+              Have an opportunity, collaboration or interesting problem in mind? Let’s connect.
             </p>
-            
-            <div className="flex gap-3 mb-6">
-              <div className="w-0.5 min-h-full bg-gradient-to-b from-emerald-500 to-blue-500 rounded-full opacity-70"></div>
-              <p className="text-slate-300 text-sm italic font-medium py-1 leading-relaxed">
-                "If I don't know the answer, I know how to find one."
-              </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="md:col-span-7">
+            <p className="label mb-4 text-faint">Email</p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-4">
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="link-draw text-[clamp(1.375rem,3.2vw,2.75rem)] leading-tight font-medium tracking-[-0.035em] break-all"
+              >
+                {CONTACT.email}
+              </a>
+              <button
+                type="button"
+                onClick={() => copy(CONTACT.email)}
+                className="inline-flex h-11 items-center gap-2 rounded-full border border-line px-4 text-sm text-muted transition-colors duration-200 hover:border-fg hover:text-fg"
+              >
+                {copied === CONTACT.email ? <Check size={15} aria-hidden /> : <Copy size={15} aria-hidden />}
+                <span aria-live="polite">{copied === CONTACT.email ? 'Copied' : 'Copy'}</span>
+              </button>
             </div>
 
-            <div className="flex gap-4">
-              <a 
-                href={CONTACT_INFO.linkedin} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
-              >
-                <Linkedin size={18} />
-              </a>
-              <a 
-                href={CONTACT_INFO.github} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
-              >
-                <Github size={18} />
-              </a>
-              <a 
-                href="#home" 
-                onClick={(e) => handleScrollTo(e, 'home')}
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-slate-400 hover:bg-emerald-500 hover:text-white transition-all"
-              >
-                <Globe size={18} />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links (Explore) - Keeps normal navigation behavior */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Explore</h4>
-            <ul className="space-y-3 text-sm text-slate-400">
-              <li>
-                <a 
-                  href="#home" 
-                  onClick={(e) => handleScrollTo(e, 'home')}
-                  className="hover:text-emerald-400 transition-colors block"
+            <ul className="mt-12 grid sm:grid-cols-2">
+              {CHANNELS.map((c, i) => (
+                <li key={c.label} className={cn('border-t border-line', i % 2 === 1 && 'sm:border-l sm:pl-6')}>
+                  <a
+                    href={c.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between py-5 sm:pr-6"
+                  >
+                    <span>
+                      <span className="label block text-faint">{c.label}</span>
+                      <span className="mt-2 block text-lg transition-colors group-hover:text-fg">{c.value}</span>
+                    </span>
+                    <ArrowUpRight
+                      aria-hidden
+                      size={20}
+                      strokeWidth={1.5}
+                      className="text-muted transition-[transform,color] duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg"
+                    />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </li>
+              ))}
+              <li className="border-t border-line sm:col-span-2">
+                <button
+                  type="button"
+                  onClick={() => copy(CONTACT.phone)}
+                  className="group flex w-full items-center justify-between py-5 text-left"
                 >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#about" 
-                  onClick={(e) => handleScrollTo(e, 'about')}
-                  className="hover:text-emerald-400 transition-colors block"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#projects" 
-                  onClick={(e) => handleScrollTo(e, 'projects')}
-                  className="hover:text-emerald-400 transition-colors block"
-                >
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#experience" 
-                  onClick={(e) => handleScrollTo(e, 'experience')}
-                  className="hover:text-emerald-400 transition-colors block"
-                >
-                  Experience
-                </a>
+                  <span>
+                    <span className="label block text-faint">Phone</span>
+                    <span className="mt-2 block text-lg tabular-nums">{CONTACT.phone}</span>
+                  </span>
+                  <span className="flex items-center gap-2 text-sm text-muted transition-colors group-hover:text-fg">
+                    {copied === CONTACT.phone ? <Check size={15} aria-hidden /> : <Copy size={15} aria-hidden />}
+                    <span aria-live="polite">{copied === CONTACT.phone ? 'Copied' : 'Copy number'}</span>
+                  </span>
+                </button>
               </li>
             </ul>
-          </div>
-
-          {/* Services/Tags - Triggers Hire Modal */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Expertise</h4>
-            <ul className="space-y-3 text-sm text-slate-400">
-              <li>
-                <button onClick={onOpenHireModal} className="hover:text-emerald-400 transition-colors text-left">Data & Analytics</button>
-              </li>
-              <li>
-                <button onClick={onOpenHireModal} className="hover:text-emerald-400 transition-colors text-left">AI tools</button>
-              </li>
-              <li>
-                <button onClick={onOpenHireModal} className="hover:text-emerald-400 transition-colors text-left">Automation</button>
-              </li>
-              <li>
-                <button onClick={onOpenHireModal} className="hover:text-emerald-400 transition-colors text-left">Rapid Prototyping & "Vibe Coding"</button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Info - Triggers Hire Modal */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Contact</h4>
-            <ul className="space-y-4 text-sm text-slate-400">
-              <li className="flex items-start gap-3">
-                <Mail size={16} className="text-emerald-500 mt-1" />
-                <button onClick={onOpenHireModal} className="hover:text-white transition-colors text-left">{CONTACT_INFO.email}</button>
-              </li>
-              <li className="flex items-start gap-3">
-                <Phone size={16} className="text-emerald-500 mt-1" />
-                <button onClick={onOpenHireModal} className="hover:text-white transition-colors text-left">{CONTACT_INFO.phone}</button>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={16} className="text-emerald-500 mt-1" />
-                <button onClick={onOpenHireModal} className="hover:text-white transition-colors text-left">{CONTACT_INFO.location}</button>
-              </li>
-            </ul>
-          </div>
+          </Reveal>
         </div>
+      </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-600">
-          <p>© {new Date().getFullYear()} Mahesh Ushir. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-slate-400">Privacy Policy</a>
-            <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-slate-400">Terms of Service</a>
-          </div>
+      <Footer />
+    </section>
+  );
+};
+
+export function Footer() {
+  return (
+    <footer className="shell mt-24 md:mt-36">
+      <div className="label flex flex-col gap-6 border-t border-line py-8 text-faint md:flex-row md:items-center md:justify-between">
+        <p>© {new Date().getFullYear()} {PROFILE.name}. {PROFILE.location}.</p>
+        <p>
+          Motion components by{' '}
+          <a href="https://rareui.com" target="_blank" rel="noopener noreferrer" className="link-draw text-muted hover:text-fg">
+            Rare UI
+          </a>
+        </p>
+        <div className="flex items-center gap-6">
+          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-fg">LinkedIn</a>
+          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="hover:text-fg">GitHub</a>
+          <button
+            type="button"
+            onClick={() => (window.location.pathname === '/' ? scrollToId('home') : window.scrollTo({ top: 0 }))}
+            className="inline-flex items-center gap-2 uppercase hover:text-fg"
+          >
+            Top <ArrowUp size={13} aria-hidden />
+          </button>
         </div>
-
       </div>
     </footer>
   );
-};
+}
 
 export default Contact;

@@ -1,33 +1,52 @@
-# Mahesh Ushir
+# Mahesh Ushir — Portfolio
 
-**Data Analyst | Automation Strategist | Sports Analytics Expert**
+Personal portfolio of Mahesh Ushir, Data Analyst & Strategist. Live at
+[maheshushir.vercel.app](https://maheshushir.vercel.app).
 
-Welcome to my personal portfolio repository. This project showcases my professional journey, technical projects, and expertise in transforming raw data into actionable strategic insights.
+## Stack
 
-## 👨‍💻 About Me
+- React 19 + TypeScript, built with Vite
+- Tailwind CSS v4 (design tokens in `styles/index.css`)
+- Motion for React (`motion/react`) for reveals and transitions
+- Two components from [Rare UI](https://rareui.com): `AnimatedCounter` (hero metrics)
+  and `GravityLetters` (click the hero to drop glyphs), in `components/ui/`
+- Self-hosted Geist, Geist Mono and Instrument Serif via Fontsource
 
-I am a strategic Solution Engineer and Data Analyst with a passion for architecting automated BI dashboards and cloud-based workflows. My work bridges the gap between complex data science and practical business growth, helping brands scale operations through data-driven decision-making.
+## Structure
 
-Beyond corporate data, I am a passionate Sports Analyst, having built a thriving community around high-level match insights and statistical deep-dives for global sports media. I specialize in processing real-time data into structured reports and technical narratives.
+| Path | What it holds |
+|---|---|
+| `lib/content.ts` | Every fact on the site: profile, metrics, projects, case studies, experience |
+| `lib/motion.ts` | Shared easing, durations and viewport settings |
+| `lib/router.ts` | Minimal router for `/` and `/work/<slug>` |
+| `components/primitives.tsx` | `Reveal`, `SplitWords`, `SectionHead`, `Button`, `TextLink` |
+| `components/*.tsx` | One file per section, plus `CaseStudy.tsx` |
+| `public/work/` | Project screenshots and charts (WebP), taken from the project repos |
 
-## 🛠 Tech Stack & Expertise
+To change a number, a project or a job, edit `lib/content.ts` only.
 
-*   **Data Science & ML:** Python (Pandas, NumPy, Scikit-Learn), SQL, Predictive Modeling.
-*   **Business Intelligence:** Power BI, Tableau, Excel, IBM Cognos.
-*   **Automation:** n8n, Make.com, Workflow Automation.
-*   **Sports Analytics:** Statistical Analysis, Technical Narratives, Content Strategy.
+## Develop
 
-## 🚀 Portfolio Highlights
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # type-safe production build into dist/
+npm run preview
+```
 
-*   **Predictive Analytics:** Developed machine learning models for bankruptcy detection and customer churn prediction.
-*   **Business Intelligence:** Created automated dashboards for D2C businesses and jewelry brands to visualize inventory and sales data.
-*   **Sports Data:** Delivered hundreds of statistical reports and match insights for major sports media platforms.
+The build also writes `dist/work/<slug>/index.html` for each case study (own title,
+description and canonical URL for crawlers and link previews) and `dist/sitemap.xml`.
+`vercel.json` falls back to `index.html` for client-side routes.
 
-## 📫 Connect With Me
+## Adding Rare UI components
 
-*   **LinkedIn:** [linkedin.com/in/mahesh-ushir](https://www.linkedin.com/in/mahesh-ushir/)
-*   **Email:** 135790mahesh@gmail.com
-*   **Location:** Pune, India
+`components.json` registers the Rare UI registry:
 
----
-*© Mahesh Ushir. All rights reserved.*
+```bash
+npx shadcn@latest add @rare-ui/<component>
+```
+
+## Credits
+
+Motion components by [Rare UI](https://rareui.com) © Swami Malode, used under its
+MIT + Commons Clause + Attribution license. The credit is also linked in the site footer.

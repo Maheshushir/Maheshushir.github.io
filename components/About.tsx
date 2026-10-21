@@ -1,207 +1,103 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Brain, Trophy, BarChart3, Cpu } from 'lucide-react';
-import { SKILL_CATEGORIES } from '../constants';
-
-const beliefs = [
-  {
-    icon: BarChart3,
-    label: 'BI & Visualization',
-    title: 'Insight Generation',
-    color: 'text-emerald-400',
-    bgColor: 'bg-emerald-500/10',
-    description: 'Transforming raw data into strategic business growth. Building comprehensive BI dashboards for immediate, clear decision making.'
-  },
-  {
-    icon: Cpu,
-    label: 'Automation',
-    title: 'Data Engineering',
-    color: 'text-blue-400',
-    bgColor: 'bg-blue-500/10',
-    description: 'Streamlining data pipelines. Leveraging tools like n8n and Python to automate complex workflows, saving hundreds of manual hours.'
-  },
-  {
-    icon: Brain,
-    label: 'Predictive',
-    title: 'Advanced Analytics',
-    color: 'text-violet-400',
-    bgColor: 'bg-violet-500/10',
-    description: 'Forecasting the future with data. Using RFM segmentation, churn models, and ML algorithms to uncover actionable growth opportunities.'
-  }
-];
-
-// Color palette definitions for skill cards
-const THEME_STYLES = {
-  emerald: {
-    border: 'border-emerald-500/20',
-    shadow: 'shadow-[0_0_30px_rgba(16,185,129,0.05)]',
-    icon: 'text-emerald-400',
-    title: 'text-white', 
-    header: 'text-emerald-500/80',
-    tag: 'bg-emerald-950/30 border-emerald-500/20 text-emerald-100'
-  },
-  blue: {
-    border: 'border-blue-500/20',
-    shadow: 'shadow-[0_0_30px_rgba(59,130,246,0.05)]',
-    icon: 'text-blue-400',
-    title: 'text-white',
-    header: 'text-blue-500/80',
-    tag: 'bg-blue-950/30 border-blue-500/20 text-blue-100'
-  },
-  violet: {
-    border: 'border-violet-500/20',
-    shadow: 'shadow-[0_0_30px_rgba(139,92,246,0.05)]',
-    icon: 'text-violet-400',
-    title: 'text-white',
-    header: 'text-violet-500/80',
-    tag: 'bg-violet-950/30 border-violet-500/20 text-violet-100'
-  }
-};
+import { motion } from 'motion/react';
+import { Reveal, SectionHead } from '@/components/primitives';
+import { ABOUT, PROFILE } from '@/lib/content';
+import { EASE, VIEWPORT } from '@/lib/motion';
 
 const About: React.FC = () => {
   return (
-    <section id="about" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.5 }}
-            className="inline-block mb-4"
-          >
-            <span className="py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-widest uppercase border border-emerald-500/20">
-              The Vision
-            </span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="font-display font-bold text-4xl md:text-5xl mb-6"
-          >
-            Data driven. <span className="text-slate-500">Future focused.</span>
-          </motion.h2>
-          <motion.p
-             initial={{ opacity: 0, y: 15 }}
-             whileInView={{ opacity: 1, y: 0 }}
-             viewport={{ once: true, amount: 0.5 }}
-             transition={{ delay: 0.2, duration: 0.6 }}
-             className="text-slate-400 max-w-2xl mx-auto text-lg italic"
-          >
-            "Without data, you're just another person with an opinion."
-            <span className="block mt-2 text-sm text-slate-500 font-medium not-italic">— W. Edwards Deming</span>
-          </motion.p>
-        </div>
+    <section id="about" className="bg-paper py-24 text-paper-fg md:py-36" aria-label="About">
+      <div className="shell">
+        <SectionHead index="01" label="About" title={'Beyond the\n*numbers.*'} />
 
-        {/* Identity Cards: Staggered grid (1 col mobile, 2 tablet, 3 PC) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
-          {beliefs.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
-              className={`glass-card p-8 rounded-2xl group hover:bg-white/5 transition-colors relative overflow-hidden flex flex-col items-center text-center md:items-start md:text-left ${index === 2 ? 'md:col-span-2 lg:col-span-1' : ''}`}
-            >
-              <div className={`w-14 h-14 ${item.bgColor} rounded-xl flex items-center justify-center ${item.color} mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <item.icon size={28} />
-              </div>
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">{item.label}</div>
-              <h3 className={`text-xl font-bold ${item.color} mb-4`}>{item.title}</h3>
-              <p className="text-slate-400 leading-relaxed">{item.description}</p>
-            </motion.div>
-          ))}
-        </div>
+        <div className="grid gap-12 md:grid-cols-12 md:gap-8">
+          <motion.figure
+            className="md:col-span-4 lg:col-span-3"
+            initial={{ clipPath: 'inset(0% 0% 100% 0%)' }}
+            whileInView={{ clipPath: 'inset(0% 0% 0% 0%)' }}
+            viewport={VIEWPORT}
+            transition={{ duration: 1.1, ease: EASE }}
+          >
+            <img
+              src={PROFILE.photo}
+              alt="Portrait of Mahesh Ushir in a light suit jacket"
+              width={460}
+              height={460}
+              loading="lazy"
+              decoding="async"
+              className="aspect-[4/5] w-full max-w-sm object-cover grayscale"
+            />
+            <figcaption className="label mt-4 flex justify-between text-paper-muted">
+              <span>{PROFILE.name}</span>
+              <span>{PROFILE.location}</span>
+            </figcaption>
+          </motion.figure>
 
-        {/* Process Block */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="rounded-3xl bg-gradient-to-r from-emerald-900/20 to-blue-900/20 border border-white/5 p-8 md:p-12 mb-24 relative overflow-hidden text-center md:text-left"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2" />
-          
-          <div className="flex flex-col md:flex-row gap-8 items-center relative z-10">
-            <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center text-white shrink-0">
-              <Cpu size={32} />
-            </div>
-            <div>
-              <h3 className="text-2xl font-display font-bold text-white mb-3">The Soloist Methodology</h3>
-              <p className="text-slate-300 text-lg leading-relaxed font-light">
-                Leveraged Generative AI and Low-Code frameworks to rapidly prototype and deploy full-stack data applications, focusing on architectural logic and business ROI.
+          <div className="md:col-span-8 md:col-start-5 lg:col-span-8 lg:col-start-5">
+            <Reveal>
+              <p className="text-[clamp(1.5rem,2.6vw,2.5rem)] leading-[1.18] font-normal tracking-[-0.025em]">
+                {ABOUT.intro}
               </p>
+            </Reveal>
+            <div className="mt-10 grid gap-6 text-paper-muted sm:grid-cols-2 sm:gap-10">
+              {ABOUT.body.map((p, i) => (
+                <Reveal key={i} delay={0.08 * i}>
+                  <p className="leading-relaxed">{p}</p>
+                </Reveal>
+              ))}
             </div>
           </div>
-        </motion.div>
-
-        {/* Technical Arsenal Grid */}
-        <div className="space-y-12">
-           <motion.h3 
-             initial={{ opacity: 0 }}
-             whileInView={{ opacity: 1 }}
-             viewport={{ once: true }}
-             className="text-2xl font-display font-bold text-center mb-8"
-           >
-             Strategic Capabilities & Technology Stack
-           </motion.h3>
-
-           {/* Responsive Grid: 1 -> 2 -> 3 columns */}
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-             {SKILL_CATEGORIES.map((category, catIndex) => {
-               const isHighlight = category.highlight;
-               const colSpan = isHighlight ? "md:col-span-2 lg:col-span-3" : "lg:col-span-1";
-               
-               const theme = category.theme || 'emerald';
-               const styles = THEME_STYLES[theme];
-               const Icon = category.icon || Cpu;
-
-               return (
-                 <motion.div
-                   key={category.title}
-                   initial={{ opacity: 0, y: 20 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   viewport={{ once: true, margin: "-50px" }}
-                   transition={{ delay: catIndex * 0.1, duration: 0.6 }}
-                   className={`rounded-3xl p-8 border ${styles.border} ${isHighlight ? 'bg-[#0A0A0A]' : 'glass-card'} ${styles.shadow} ${colSpan} flex flex-col`}
-                 >
-                   <div className="flex items-center gap-3 mb-6 justify-center md:justify-start">
-                      <Icon className={styles.icon} size={24} />
-                      <h4 className={`text-2xl font-bold ${styles.title}`}>
-                        {category.title}
-                      </h4>
-                   </div>
-
-                   <div className={`grid gap-6 ${isHighlight ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-                      {category.groups.map((group) => (
-                        <div key={group.name} className="relative text-center md:text-left">
-                          <h5 className={`text-xs font-bold uppercase tracking-wider mb-3 ${styles.header}`}>
-                            {group.name}
-                          </h5>
-                          <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                            {group.skills.map((skill) => (
-                              <span 
-                                key={skill} 
-                                className={`text-sm px-3 py-1.5 rounded-md font-medium border ${styles.tag}`}
-                              >
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                   </div>
-                 </motion.div>
-               );
-             })}
-           </div>
         </div>
 
+        {/* How I work */}
+        <div className="mt-24 md:mt-36">
+          <Reveal className="label mb-8 flex items-center gap-4 text-paper-muted">
+            <span>How I work</span>
+            <span aria-hidden className="h-px flex-1 bg-paper-line" />
+          </Reveal>
+          <ol className="grid md:grid-cols-3">
+            {ABOUT.principles.map((p, i) => (
+              <Reveal
+                as="li"
+                key={p.title}
+                delay={0.08 * i}
+                className="border-t border-paper-line py-8 md:border-t-0 md:border-l md:py-2 md:pr-8 md:pl-6 md:first:border-l-0 md:first:pl-0"
+              >
+                <span className="font-mono text-xs text-paper-muted">0{i + 1}</span>
+                <h3 className="mt-6 text-2xl font-medium tracking-[-0.03em]">{p.title}</h3>
+                <p className="mt-3 max-w-[38ch] leading-relaxed text-paper-muted">{p.text}</p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+
+        {/* Off the clock */}
+        <div className="mt-24 grid gap-12 border-t border-paper-line pt-10 md:mt-32 md:grid-cols-12 md:gap-8">
+          <Reveal className="md:col-span-4">
+            <p className="label text-paper-muted">Off the clock</p>
+            <p className="mt-4 max-w-[34ch] leading-relaxed text-paper-muted">
+              Football analytics, written for an audience of millions: match statistics for outlets
+              including Bleacher Report and 433.
+            </p>
+          </Reveal>
+          <dl className="grid grid-cols-3 gap-4 md:col-span-8">
+            {ABOUT.stats.map((s, i) => (
+              <Reveal key={s.label} delay={0.08 * i} className="flex flex-col">
+                <dt className="order-2 mt-3 text-sm leading-snug text-paper-muted">{s.label}</dt>
+                <dd className="text-[clamp(2rem,5vw,4.5rem)] leading-none font-medium tracking-[-0.045em] tabular-nums">
+                  {s.value}
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
+
+        <Reveal className="mt-24 md:mt-32">
+          <blockquote className="mx-auto max-w-4xl text-center">
+            <p className="serif text-[clamp(1.75rem,4vw,3.5rem)] leading-[1.1]">“{ABOUT.quote.text}”</p>
+            <footer className="label mt-6 text-paper-muted">— {ABOUT.quote.by}</footer>
+          </blockquote>
+        </Reveal>
       </div>
     </section>
   );

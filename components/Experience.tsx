@@ -1,104 +1,93 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Briefcase } from 'lucide-react';
-import { EXPERIENCE } from '../constants';
+import { Reveal, SectionHead } from '@/components/primitives';
+import { CERTIFICATIONS, EDUCATION, EXPERIENCE } from '@/lib/content';
+
+function SubHead({ children }: { children: React.ReactNode }) {
+  return (
+    <Reveal className="label mb-6 flex items-center gap-4 text-paper-muted">
+      <span>{children}</span>
+      <span aria-hidden className="h-px flex-1 bg-paper-line" />
+    </Reveal>
+  );
+}
 
 const Experience: React.FC = () => {
   return (
-    <section id="experience" className="py-24 bg-surface/50 relative">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-4 mb-16"
-        >
-          <div className="h-px bg-white/10 flex-1"></div>
-          <h2 className="font-display font-bold text-3xl md:text-4xl text-center">Professional Journey</h2>
-          <div className="h-px bg-white/10 flex-1"></div>
-        </motion.div>
+    <section id="experience" className="bg-paper py-24 text-paper-fg md:py-36" aria-label="Experience">
+      <div className="shell">
+        <SectionHead index="04" label="Experience" title={'Where the work\n*happened.*'} />
 
-        <div className="space-y-12 relative">
-          {/* Vertical Line with Draw Animation */}
-          <motion.div 
-            initial={{ height: 0 }}
-            whileInView={{ height: '100%' }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute left-[27px] top-4 bottom-4 w-0.5 bg-gradient-to-b from-emerald-500/50 to-transparent md:left-1/2 md:-translate-x-1/2 z-0 opacity-30" 
-          />
-
-          {EXPERIENCE.map((exp, index) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
-              className={`relative flex flex-col md:flex-row items-center ${
-                index % 2 === 0 ? 'md:flex-row-reverse' : ''
-              }`}
+        <ol>
+          {EXPERIENCE.map((job) => (
+            <Reveal
+              as="li"
+              key={job.company}
+              className="grid gap-6 border-t border-paper-line py-10 md:grid-cols-12 md:gap-8 md:py-14"
             >
-              {/* Timeline Dot with Scale Animation */}
-              <motion.div 
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 + 0.2, type: "spring", stiffness: 200 }}
-                className="absolute left-7 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-emerald-500 rounded-full border-4 border-[#0F0F0F] z-10 top-8 shadow-[0_0_15px_rgba(16,185,129,0.5)]"
-              ></motion.div>
+              <div className="md:col-span-3">
+                <p className="font-mono text-sm tabular-nums">{job.period}</p>
+                <p className="label mt-2 text-paper-muted">{job.type}</p>
+              </div>
 
-              {/* Content Card */}
-              <div className={`w-full pl-16 md:w-1/2 ${index % 2 === 0 ? 'md:pl-12 md:pr-0' : 'md:pr-12 md:pl-0'}`}>
-                <div className="glass-card p-8 rounded-2xl relative hover:border-emerald-500/30 transition-colors duration-300 w-full">
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-                    <h3 className="text-xl md:text-2xl font-bold text-white">{exp.role}</h3>
-                    <div className="flex items-center gap-3 shrink-0"> 
-                      <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/10 text-slate-300 border border-white/5">
-                        {exp.type}
-                      </span>
-                      <span className="text-xs text-emerald-400 font-mono font-medium whitespace-nowrap">{exp.period}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col mb-6 pb-4 border-b border-white/5">
-                    <div className="flex items-center gap-2 text-slate-400 text-sm font-medium mb-1">
-                      <Briefcase size={16} className="text-emerald-500" />
-                      <span className="text-slate-300">{exp.company}</span>
-                    </div>
-                    {exp.companyDescriptor && (
-                      <div className="text-xs text-slate-500 pl-6 italic">
-                        {exp.companyDescriptor}
-                      </div>
-                    )}
-                  </div>
-                  
-                  {exp.subRoles && (
-                    <div className="mb-6 space-y-3 pl-2 border-l-2 border-white/10">
-                      {exp.subRoles.map((sub, i) => (
-                        <div key={i} className="pl-4">
-                          <h4 className="text-sm font-bold text-slate-200">{sub.role}</h4>
-                          <span className="text-[11px] text-emerald-400 font-mono font-medium block mt-0.5">{sub.period}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+              <div className="md:col-span-9 lg:col-span-8">
+                <h3 className="text-[clamp(1.625rem,3vw,2.75rem)] leading-[1.05] font-medium tracking-[-0.035em]">
+                  {job.role}
+                  <span className="text-paper-muted"> — {job.company}</span>
+                </h3>
+                {job.descriptor && <p className="mt-3 text-paper-muted">{job.descriptor}</p>}
 
-                  <ul className="space-y-3">
-                    {exp.description.map((point, i) => (
-                      <li key={i} className="text-slate-400 text-sm md:text-base leading-relaxed flex items-start gap-3">
-                        <span className="text-emerald-500 mt-1.5 min-w-[6px] h-1.5 rounded-full bg-emerald-500/50"></span>
-                        <span>{point}</span>
+                {job.steps && (
+                  <ul className="mt-6 flex flex-col gap-1 border-l border-paper-line pl-4 text-sm">
+                    {job.steps.map((s) => (
+                      <li key={s.role} className="flex flex-wrap gap-x-3">
+                        <span>{s.role}</span>
+                        <span className="font-mono text-paper-muted">{s.period}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                )}
+
+                <ul className="mt-8 grid gap-4 lg:grid-cols-2 lg:gap-x-10">
+                  {job.highlights.map((h) => (
+                    <li key={h} className="grid grid-cols-[1rem_1fr] leading-relaxed text-paper-muted">
+                      <span aria-hidden className="mt-[0.7em] h-px w-2 bg-paper-fg" />
+                      <span>{h}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              
-              {/* Empty space for the other side to maintain structure */}
-              <div className="hidden md:block md:w-1/2" />
-            </motion.div>
+            </Reveal>
           ))}
+        </ol>
+
+        <div className="mt-20 grid gap-16 md:mt-28 md:grid-cols-2 md:gap-8">
+          <div>
+            <SubHead>Education</SubHead>
+            <ul>
+              {EDUCATION.map((e) => (
+                <Reveal as="li" key={e.title} className="border-t border-paper-line py-6">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3 className="text-xl font-medium tracking-[-0.02em]">{e.title}</h3>
+                    <span className="shrink-0 font-mono text-sm text-paper-muted">{e.period}</span>
+                  </div>
+                  <p className="mt-1 text-paper-muted">
+                    {e.org} · {e.note}
+                  </p>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <SubHead>Certifications</SubHead>
+            <ul>
+              {CERTIFICATIONS.map((c) => (
+                <Reveal as="li" key={c.title} className="border-t border-paper-line py-6">
+                  <h3 className="text-xl font-medium tracking-[-0.02em]">{c.title}</h3>
+                  <p className="mt-1 text-paper-muted">{c.org}</p>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
