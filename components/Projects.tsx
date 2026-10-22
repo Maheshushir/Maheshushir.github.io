@@ -33,7 +33,7 @@ export function Shot({ image, className, eager, color }: { image: Image; classNa
         height={image.height}
         loading={eager ? 'eager' : 'lazy'}
         decoding="async"
-        className={cn('block h-auto w-full transition-[filter,transform] duration-700 ease-out-expo group-hover:scale-[1.025]', !image.matte && !color && 'grayscale-[85%] group-hover:grayscale-0')}
+        className={cn('block h-auto w-full transition-[filter,transform] duration-700 ease-out-expo md:group-hover:scale-[1.025]', !image.matte && !color && 'grayscale-[85%] group-hover:grayscale-0')}
       />
     </motion.div>
   );
@@ -52,7 +52,7 @@ export function DatasetPanel() {
         <span>telecom_churn.csv</span>
         <span>20 columns</span>
       </div>
-      <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 font-mono text-[0.6875rem] text-muted sm:grid-cols-3 md:text-xs xl:grid-cols-4">
+      <ul className="grid grid-cols-2 gap-x-6 gap-y-1.5 font-mono text-xs text-muted sm:grid-cols-3 xl:grid-cols-4">
         {TELECOM_FEATURES.map((f) => (
           <li
             key={f}
@@ -78,19 +78,19 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
   const number = String(index + 1).padStart(2, '0');
 
   return (
-    <article className="border-t border-line py-14 md:py-24" aria-labelledby={`p-${project.slug}`}>
-      <Reveal className="label mb-8 flex items-center justify-between text-faint md:mb-12">
-        <span>
+    <article className="border-t border-line py-12 md:py-24" aria-labelledby={`p-${project.slug}`}>
+      <Reveal className="label mb-6 flex items-center justify-between gap-4 text-faint md:mb-12">
+        <span className="shrink-0 whitespace-nowrap">
           <span className="text-fg">{number}</span> / {String(FEATURED.length).padStart(2, '0')}
         </span>
-        <span>{project.category}</span>
+        <span className="text-right">{project.category}</span>
       </Reveal>
 
-      <div className="grid gap-10 md:grid-cols-12 md:gap-12 lg:gap-16">
+      <div className="grid gap-8 md:grid-cols-12 md:gap-12 lg:gap-16">
         <a
           href={href}
           onClick={onInternalLink}
-          className={cn('group relative block md:col-span-7', flip && 'md:order-2')}
+          className={cn('group bleed relative block md:col-span-7', flip && 'md:order-2')}
           aria-label={`${project.title} case study`}
         >
           {project.cover ? <Shot image={project.cover} /> : <DatasetPanel />}
@@ -109,46 +109,45 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
             </a>
           </h3>
 
-          <Reveal delay={0.1}>
-            <p className="mt-6 text-lead text-muted">{project.problem}</p>
-          </Reveal>
+          {/* One reveal for the whole column: the text arrives together, not line by line. */}
+          <Reveal delay={0.1} className="flex flex-1 flex-col">
+            <p className="mt-5 text-lead text-muted md:mt-6">{project.problem}</p>
 
-          <Reveal delay={0.15} className="mt-8 border-l border-line pl-5">
-            <p className="label mb-2 text-faint">Outcome</p>
-            <p className="leading-relaxed">{project.outcome}</p>
-          </Reveal>
+            <div className="mt-7 border-l border-line pl-5 md:mt-8">
+              <p className="label mb-2 text-faint">Outcome</p>
+              <p className="leading-relaxed">{project.outcome}</p>
+            </div>
 
-          {project.facts && (
-            <Reveal delay={0.2}>
-              <dl className="mt-10 grid grid-cols-3 gap-4 border-y border-line py-5">
+            {project.facts && (
+              <dl className="mt-8 grid gap-3 border-y border-line py-5 min-[360px]:grid-cols-3 min-[360px]:gap-4 md:mt-10">
                 {project.facts.map((f) => (
-                  <div key={f.label} className="flex flex-col">
-                    <dt className="label order-2 mt-2 text-faint">{f.label}</dt>
+                  <div key={f.label} className="flex items-baseline justify-between gap-4 min-[360px]:flex-col min-[360px]:items-start min-[360px]:justify-start min-[360px]:gap-0">
+                    <dt className="label order-2 text-right text-faint min-[360px]:mt-2 min-[360px]:text-left md:tracking-[0.06em] xl:tracking-[0.12em]">{f.label}</dt>
                     <dd className="-order-1 text-[clamp(1.0625rem,1.6vw,1.5rem)] font-medium tracking-[-0.03em] tabular-nums">
                       {f.value}
                     </dd>
                   </div>
                 ))}
               </dl>
-            </Reveal>
-          )}
+            )}
 
-          <Reveal delay={0.25} className="mt-8 md:mt-auto md:pt-10">
-            <p className="font-mono text-xs text-muted">{project.stack.join('  /  ')}</p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3 text-[0.9375rem]">
-              <a
-                href={href}
-                onClick={onInternalLink}
-                className="group inline-flex h-11 items-center gap-3 rounded-full bg-fg pr-5 pl-6 font-medium text-ink transition-colors hover:bg-white"
-              >
-                View case study
-                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-              </a>
-              {project.links.map((l) => (
-                <TextLink key={l.href} href={l.href} className="text-muted hover:text-fg">
-                  {l.label}
-                </TextLink>
-              ))}
+            <div className="mt-8 md:mt-auto md:pt-10">
+              <p className="font-mono text-[0.8125rem] leading-relaxed text-muted">{project.stack.join('  /  ')}</p>
+              <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3 text-[0.9375rem]">
+                <a
+                  href={href}
+                  onClick={onInternalLink}
+                  className="group inline-flex h-12 items-center gap-3 rounded-full bg-fg pr-5 pl-6 font-medium text-ink transition-colors hover:bg-white"
+                >
+                  View case study
+                  <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                </a>
+                {project.links.map((l) => (
+                  <TextLink key={l.href} href={l.href} className="text-muted hover:text-fg">
+                    {l.label}
+                  </TextLink>
+                ))}
+              </div>
             </div>
           </Reveal>
         </div>
@@ -165,40 +164,42 @@ function Archive() {
         <span>{ARCHIVE.length} more projects</span>
         <span aria-hidden className="h-px flex-1 bg-line" />
       </Reveal>
-      <ul>
-        {ARCHIVE.map((p, i) => {
-          const link = p.links[0];
-          return (
-            <Reveal as="li" key={p.slug} delay={Math.min(i, 6) * 0.03}>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group grid grid-cols-[2.25rem_1fr_auto] items-baseline gap-x-4 border-t border-line py-5 transition-colors duration-200 hover:bg-ink-2 md:grid-cols-[3rem_minmax(0,4fr)_minmax(0,5fr)_minmax(0,2fr)_2rem] md:gap-x-6 md:px-2 md:py-6"
-              >
-                <span className="font-mono text-xs text-faint">{String(i + FEATURED.length + 1).padStart(2, '0')}</span>
-                <span className="text-lg font-medium tracking-[-0.02em] transition-transform duration-300 ease-out-expo group-hover:translate-x-1 md:text-xl">
-                  {p.title}
-                  <span className="mt-1 block text-sm font-normal tracking-normal text-muted md:hidden">{p.outcome}</span>
-                </span>
-                <span className="hidden text-sm leading-relaxed text-muted md:block">{p.outcome}</span>
-                <span className="label hidden text-faint md:block">{p.category}</span>
-                <span className="flex justify-end text-muted transition-colors group-hover:text-fg">
-                  <ArrowUpRight aria-hidden size={18} strokeWidth={1.5} />
-                  <span className="sr-only">{link.label} (opens in a new tab)</span>
-                </span>
-              </a>
-            </Reveal>
-          );
-        })}
-      </ul>
+      <Reveal>
+        <ul>
+          {ARCHIVE.map((p, i) => {
+            const link = p.links[0];
+            return (
+              <li key={p.slug}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group grid grid-cols-[2.25rem_1fr_auto] items-baseline gap-x-4 border-t border-line py-5 transition-colors duration-200 hover:bg-ink-2 md:grid-cols-[3rem_minmax(0,4fr)_minmax(0,5fr)_minmax(0,2fr)_2rem] md:gap-x-6 md:px-2 md:py-6"
+                >
+                  <span className="font-mono text-xs text-faint">{String(i + FEATURED.length + 1).padStart(2, '0')}</span>
+                  <span className="text-lg font-medium tracking-[-0.02em] transition-transform duration-300 ease-out-expo group-hover:translate-x-1 md:text-xl">
+                    {p.title}
+                    <span className="mt-1.5 block text-[0.9375rem] leading-snug font-normal tracking-normal text-muted md:hidden">{p.outcome}</span>
+                  </span>
+                  <span className="hidden text-sm leading-relaxed text-muted md:block">{p.outcome}</span>
+                  <span className="label hidden text-faint md:block">{p.category}</span>
+                  <span className="flex justify-end text-muted transition-colors group-hover:text-fg">
+                    <ArrowUpRight aria-hidden size={18} strokeWidth={1.5} />
+                    <span className="sr-only">{link.label} (opens in a new tab)</span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </Reveal>
     </div>
   );
 }
 
 const Projects: React.FC = () => {
   return (
-    <section id="projects" className="bg-ink py-24 md:py-36" aria-label="Projects">
+    <section id="projects" className="bg-ink py-20 md:py-32" aria-label="Projects">
       <div className="shell">
         <SectionHead
           index="03"

@@ -51,7 +51,7 @@ const CaseStudy: React.FC<{ project: Project }> = ({ project }) => {
           <a
             href="/#projects"
             onClick={onInternalLink}
-            className="label group inline-flex items-center gap-2 text-muted hover:text-fg"
+            className="label group inline-flex min-h-11 items-center gap-2 text-muted hover:text-fg"
           >
             <ArrowLeft aria-hidden size={14} className="transition-transform duration-200 group-hover:-translate-x-1" />
             All work

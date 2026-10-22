@@ -103,13 +103,13 @@ export function SectionHead({
   className?: string;
 }) {
   return (
-    <header className={cn('mb-14 md:mb-24', className)}>
+    <header className={cn('mb-12 md:mb-20', className)}>
       <Reveal className="label flex items-center gap-4 opacity-70">
         <span>({index})</span>
         <span>{label}</span>
         <span aria-hidden className="h-px flex-1 bg-current opacity-25" />
       </Reveal>
-      <div className="mt-8 grid gap-8 md:mt-12 md:grid-cols-12 md:items-end">
+      <div className="mt-7 grid gap-6 md:mt-12 md:grid-cols-12 md:items-end md:gap-8">
         <h2 className="text-headline font-medium md:col-span-8">
           <SplitWords text={title} />
         </h2>
@@ -123,6 +123,7 @@ type ButtonProps = {
   href: string;
   children: React.ReactNode;
   variant?: 'solid' | 'outline';
+  size?: 'md' | 'lg';
   tone?: 'dark' | 'light';
   external?: boolean;
   download?: boolean;
@@ -134,6 +135,7 @@ export function Button({
   href,
   children,
   variant = 'solid',
+  size = 'md',
   tone = 'dark',
   external,
   className,
@@ -152,7 +154,8 @@ export function Button({
       onClick={isExternal ? undefined : onInternalLink}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={cn(
-        'group inline-flex h-12 items-center gap-3 rounded-full pl-6 pr-5 text-[0.9375rem] font-medium transition-colors duration-200',
+        'group inline-flex items-center gap-3 rounded-full font-medium transition-colors duration-200',
+        size === 'lg' ? 'h-[3.25rem] pr-6 pl-7 text-base' : 'h-12 pr-5 pl-6 text-[0.9375rem]',
         variant === 'solid' ? solid : outline,
         className,
       )}
@@ -188,7 +191,7 @@ export function TextLink({
       href={href}
       onClick={isExternal ? undefined : onInternalLink}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      className={cn('group inline-flex items-center gap-1.5', className)}
+      className={cn('group inline-flex min-h-11 items-center gap-1.5', className)}
     >
       <span className="link-draw pb-0.5">{children}</span>
       {isExternal ? (

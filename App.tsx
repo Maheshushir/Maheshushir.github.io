@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { MotionConfig } from 'motion/react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -54,11 +55,12 @@ const App: React.FC = () => {
   const match = pathname.match(/^\/work\/([\w-]+)$/);
   const project = match && FEATURED.find((p) => p.slug === match[1]);
 
+  // reducedMotion="user": with the OS setting on, reveals keep their fade but drop all movement.
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Navbar />
       {pathname === '/' ? <Home /> : project ? <CaseStudy key={project.slug} project={project} /> : <NotFound />}
-    </>
+    </MotionConfig>
   );
 };
 

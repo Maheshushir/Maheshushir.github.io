@@ -28,7 +28,10 @@ function Counter({ metric, delay }: { metric: Metric; delay: number }) {
   }, [inView, metric.value, delay]);
 
   return (
-    <div ref={ref} className="border-t border-line pt-4 md:border-t-0 md:border-l md:pt-0 md:pl-6">
+    <div
+      ref={ref}
+      className="grid grid-cols-[minmax(7.5rem,auto)_1fr] items-center gap-x-5 border-t border-line pt-4 sm:block md:border-t-0 md:border-l md:pt-0 md:pl-6"
+    >
       <AnimatedCounter
         value={value}
         duration={1.1}
@@ -37,7 +40,7 @@ function Counter({ metric, delay }: { metric: Metric; delay: number }) {
         className="text-[clamp(2rem,3.4vw,3.25rem)] leading-none font-medium tracking-[-0.04em]"
         aria-label={`${metric.prefix ?? ''}${metric.value}${metric.suffix ?? ''}`}
       />
-      <p className="mt-3 max-w-[22ch] text-sm leading-snug text-muted">{metric.label}</p>
+      <p className="max-w-[22ch] text-sm leading-snug text-muted sm:mt-3">{metric.label}</p>
     </div>
   );
 }
@@ -55,7 +58,7 @@ const Hero: React.FC = () => {
     >
       <section aria-labelledby="hero-title" className="shell relative z-10 flex flex-1 flex-col pt-28 pb-8 font-sans md:pt-32">
         {/* Masthead row */}
-        <motion.div {...fade(0.1)} className="label grid grid-cols-2 gap-y-3 text-muted md:grid-cols-4">
+        <motion.div {...fade(0)} className="label grid grid-cols-2 gap-y-3 text-muted md:grid-cols-4">
           <span>Data Analyst<span className="hidden sm:inline"> / Strategist</span></span>
           <span className="text-right md:text-left">{PROFILE.location}</span>
           <span className="hidden md:block">Analytics · BI · Automation</span>
@@ -66,15 +69,15 @@ const Hero: React.FC = () => {
         </motion.div>
 
         {/* Headline */}
-        <div className="flex flex-1 flex-col justify-center py-14 md:py-16">
+        <div className="flex flex-1 flex-col justify-center py-11 md:py-16">
           <h1 id="hero-title">
-            <motion.span {...fade(0.2)} className="mb-6 block text-lg font-normal tracking-tight text-muted md:mb-8 md:text-2xl">
+            <motion.span {...fade(0.05)} className="mb-5 block text-base font-normal tracking-tight text-muted xs:text-lg md:mb-8 md:text-2xl">
               <span className="text-fg">{PROFILE.name}</span>, Data Analyst & Strategist
             </motion.span>
             <SplitWords
               immediate
-              delay={0.1}
-              stagger={0.05}
+              delay={0.12}
+              stagger={0.055}
               className="block text-display font-medium"
               text={'Turning complex data\ninto *smarter* decisions.'}
             />
@@ -82,30 +85,32 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Supporting copy, actions and evidence */}
-        <div className="grid gap-12 md:grid-cols-12 md:items-end md:gap-8">
-          <motion.div {...fade(0.9)} className="md:col-span-5">
+        <div className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8">
+          <motion.div {...fade(0.7)} className="md:col-span-5">
             <p className="max-w-[44ch] text-lead text-muted">
               I turn raw data into decisions people can act on, through analytics, business
               intelligence, automation and careful problem-solving.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/#projects">Explore my work</Button>
-              <Button href={PROFILE.resume} variant="outline">
+            <div className="mt-8 grid gap-3 xs:flex xs:flex-wrap">
+              <Button href="/#projects" size="lg" className="justify-between xs:justify-start">
+                Explore my work
+              </Button>
+              <Button href={PROFILE.resume} variant="outline" className="justify-between xs:justify-start">
                 Download resume
               </Button>
             </div>
           </motion.div>
 
-          <motion.div {...fade(1.05)} className="grid gap-6 sm:grid-cols-3 md:col-span-7 md:gap-0">
+          <motion.div {...fade(0.85)} className="grid gap-4 sm:grid-cols-3 sm:gap-6 md:col-span-7 md:gap-0">
             {HERO_METRICS.map((m, i) => (
-              <Counter key={m.label} metric={m} delay={1.1 + i * 0.12} />
+              <Counter key={m.label} metric={m} delay={0.95 + i * 0.12} />
             ))}
           </motion.div>
         </div>
 
         {/* Footer rail */}
-        <motion.div {...fade(1.3)} className="label mt-14 flex items-center justify-between border-t border-line pt-5 text-faint md:mt-20">
-          <a href="#about" className="group inline-flex items-center gap-3 hover:text-fg">
+        <motion.div {...fade(1.05)} className="label mt-12 flex items-center justify-between border-t border-line pt-2 text-faint md:mt-20">
+          <a href="#about" className="group inline-flex min-h-11 items-center gap-3 hover:text-fg">
             <ArrowDown aria-hidden size={14} strokeWidth={1.5} className="transition-transform duration-200 group-hover:translate-y-0.5" />
             Scroll
           </a>

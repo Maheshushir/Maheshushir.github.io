@@ -30,7 +30,7 @@ const Contact: React.FC = () => {
   const { copied, copy } = useCopy();
 
   return (
-    <section id="contact" className="bg-ink pt-24 md:pt-36" aria-labelledby="contact-title">
+    <section id="contact" className="bg-ink pt-20 md:pt-32" aria-labelledby="contact-title">
       <div className="shell">
         <Reveal className="label flex items-center gap-4 text-muted">
           <span>(05)</span>
@@ -54,7 +54,7 @@ const Contact: React.FC = () => {
             <div className="flex flex-wrap items-center gap-x-5 gap-y-4">
               <a
                 href={`mailto:${CONTACT.email}`}
-                className="link-draw text-[clamp(1.375rem,3.2vw,2.75rem)] leading-tight font-medium tracking-[-0.035em] break-all"
+                className="link-draw py-2 text-[clamp(1.375rem,3.2vw,2.75rem)] leading-tight lg:py-1 font-medium tracking-[-0.035em] break-all"
               >
                 {CONTACT.email}
               </a>
@@ -120,7 +120,7 @@ const Contact: React.FC = () => {
 export function Footer() {
   return (
     <footer className="shell mt-24 md:mt-36">
-      <div className="label flex flex-col gap-6 border-t border-line py-8 text-faint md:flex-row md:items-center md:justify-between">
+      <div className="label flex flex-col gap-4 border-t border-line py-6 text-faint md:flex-row md:items-center md:justify-between md:py-5">
         <p>© {new Date().getFullYear()} {PROFILE.name}. {PROFILE.location}.</p>
         <p>
           Motion components by{' '}
@@ -129,12 +129,12 @@ export function Footer() {
           </a>
         </p>
         <div className="flex items-center gap-6">
-          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-fg">LinkedIn</a>
-          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="hover:text-fg">GitHub</a>
+          <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-fg">LinkedIn</a>
+          <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center hover:text-fg">GitHub</a>
           <button
             type="button"
             onClick={() => (window.location.pathname === '/' ? scrollToId('home') : window.scrollTo({ top: 0 }))}
-            className="inline-flex items-center gap-2 uppercase hover:text-fg"
+            className="inline-flex min-h-11 items-center gap-2 uppercase hover:text-fg"
           >
             Top <ArrowUp size={13} aria-hidden />
           </button>

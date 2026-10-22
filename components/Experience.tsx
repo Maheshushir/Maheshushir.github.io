@@ -13,7 +13,7 @@ function SubHead({ children }: { children: React.ReactNode }) {
 
 const Experience: React.FC = () => {
   return (
-    <section id="experience" className="bg-paper py-24 text-paper-fg md:py-36" aria-label="Experience">
+    <section id="experience" className="bg-paper py-20 text-paper-fg md:py-32" aria-label="Experience">
       <div className="shell">
         <SectionHead index="04" label="Experience" title={'Where the work\n*happened.*'} />
 

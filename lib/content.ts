@@ -50,8 +50,10 @@ export const ABOUT = {
   intro:
     'I’m a Data Analyst with 2.5+ years of turning raw business data into revenue and decisions across D2C, retail and financial-services data.',
   body: [
-    'At HyperScale Leaders Tribe I built the RFM segmentation and retention models behind INR 50 Cr (~$6M) of client revenue, and the reporting layer of an internal ERP that serves 300+ active founder accounts.',
-    'My work sits where analysis meets engineering: SQL and Python for the hard questions, Power BI and Tableau for the answers people actually read, and automation (n8n, Pabbly, Shopify Admin API, Supabase) so the same report never has to be built by hand twice.',
+    'At HyperScale Leaders Tribe I built the RFM segmentation and retention models behind INR 50 Cr (~$6M) of client revenue.',
+    'I also built the reporting layer of an internal ERP that serves 300+ active founder accounts.',
+    'My work sits where analysis meets engineering: SQL and Python for the hard questions, Power BI and Tableau for the answers people actually read.',
+    'I add automation (n8n, Pabbly, Shopify Admin API, Supabase) so the same report never has to be built by hand twice.',
   ],
   principles: [
     {

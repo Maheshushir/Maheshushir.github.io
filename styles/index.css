@@ -32,21 +32,33 @@
   --text-headline: clamp(2.25rem, 5.6vw, 5.5rem);
   --text-headline--line-height: 0.98;
   --text-headline--letter-spacing: -0.04em;
-  --text-title: clamp(1.75rem, 3.4vw, 3.25rem);
+  --text-title: clamp(2rem, 3.4vw, 3.25rem);
   --text-title--line-height: 1.02;
   --text-title--letter-spacing: -0.03em;
-  --text-lead: clamp(1.0625rem, 1.25vw, 1.3125rem);
-  --text-lead--line-height: 1.6;
-  --text-label: 0.6875rem;
-  --text-label--line-height: 1.2;
-  --text-label--letter-spacing: 0.14em;
+  --text-lead: clamp(1.125rem, 0.95rem + 0.45vw, 1.3125rem);
+  --text-lead--line-height: 1.65;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.35;
+  --text-label--letter-spacing: 0.12em;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   --breakpoint-xs: 26rem;
 }
 
+/* Phones: scale display type with the viewport so headlines wrap on whole
+   phrases down to 320px instead of stranding a single word. */
+@media (max-width: 47.99rem) {
+  :root {
+    --text-display: clamp(2.25rem, 11.6vw, 2.75rem);
+  }
+}
+
 @layer base {
+  :root {
+    --gutter: clamp(1rem, 4vw, 3.5rem);
+  }
+
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
@@ -95,7 +107,14 @@
     width: 100%;
     max-width: 96rem;
     margin-inline: auto;
-    padding-inline: clamp(1rem, 4vw, 3.5rem);
+    padding-inline: var(--gutter);
+  }
+
+  /* Edge-to-edge on phones: screenshots get the full screen width. */
+  @media (max-width: 47.99rem) {
+    .bleed {
+      margin-inline: calc(var(--gutter) * -1);
+    }
   }
 
   /* Uppercase micro label */
