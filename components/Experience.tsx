@@ -32,7 +32,7 @@ const Experience: React.FC = () => {
               <div className="md:col-span-9 lg:col-span-8">
                 <h3 className="text-[clamp(1.625rem,3vw,2.75rem)] leading-[1.05] font-medium tracking-[-0.035em]">
                   {job.role}
-                  <span className="text-paper-muted"> — {job.company}</span>
+                  <span className="text-paper-muted"> at {job.company}</span>
                 </h3>
                 {job.descriptor && <p className="mt-3 text-paper-muted">{job.descriptor}</p>}
 

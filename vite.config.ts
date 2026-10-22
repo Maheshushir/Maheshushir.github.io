@@ -21,7 +21,7 @@ function staticRoutes(): Plugin {
 
       for (const p of FEATURED) {
         const url = `${SITE_URL}/work/${p.slug}`;
-        const title = escape(`${p.title} — Case study | Mahesh Ushir`);
+        const title = escape(`${p.title} Case Study | Mahesh Ushir`);
         const desc = escape(p.problem);
         // og.png stays as the preview image: some networks (LinkedIn) ignore WebP.
         const html = shell

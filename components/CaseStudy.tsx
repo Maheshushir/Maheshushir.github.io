@@ -25,7 +25,7 @@ function useDocumentMeta(project: Project) {
     const canonical = document.querySelector('link[rel="canonical"]');
     const prevDesc = desc?.getAttribute('content') ?? '';
     const prevCanonical = canonical?.getAttribute('href') ?? '';
-    document.title = `${project.title} — Case study | Mahesh Ushir`;
+    document.title = `${project.title} Case Study | Mahesh Ushir`;
     desc?.setAttribute('content', project.problem);
     canonical?.setAttribute('href', `${SITE_URL}/work/${project.slug}`);
     return () => {

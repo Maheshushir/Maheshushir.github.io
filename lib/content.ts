@@ -473,11 +473,11 @@ export const EXPERIENCE: Role[] = [
     role: 'Data Analyst',
     company: 'HyperScale Leaders Tribe',
     descriptor: 'D2C growth consultancy serving 300+ active founders',
-    period: 'Dec 2024 — Present',
+    period: 'Dec 2024 – Present',
     type: 'Full-time',
     steps: [
-      { role: 'Data Analyst', period: 'Mar 2025 — Present' },
-      { role: 'Data Analyst, Impulse Consultancy (group company)', period: 'Dec 2024 — Mar 2025' },
+      { role: 'Data Analyst', period: 'Mar 2025 – Present' },
+      { role: 'Data Analyst, Impulse Consultancy (group company)', period: 'Dec 2024 – Mar 2025' },
     ],
     highlights: [
       'Powered INR 50 Cr (~$6M) in client revenue by building the RFM segmentation and retention models that directed targeting and re-activation of high-value cohorts.',
@@ -494,7 +494,7 @@ export const EXPERIENCE: Role[] = [
     role: 'Data Analyst & Data Scientist Intern',
     company: 'AI Variant',
     descriptor: 'Data science and analytics services firm',
-    period: 'Jan 2024 — Nov 2024',
+    period: 'Jan 2024 – Nov 2024',
     type: 'Internship',
     highlights: [
       'Built a hyperparameter-tuned SVM bankruptcy-detection model at 93% accuracy, cutting estimated loan-default exposure by ~15%.',
@@ -504,7 +504,7 @@ export const EXPERIENCE: Role[] = [
   {
     role: 'Football Data Analyst',
     company: 'Independent / Quora',
-    period: 'Aug 2022 — Dec 2025',
+    period: 'Aug 2022 – Dec 2025',
     type: 'Freelance',
     highlights: [
       'Produced 925+ statistical match analyses for global sports media including Bleacher Report and 433.',
@@ -515,8 +515,8 @@ export const EXPERIENCE: Role[] = [
 ];
 
 export const EDUCATION = [
-  { title: 'M.Sc. Data Science', org: 'Chandigarh University', period: '2026 — 2028', note: 'Ongoing' },
-  { title: 'B.Sc. Physics', org: 'Savitribai Phule Pune University', period: '2018 — 2021', note: '78.78%' },
+  { title: 'M.Sc. Data Science', org: 'Chandigarh University', period: '2026 – 2028', note: 'Ongoing' },
+  { title: 'B.Sc. Physics', org: 'Savitribai Phule Pune University', period: '2018 – 2021', note: '78.78%' },
 ];
 
 export const CERTIFICATIONS = [

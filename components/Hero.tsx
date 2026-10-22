@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
         <div className="flex flex-1 flex-col justify-center py-14 md:py-16">
           <h1 id="hero-title">
             <motion.span {...fade(0.2)} className="mb-6 block text-lg font-normal tracking-tight text-muted md:mb-8 md:text-2xl">
-              <span className="text-fg">{PROFILE.name}</span> — Data Analyst & Strategist
+              <span className="text-fg">{PROFILE.name}</span>, Data Analyst & Strategist
             </motion.span>
             <SplitWords
               immediate

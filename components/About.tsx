@@ -95,7 +95,7 @@ const About: React.FC = () => {
         <Reveal className="mt-24 md:mt-32">
           <blockquote className="mx-auto max-w-4xl text-center">
             <p className="serif text-[clamp(1.75rem,4vw,3.5rem)] leading-[1.1]">“{ABOUT.quote.text}”</p>
-            <footer className="label mt-6 text-paper-muted">— {ABOUT.quote.by}</footer>
+            <footer className="label mt-6 text-paper-muted">{ABOUT.quote.by}</footer>
           </blockquote>
         </Reveal>
       </div>
