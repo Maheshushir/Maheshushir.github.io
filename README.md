@@ -8,8 +8,9 @@ Personal portfolio of Mahesh Ushir, Data Analyst & Strategist. Live at
 - React 19 + TypeScript, built with Vite
 - Tailwind CSS v4 (design tokens in `styles/index.css`)
 - Motion for React (`motion/react`) for reveals and transitions
-- Two components from [Rare UI](https://rareui.com): `AnimatedCounter` (hero metrics)
-  and `GravityLetters` (click the hero to drop glyphs), in `components/ui/`
+- `AnimatedCounter` from [Rare UI](https://rareui.com) (live fit readout and results), in `components/ui/`
+- Hero experiment: the visitor's pointer becomes a dataset with a live least-squares fit
+  (`components/TrendCanvas.tsx`, plain canvas, nothing stored or sent)
 - Self-hosted Geist, Geist Mono and Instrument Serif via Fontsource
 
 ## Structure

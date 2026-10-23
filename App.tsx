@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { MotionConfig } from 'motion/react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import Proof from '@/components/Proof';
 import About from '@/components/About';
 import Expertise from '@/components/Expertise';
 import Projects from '@/components/Projects';
@@ -21,6 +22,7 @@ function Home() {
   return (
     <main id="main">
       <Hero />
+      <Proof />
       <About />
       <Expertise />
       <Projects />

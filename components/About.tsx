@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Eye, Target, Trophy, Workflow, ShieldCheck } from 'lucide-react';
 import { Reveal, SectionHead } from '@/components/primitives';
 import { BrandMark } from '@/components/Logo';
+import CuriosityChart from '@/components/CuriosityChart';
 import { ABOUT, PROFILE } from '@/lib/content';
 import { EASE, VIEWPORT } from '@/lib/motion';
 
@@ -58,6 +59,8 @@ const About: React.FC = () => {
             </Reveal>
           </div>
         </div>
+
+        <CuriosityChart />
 
         {/* How I work */}
         <div className="mt-24 md:mt-36">

@@ -1,15 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useInView } from 'motion/react';
+import React, { useCallback, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
 import { ArrowDown } from 'lucide-react';
-import GravityLetters from '@/components/ui/gravity-letters';
 import AnimatedCounter from '@/components/ui/animated-counter';
+import TrendCanvas, { type Fit } from '@/components/TrendCanvas';
 import { Button, SplitWords } from '@/components/primitives';
-import { BrandMark, TOOLKIT, brandTitle } from '@/components/Logo';
-import { HERO_METRICS, PROFILE, type Metric } from '@/lib/content';
+import { PROFILE } from '@/lib/content';
 import { EASE } from '@/lib/motion';
-
-// What falls when a visitor clicks the hero: digits and the notation of the trade.
-const GLYPHS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '%', 'Σ', 'μ', 'σ', 'Δ', '∑', 'n', 'x̄', '≈', '±'];
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 12 },
@@ -17,53 +13,85 @@ const fade = (delay: number) => ({
   transition: { duration: 0.7, ease: EASE, delay },
 });
 
-function Counter({ metric, delay }: { metric: Metric; delay: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true });
-  const [value, setValue] = useState(0);
+// What the analyst says about the visitor's data.
+function verdict(f: Fit) {
+  if (f.ghost) return 'This is a sample visitor. Make your own data to replace it.';
+  if (f.n < 12) return 'Keep going. A trend needs a few more points.';
+  const time = f.ms < 0.1 ? 'under 0.1 ms' : `${f.ms.toFixed(1)} ms`;
+  const read =
+    f.r2 > 0.6 ? 'A strong pattern.' : f.r2 < 0.15 ? 'Mostly noise. Real data usually is.' : 'Some signal, some noise.';
+  return `You just made ${f.n} data points. I found your trend in ${time}. ${read} Imagine what I’d find in your business data.`;
+}
 
-  useEffect(() => {
-    if (!inView) return;
-    const id = setTimeout(() => setValue(metric.value), delay * 1000);
-    return () => clearTimeout(id);
-  }, [inView, metric.value, delay]);
+function direction(slope: number) {
+  if (slope > 0.15) return 'Rising';
+  if (slope < -0.15) return 'Falling';
+  return 'Flat';
+}
 
+function Readout({ fit }: { fit: Fit }) {
   return (
-    <div
-      ref={ref}
-      className="grid grid-cols-[minmax(7.5rem,auto)_1fr] items-center gap-x-5 border-t border-line pt-4 sm:block md:border-t-0 md:border-l md:pt-0 md:pl-6"
-    >
-      <AnimatedCounter
-        value={value}
-        duration={1.1}
-        prefix={metric.prefix}
-        suffix={metric.suffix}
-        className="text-[clamp(2rem,3.4vw,3.25rem)] leading-none font-medium tracking-[-0.04em]"
-        aria-label={`${metric.prefix ?? ''}${metric.value}${metric.suffix ?? ''}`}
-      />
-      <p className="max-w-[22ch] text-sm leading-snug text-muted sm:mt-3">{metric.label}</p>
+    <div className="pointer-events-none max-w-md rounded-2xl border border-line bg-ink/75 p-4 backdrop-blur-md md:p-5">
+      <div className="label flex items-center justify-between text-faint">
+        <span>{fit.ghost ? 'Sample data' : 'Your data'}</span>
+        <span className="flex items-center gap-2 text-accent">
+          <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+          Live fit
+        </span>
+      </div>
+      <dl className="mt-4 grid grid-cols-3 gap-3" aria-hidden>
+        <div>
+          <dt className="label text-faint">Points</dt>
+          <dd className="mt-1 text-2xl font-medium tracking-[-0.03em] md:text-3xl">
+            <AnimatedCounter value={fit.n} duration={0.4} />
+          </dd>
+        </div>
+        <div>
+          <dt className="label text-faint">R²</dt>
+          <dd className="mt-1 text-2xl font-medium tracking-[-0.03em] md:text-3xl">
+            <AnimatedCounter value={Math.round(fit.r2 * 100) / 100} decimals={2} duration={0.4} />
+          </dd>
+        </div>
+        <div>
+          <dt className="label text-faint">Trend</dt>
+          <dd className="mt-1 text-2xl font-medium tracking-[-0.03em] text-accent md:text-3xl">{direction(fit.slope)}</dd>
+        </div>
+      </dl>
+      <p className="mt-4 border-t border-line pt-3 text-sm leading-relaxed text-muted">{verdict(fit)}</p>
     </div>
   );
 }
 
 const Hero: React.FC = () => {
+  const area = useRef<HTMLElement>(null);
+  const reduced = !!useReducedMotion();
+  const [fit, setFit] = useState<Fit>({ n: 0, slope: 0, r2: 0, ms: 0, ghost: true });
+  const onFit = useCallback((f: Fit) => setFit(f), []);
+
   return (
-    <GravityLetters
+    <section
       id="home"
-      items={GLYPHS}
-      size={30}
-      color="#2b2b2b"
-      maxGlyphs={160}
-      deviceTilt={false}
-      className="relative flex min-h-[100svh] flex-col font-mono"
+      ref={area}
+      aria-labelledby="hero-title"
+      className="relative flex min-h-[100svh] cursor-crosshair touch-manipulation flex-col overflow-hidden bg-ink select-none"
     >
-      <section aria-labelledby="hero-title" className="shell relative z-10 flex flex-1 flex-col pt-28 pb-8 font-sans md:pt-32">
-        {/* Masthead row */}
-        <motion.div {...fade(0)} className="label grid grid-cols-2 gap-y-3 text-muted md:grid-cols-4">
-          <span>Data Analyst<span className="hidden sm:inline"> / Strategist</span></span>
-          <span className="text-right md:text-left">{PROFILE.location}</span>
-          <span className="hidden md:block">Analytics · BI · Automation</span>
-          <span className="col-span-2 flex items-center gap-2 text-fg md:col-span-1 md:justify-end">
+      {/* Chart paper: a faint grid with axis notes, under the visitor's points */}
+      <div
+        aria-hidden
+        className="absolute inset-0 [background-image:linear-gradient(var(--color-ink-3)_1px,transparent_1px),linear-gradient(90deg,var(--color-ink-3)_1px,transparent_1px)] [background-size:calc(100%/12)_calc(100%/8)]"
+      />
+      <span aria-hidden className="label absolute right-[var(--gutter)] bottom-4 text-faint/70">
+        x · where you moved →
+      </span>
+
+      <TrendCanvas target={area} onFit={onFit} reduced={reduced} />
+
+      <div className="shell relative z-10 flex flex-1 flex-col pt-28 pb-12 md:pt-32">
+        <motion.div {...fade(0)} className="label pointer-events-none flex flex-wrap items-center justify-between gap-x-6 gap-y-3 text-muted">
+          <span>
+            Live experiment<span className="hidden sm:inline"> · nothing leaves your browser</span>
+          </span>
+          <span className="flex items-center gap-2 text-fg">
             <span aria-hidden className="relative flex size-2">
               <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-60" />
               <span className="relative size-2 rounded-full bg-accent" />
@@ -72,77 +100,52 @@ const Hero: React.FC = () => {
           </span>
         </motion.div>
 
-        {/* Headline */}
-        <div className="flex flex-1 flex-col justify-center py-11 md:py-16">
+        <div className="pointer-events-none mt-12 max-w-3xl md:mt-16">
           <h1 id="hero-title">
-            <motion.span {...fade(0.05)} className="mb-5 block text-base font-normal tracking-tight text-muted xs:text-lg md:mb-8 md:text-2xl">
+            <motion.span {...fade(0.05)} className="mb-5 block text-base font-normal tracking-tight text-muted xs:text-lg md:text-xl">
               <span className="text-fg">{PROFILE.name}</span>, Data Analyst & Strategist
             </motion.span>
             <SplitWords
               immediate
               delay={0.12}
-              stagger={0.055}
-              className="block text-display font-medium"
-              text={'Turning complex data\ninto *smarter* decisions.'}
+              stagger={0.05}
+              className="block text-headline font-medium"
+              text={'Make some data.\nI’ll find the *trend.*'}
             />
           </h1>
+          <motion.p {...fade(0.6)} className="mt-6 text-lead text-muted">
+            <span className="hidden [@media(pointer:fine)]:inline">Move your cursor anywhere on this screen.</span>
+            <span className="[@media(pointer:fine)]:hidden">Tap anywhere on this screen.</span>
+          </motion.p>
         </div>
 
-        {/* Supporting copy, actions and evidence */}
-        <div className="grid gap-10 md:grid-cols-12 md:items-end md:gap-8">
-          <motion.div {...fade(0.7)} className="md:col-span-5">
-            <p className="max-w-[44ch] text-lead text-muted">
-              I turn raw data into decisions people can act on, through analytics, business
-              intelligence, automation and careful problem-solving.
-            </p>
-            <div className="mt-8 grid gap-3 xs:flex xs:flex-wrap">
-              <Button href="/#projects" size="lg" className="justify-between xs:justify-start">
-                Explore my work
-              </Button>
-              <Button href={PROFILE.resume} variant="outline" className="justify-between xs:justify-start">
-                Download resume
-              </Button>
-            </div>
+        <div className="mt-auto grid gap-8 pt-12 md:grid-cols-12 md:items-end">
+          <motion.div {...fade(0.8)} className="md:col-span-6 lg:col-span-5">
+            <Readout fit={fit} />
           </motion.div>
-
-          <motion.div {...fade(0.85)} className="grid gap-4 sm:grid-cols-3 sm:gap-6 md:col-span-7 md:gap-0">
-            {HERO_METRICS.map((m, i) => (
-              <Counter key={m.label} metric={m} delay={0.95 + i * 0.12} />
-            ))}
+          <motion.div
+            {...fade(0.9)}
+            className="flex flex-col gap-3 xs:flex-row xs:flex-wrap md:col-span-6 md:flex-col md:items-end lg:col-span-7 lg:flex-row lg:justify-end"
+          >
+            <Button href="/#projects" size="lg" className="justify-between xs:justify-start">
+              Explore my work
+            </Button>
+            <Button href={PROFILE.resume} variant="outline" className="justify-between xs:justify-start">
+              Download resume
+            </Button>
           </motion.div>
         </div>
 
-        {/* Toolkit strip: the stack, in brand colour */}
-        <motion.div {...fade(1)} className="mt-12 md:mt-16">
-          <p className="label mb-4 text-faint">Toolkit</p>
-          <div className="marquee overflow-hidden">
-            <ul className="marquee-track flex w-max">
-              {[...TOOLKIT, ...TOOLKIT].map((t, i) => (
-                <li
-                  key={i}
-                  aria-hidden={i >= TOOLKIT.length}
-                  className="mr-3 flex items-center gap-2.5 rounded-full border border-line bg-ink-2/80 py-2 pr-4 pl-3 text-sm whitespace-nowrap text-muted"
-                >
-                  <BrandMark name={t} size={18} />
-                  {brandTitle(t)}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
-
-        {/* Footer rail */}
-        <motion.div {...fade(1.05)} className="label mt-10 flex items-center justify-between border-t border-line pt-2 text-faint md:mt-12">
-          <a href="#about" className="group inline-flex min-h-11 items-center gap-3 hover:text-fg">
-            <ArrowDown aria-hidden size={14} strokeWidth={1.5} className="transition-transform duration-200 group-hover:translate-y-0.5" />
-            Scroll
-          </a>
-          <span aria-hidden className="hidden md:[@media(pointer:fine)]:inline">
-            Click anywhere to drop some data
-          </span>
-        </motion.div>
-      </section>
-    </GravityLetters>
+        <motion.a
+          {...fade(1)}
+          href="#proof"
+          className="label group mt-8 inline-flex min-h-11 w-fit items-center gap-3 text-faint hover:text-fg"
+        >
+          <ArrowDown aria-hidden size={14} strokeWidth={1.5} className="transition-transform duration-200 group-hover:translate-y-0.5" />
+          Scroll for the real numbers
+        </motion.a>
+      </div>
+    </section>
   );
 };
 
