@@ -19,8 +19,6 @@ export const CONTACT = {
   phone: '+91 7796463777',
   linkedin: 'https://www.linkedin.com/in/mahesh-ushir/',
   github: 'https://github.com/maheshushir',
-  telegram: 'https://t.me/Grimreaper47',
-  telegramHandle: '@Grimreaper47',
 };
 
 export const NAV = [

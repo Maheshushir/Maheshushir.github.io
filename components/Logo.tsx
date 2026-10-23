@@ -2,7 +2,7 @@ import React from 'react';
 import {
   siApacheparquet, siClaude, siDuckdb, siGithubactions, siHackerrank, siJupyter, siMake,
   siMysql, siN8n, siNumpy, siPandas, siPostgresql, siPython, siQuora, siScikitlearn,
-  siShopify, siSnowflake, siStreamlit, siSupabase, siTelegram,
+  siShopify, siSnowflake, siStreamlit, siSupabase,
 } from 'simple-icons';
 import {
   ArrowRightLeft, BookOpen, Database, Boxes, ChartLine, ChartScatter, Handshake, Landmark, LayoutGrid,
@@ -52,7 +52,6 @@ const BRANDS = {
   claude: si(siClaude),
   hackerrank: si(siHackerrank),
   quora: si(siQuora, '#D9473F'),
-  telegram: si(siTelegram),
   powerbi: {
     title: 'Power BI',
     hex: '#F2C811',

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ArrowUp, ArrowUpRight, Check, Copy, FileText, Github, Linkedin, Mail, Phone } from 'lucide-react';
-import { BrandMark } from '@/components/Logo';
 import { Reveal, SplitWords } from '@/components/primitives';
 import { CONTACT, PROFILE } from '@/lib/content';
 import { scrollToId } from '@/lib/router';
@@ -26,7 +25,6 @@ const CHANNELS = [
   { label: 'LinkedIn', value: 'mahesh-ushir', href: CONTACT.linkedin, icon: <Linkedin {...icon} className="text-[#3B8FE0]" /> },
   { label: 'GitHub', value: 'maheshushir', href: CONTACT.github, icon: <Github {...icon} className="text-fg" /> },
   { label: 'Resume', value: 'View / download', href: PROFILE.resume, icon: <FileText {...icon} className="text-accent" /> },
-  { label: 'Telegram', value: CONTACT.telegramHandle, href: CONTACT.telegram, icon: <BrandMark name="telegram" size={20} /> },
 ];
 
 // Round icon well used by every contact row.
@@ -87,7 +85,14 @@ const Contact: React.FC = () => {
 
             <ul className="mt-12 grid sm:grid-cols-2">
               {CHANNELS.map((c, i) => (
-                <li key={c.label} className={cn('border-t border-line', i % 2 === 1 && 'sm:border-l sm:pl-6')}>
+                <li
+                  key={c.label}
+                  className={cn(
+                    'border-t border-line',
+                    i % 2 === 1 && 'sm:border-l sm:pl-6',
+                    i === CHANNELS.length - 1 && i % 2 === 0 && 'sm:col-span-2',
+                  )}
+                >
                   <a
                     href={c.href}
                     target="_blank"
