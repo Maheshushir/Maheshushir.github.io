@@ -68,7 +68,7 @@ export function SplitWords({
                 className="inline-block overflow-hidden pb-[0.12em] -mb-[0.12em] align-top"
               >
                 <motion.span
-                  className={cn('inline-block', serif && 'serif pr-[0.06em]')}
+                  className={cn('inline-block', serif && 'serif accent-word pr-[0.06em]')}
                   initial={reduce ? false : { y: '105%' }}
                   {...(immediate
                     ? { animate: { y: '0%' } }

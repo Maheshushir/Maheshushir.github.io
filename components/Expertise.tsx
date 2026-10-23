@@ -1,5 +1,6 @@
 import React from 'react';
 import { Reveal, SectionHead } from '@/components/primitives';
+import { SkillIcon } from '@/components/Logo';
 import { EXPERTISE } from '@/lib/content';
 
 const Expertise: React.FC = () => {
@@ -28,7 +29,7 @@ const Expertise: React.FC = () => {
             >
               {/* Phones: number sits inline with the title. From md the wrapper dissolves into the grid. */}
               <div className="flex items-baseline gap-3 md:contents">
-                <span className="font-mono text-xs text-faint transition-colors duration-300 group-hover:text-fg md:col-span-1 md:pt-3">
+                <span className="font-mono text-xs text-accent md:col-span-1 md:pt-3">
                   0{i + 1}
                 </span>
                 <div className="md:col-span-5">
@@ -42,8 +43,9 @@ const Expertise: React.FC = () => {
                 {area.skills.map((s) => (
                   <li
                     key={s}
-                    className="max-w-full rounded-full border border-line px-3 py-1 text-sm leading-6 break-words text-muted transition-colors duration-300 group-hover:border-faint group-hover:text-fg"
+                    className="flex max-w-full items-center gap-2 rounded-full border border-line bg-ink-2 py-1 pr-3 pl-2.5 text-sm leading-6 break-words text-muted transition-colors duration-300 group-hover:border-faint group-hover:text-fg"
                   >
+                    <SkillIcon name={s} />
                     {s}
                   </li>
                 ))}

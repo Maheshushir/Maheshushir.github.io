@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ArrowUp, ArrowUpRight, Check, Copy } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Check, Copy, FileText, Github, Linkedin, Mail, Phone } from 'lucide-react';
+import { BrandMark } from '@/components/Logo';
 import { Reveal, SplitWords } from '@/components/primitives';
 import { CONTACT, PROFILE } from '@/lib/content';
 import { scrollToId } from '@/lib/router';
@@ -19,12 +20,23 @@ function useCopy() {
   return { copied, copy };
 }
 
+const icon = { 'aria-hidden': true, size: 20, strokeWidth: 1.75 } as const;
+
 const CHANNELS = [
-  { label: 'LinkedIn', value: 'mahesh-ushir', href: CONTACT.linkedin },
-  { label: 'GitHub', value: 'maheshushir', href: CONTACT.github },
-  { label: 'Resume', value: 'View / download', href: PROFILE.resume },
-  { label: 'Telegram', value: CONTACT.telegramHandle, href: CONTACT.telegram },
+  { label: 'LinkedIn', value: 'mahesh-ushir', href: CONTACT.linkedin, icon: <Linkedin {...icon} className="text-[#3B8FE0]" /> },
+  { label: 'GitHub', value: 'maheshushir', href: CONTACT.github, icon: <Github {...icon} className="text-fg" /> },
+  { label: 'Resume', value: 'View / download', href: PROFILE.resume, icon: <FileText {...icon} className="text-accent" /> },
+  { label: 'Telegram', value: CONTACT.telegramHandle, href: CONTACT.telegram, icon: <BrandMark name="telegram" size={20} /> },
 ];
+
+// Round icon well used by every contact row.
+function Well({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-line bg-ink-2">
+      {children}
+    </span>
+  );
+}
 
 const Contact: React.FC = () => {
   const { copied, copy } = useCopy();
@@ -50,11 +62,16 @@ const Contact: React.FC = () => {
           </Reveal>
 
           <Reveal delay={0.1} className="md:col-span-7">
-            <p className="label mb-4 text-faint">Email</p>
+            <p className="label mb-4 flex items-center gap-3 text-faint">
+              <span className="flex size-7 items-center justify-center rounded-full bg-accent text-ink">
+                <Mail aria-hidden size={14} strokeWidth={2} />
+              </span>
+              Email
+            </p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-4">
               <a
                 href={`mailto:${CONTACT.email}`}
-                className="link-draw py-2 text-[clamp(1.375rem,3.2vw,2.75rem)] leading-tight lg:py-1 font-medium tracking-[-0.035em] break-all"
+                className="link-draw py-2 text-[clamp(1.375rem,3.2vw,2.75rem)] leading-tight font-medium tracking-[-0.035em] break-all transition-colors hover:text-accent lg:py-1"
               >
                 {CONTACT.email}
               </a>
@@ -77,9 +94,12 @@ const Contact: React.FC = () => {
                     rel="noopener noreferrer"
                     className="group flex items-center justify-between py-5 sm:pr-6"
                   >
-                    <span>
-                      <span className="label block text-faint">{c.label}</span>
-                      <span className="mt-2 block text-lg transition-colors group-hover:text-fg">{c.value}</span>
+                    <span className="flex items-center gap-4">
+                      <Well>{c.icon}</Well>
+                      <span>
+                        <span className="label block text-faint">{c.label}</span>
+                        <span className="mt-1 block text-lg transition-colors group-hover:text-fg">{c.value}</span>
+                      </span>
                     </span>
                     <ArrowUpRight
                       aria-hidden
@@ -97,9 +117,14 @@ const Contact: React.FC = () => {
                   onClick={() => copy(CONTACT.phone)}
                   className="group flex w-full items-center justify-between py-5 text-left"
                 >
-                  <span>
-                    <span className="label block text-faint">Phone</span>
-                    <span className="mt-2 block text-lg tabular-nums">{CONTACT.phone}</span>
+                  <span className="flex items-center gap-4">
+                    <Well>
+                      <Phone {...icon} className="text-accent" />
+                    </Well>
+                    <span>
+                      <span className="label block text-faint">Phone</span>
+                      <span className="mt-1 block text-lg tabular-nums">{CONTACT.phone}</span>
+                    </span>
                   </span>
                   <span className="flex items-center gap-2 text-sm text-muted transition-colors group-hover:text-fg">
                     {copied === CONTACT.phone ? <Check size={15} aria-hidden /> : <Copy size={15} aria-hidden />}

@@ -4,6 +4,7 @@ import { ArrowDown } from 'lucide-react';
 import GravityLetters from '@/components/ui/gravity-letters';
 import AnimatedCounter from '@/components/ui/animated-counter';
 import { Button, SplitWords } from '@/components/primitives';
+import { BrandMark, TOOLKIT, brandTitle } from '@/components/Logo';
 import { HERO_METRICS, PROFILE, type Metric } from '@/lib/content';
 import { EASE } from '@/lib/motion';
 
@@ -63,7 +64,10 @@ const Hero: React.FC = () => {
           <span className="text-right md:text-left">{PROFILE.location}</span>
           <span className="hidden md:block">Analytics · BI · Automation</span>
           <span className="col-span-2 flex items-center gap-2 text-fg md:col-span-1 md:justify-end">
-            <span aria-hidden className="size-1.5 rounded-full bg-fg" />
+            <span aria-hidden className="relative flex size-2">
+              <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative size-2 rounded-full bg-accent" />
+            </span>
             {PROFILE.availability}
           </span>
         </motion.div>
@@ -108,8 +112,27 @@ const Hero: React.FC = () => {
           </motion.div>
         </div>
 
+        {/* Toolkit strip: the stack, in brand colour */}
+        <motion.div {...fade(1)} className="mt-12 md:mt-16">
+          <p className="label mb-4 text-faint">Toolkit</p>
+          <div className="marquee overflow-hidden">
+            <ul className="marquee-track flex w-max">
+              {[...TOOLKIT, ...TOOLKIT].map((t, i) => (
+                <li
+                  key={i}
+                  aria-hidden={i >= TOOLKIT.length}
+                  className="mr-3 flex items-center gap-2.5 rounded-full border border-line bg-ink-2/80 py-2 pr-4 pl-3 text-sm whitespace-nowrap text-muted"
+                >
+                  <BrandMark name={t} size={18} />
+                  {brandTitle(t)}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+
         {/* Footer rail */}
-        <motion.div {...fade(1.05)} className="label mt-12 flex items-center justify-between border-t border-line pt-2 text-faint md:mt-20">
+        <motion.div {...fade(1.05)} className="label mt-10 flex items-center justify-between border-t border-line pt-2 text-faint md:mt-12">
           <a href="#about" className="group inline-flex min-h-11 items-center gap-3 hover:text-fg">
             <ArrowDown aria-hidden size={14} strokeWidth={1.5} className="transition-transform duration-200 group-hover:translate-y-0.5" />
             Scroll

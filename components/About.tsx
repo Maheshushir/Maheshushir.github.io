@@ -1,8 +1,17 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Eye, Target, Trophy, Workflow, ShieldCheck } from 'lucide-react';
 import { Reveal, SectionHead } from '@/components/primitives';
+import { BrandMark } from '@/components/Logo';
 import { ABOUT, PROFILE } from '@/lib/content';
 import { EASE, VIEWPORT } from '@/lib/motion';
+
+const PRINCIPLE_ICONS = [Target, ShieldCheck, Workflow];
+const STAT_ICONS = [
+  <Trophy key="t" aria-hidden size={20} strokeWidth={1.75} />,
+  <Eye key="e" aria-hidden size={20} strokeWidth={1.75} />,
+  <BrandMark key="q" name="quora" size={20} />,
+];
 
 const About: React.FC = () => {
   return (
@@ -18,6 +27,8 @@ const About: React.FC = () => {
             viewport={VIEWPORT}
             transition={{ duration: 1.1, ease: EASE }}
           >
+            <div className="relative pr-3 pb-3">
+            <span aria-hidden className="absolute inset-0 top-3 left-3 bg-accent" />
             <img
               src={PROFILE.photo}
               alt="Portrait of Mahesh Ushir in a light suit jacket"
@@ -25,9 +36,10 @@ const About: React.FC = () => {
               height={460}
               loading="lazy"
               decoding="async"
-              className="aspect-[4/5] w-full object-cover grayscale"
+              className="relative aspect-[4/5] w-full object-cover grayscale"
             />
-            <figcaption className="label mt-3 flex justify-between border-t border-paper-line pt-3 text-paper-muted">
+            </div>
+            <figcaption className="label mt-6 flex justify-between border-t border-paper-line pt-3 text-paper-muted">
               <span>{PROFILE.name}</span>
               <span>{PROFILE.location}</span>
             </figcaption>
@@ -61,8 +73,16 @@ const About: React.FC = () => {
                 delay={0.08 * i}
                 className="border-t border-paper-line py-6 md:border-t-0 md:border-l md:py-2 md:pr-8 md:pl-6 md:first:border-l-0 md:first:pl-0"
               >
-                <span className="font-mono text-xs text-paper-muted">0{i + 1}</span>
-                <h3 className="mt-3 text-2xl font-medium tracking-[-0.03em] md:mt-6">{p.title}</h3>
+                <span className="flex items-center justify-between">
+                  {React.createElement(PRINCIPLE_ICONS[i], {
+                    'aria-hidden': true,
+                    size: 40,
+                    strokeWidth: 1.5,
+                    className: 'rounded-full bg-accent p-2.5 text-paper-fg',
+                  })}
+                  <span className="font-mono text-xs text-paper-muted">0{i + 1}</span>
+                </span>
+                <h3 className="mt-5 text-2xl font-medium tracking-[-0.03em] md:mt-6">{p.title}</h3>
                 <p className="mt-3 max-w-[38ch] leading-relaxed text-paper-muted">{p.text}</p>
               </Reveal>
             ))}
@@ -83,6 +103,7 @@ const About: React.FC = () => {
               <Reveal key={s.label} delay={0.08 * i} className="flex flex-col">
                 <dt className="order-2 mt-3 text-sm leading-snug text-paper-muted">{s.label}</dt>
                 <dd className="text-[clamp(1.75rem,5vw,4.5rem)] leading-none font-medium tracking-[-0.045em] tabular-nums">
+                  <span className="mb-4 flex size-10 items-center justify-center rounded-full border border-paper-line bg-white">{STAT_ICONS[i]}</span>
                   {s.value}
                 </dd>
               </Reveal>

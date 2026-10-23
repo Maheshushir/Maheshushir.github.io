@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Button, Reveal, SplitWords, TextLink } from '@/components/primitives';
+import { SkillIcon } from '@/components/Logo';
 import { DatasetPanel, Shot } from '@/components/Projects';
 import { Footer } from '@/components/Contact';
 import { FEATURED, SITE_URL, type Project } from '@/lib/content';
@@ -59,7 +60,7 @@ const CaseStudy: React.FC<{ project: Project }> = ({ project }) => {
 
           <header className="mt-12 md:mt-20">
             <p className="label text-muted">
-              Case study {String(i + 1).padStart(2, '0')} · {project.category}
+              <span className="text-accent">Case study {String(i + 1).padStart(2, '0')}</span> · {project.category}
             </p>
             <h1 id="cs-title" className="mt-6 text-display font-medium">
               <SplitWords immediate delay={0.1} text={project.title} />
@@ -74,7 +75,14 @@ const CaseStudy: React.FC<{ project: Project }> = ({ project }) => {
                 <dl className="grid gap-5 text-sm">
                   <div>
                     <dt className="label text-faint">Tools</dt>
-                    <dd className="mt-2">{project.stack.join(', ')}</dd>
+                    <dd className="mt-3 flex flex-wrap gap-2">
+                      {project.stack.map((s) => (
+                        <span key={s} className="flex items-center gap-2 rounded-full border border-line bg-ink-2 py-1 pr-3 pl-2.5 leading-6 text-muted">
+                          <SkillIcon name={s} size={14} />
+                          {s}
+                        </span>
+                      ))}
+                    </dd>
                   </div>
                   <div>
                     <dt className="label text-faint">Links</dt>
@@ -117,7 +125,7 @@ const CaseStudy: React.FC<{ project: Project }> = ({ project }) => {
               <ol className="grid gap-x-10 sm:grid-cols-2">
                 {cs.approach.map((s, k) => (
                   <Reveal as="li" key={s.title} delay={0.05 * k} className="border-t border-line py-6 first:border-t-0 sm:[&:nth-child(2)]:border-t-0">
-                    <p className="font-mono text-xs text-faint">Step {k + 1}</p>
+                    <p className="font-mono text-xs text-accent">Step {k + 1}</p>
                     <h3 className="mt-3 text-xl font-medium tracking-[-0.02em]">{s.title}</h3>
                     <p className="mt-2 leading-relaxed text-muted">{s.text}</p>
                   </Reveal>
@@ -135,7 +143,7 @@ const CaseStudy: React.FC<{ project: Project }> = ({ project }) => {
                       delay={0.05 * k}
                       className="grid gap-3 border-t border-line py-7 first:border-t-0 first:pt-0 md:grid-cols-9 md:gap-8"
                     >
-                      <p className="text-[clamp(1.75rem,3.4vw,3rem)] leading-none font-medium tracking-[-0.04em] tabular-nums md:col-span-4">
+                      <p className="text-[clamp(1.75rem,3.4vw,3rem)] leading-none font-medium tracking-[-0.04em] text-accent tabular-nums md:col-span-4">
                         {f.figure}
                       </p>
                       <p className="leading-relaxed text-muted md:col-span-5">{f.text}</p>
@@ -156,7 +164,7 @@ const CaseStudy: React.FC<{ project: Project }> = ({ project }) => {
                 <div className="grid gap-12">
                   {cs.gallery.map((img) => (
                     <figure key={img.src} className="group">
-                      <Shot image={img} color />
+                      <Shot image={img} />
                       {img.caption && <figcaption className="mt-4 max-w-[60ch] text-sm text-muted">{img.caption}</figcaption>}
                     </figure>
                   ))}

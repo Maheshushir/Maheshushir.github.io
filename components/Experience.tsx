@@ -1,6 +1,26 @@
 import React from 'react';
+import { GraduationCap } from 'lucide-react';
 import { Reveal, SectionHead } from '@/components/primitives';
+import { BrandMark } from '@/components/Logo';
 import { CERTIFICATIONS, EDUCATION, EXPERIENCE } from '@/lib/content';
+
+const tile = 'flex size-12 shrink-0 items-center justify-center rounded-xl font-mono text-sm font-medium';
+
+// Company marks: Quora's real logo; monograms for firms without a public mark.
+const BADGES: Record<string, React.ReactNode> = {
+  'HyperScale Leaders Tribe': <span className={`${tile} bg-accent text-paper-fg`}>HS</span>,
+  'AI Variant': <span className={`${tile} bg-paper-fg text-accent`}>AV</span>,
+  'Independent / Quora': (
+    <span className={`${tile} border border-paper-line bg-white`}>
+      <BrandMark name="quora" size={22} />
+    </span>
+  ),
+};
+
+const CERT_BADGES: Record<string, React.ReactNode> = {
+  HackerRank: <BrandMark name="hackerrank" size={22} />,
+  'IBM | NASSCOM': <span className="font-mono text-xs font-bold tracking-tight text-[#0F62FE]">IBM</span>,
+};
 
 function SubHead({ children }: { children: React.ReactNode }) {
   return (
@@ -24,9 +44,12 @@ const Experience: React.FC = () => {
               key={job.company}
               className="grid gap-6 border-t border-paper-line py-10 md:grid-cols-12 md:gap-8 md:py-14"
             >
-              <div className="md:col-span-3">
+              <div className="flex items-center gap-4 md:col-span-3 md:block">
+                <span aria-hidden className="md:mb-5 md:flex">{BADGES[job.company]}</span>
+                <div>
                 <p className="font-mono text-sm tabular-nums">{job.period}</p>
                 <p className="label mt-2 text-paper-muted">{job.type}</p>
+                </div>
               </div>
 
               <div className="md:col-span-9 lg:col-span-8">
@@ -50,7 +73,7 @@ const Experience: React.FC = () => {
                 <ul className="mt-8 grid gap-4 lg:grid-cols-2 lg:gap-x-10">
                   {job.highlights.map((h) => (
                     <li key={h} className="grid grid-cols-[1rem_1fr] leading-relaxed text-paper-muted">
-                      <span aria-hidden className="mt-[0.7em] h-px w-2 bg-paper-fg" />
+                      <span aria-hidden className="mt-[0.55em] size-1.5 rounded-full bg-accent ring-1 ring-paper-fg/30" />
                       <span>{h}</span>
                     </li>
                   ))}
@@ -65,7 +88,11 @@ const Experience: React.FC = () => {
             <SubHead>Education</SubHead>
             <ul>
               {EDUCATION.map((e) => (
-                <Reveal as="li" key={e.title} className="border-t border-paper-line py-6">
+                <Reveal as="li" key={e.title} className="flex gap-4 border-t border-paper-line py-6">
+                  <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent">
+                    <GraduationCap size={18} strokeWidth={1.75} />
+                  </span>
+                  <div className="flex-1">
                   <div className="flex items-baseline justify-between gap-4">
                     <h3 className="text-xl font-medium tracking-[-0.02em]">{e.title}</h3>
                     <span className="shrink-0 font-mono text-sm text-paper-muted">{e.period}</span>
@@ -73,6 +100,7 @@ const Experience: React.FC = () => {
                   <p className="mt-1 text-paper-muted">
                     {e.org} · {e.note}
                   </p>
+                  </div>
                 </Reveal>
               ))}
             </ul>
@@ -81,9 +109,14 @@ const Experience: React.FC = () => {
             <SubHead>Certifications</SubHead>
             <ul>
               {CERTIFICATIONS.map((c) => (
-                <Reveal as="li" key={c.title} className="border-t border-paper-line py-6">
-                  <h3 className="text-xl font-medium tracking-[-0.02em]">{c.title}</h3>
-                  <p className="mt-1 text-paper-muted">{c.org}</p>
+                <Reveal as="li" key={c.title} className="flex gap-4 border-t border-paper-line py-6">
+                  <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full border border-paper-line bg-white">
+                    {CERT_BADGES[c.org]}
+                  </span>
+                  <div>
+                    <h3 className="text-xl font-medium tracking-[-0.02em]">{c.title}</h3>
+                    <p className="mt-1 text-paper-muted">{c.org}</p>
+                  </div>
                 </Reveal>
               ))}
             </ul>

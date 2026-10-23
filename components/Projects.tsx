@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { Reveal, SectionHead, TextLink } from '@/components/primitives';
+import { SkillIcon } from '@/components/Logo';
 import { ARCHIVE, FEATURED, type Image, type Project } from '@/lib/content';
 import { EASE, VIEWPORT } from '@/lib/motion';
 import { onInternalLink } from '@/lib/router';
@@ -16,8 +17,8 @@ const TELECOM_FEATURES = [
   'night.mins', 'night.calls', 'night.charge', 'customer.calls', 'churn',
 ];
 
-/* Screenshot, desaturated to sit inside the monochrome page; colour returns on hover (or always, with `color`). */
-export function Shot({ image, className, eager, color }: { image: Image; className?: string; eager?: boolean; color?: boolean }) {
+/* Project screenshot in full colour, with a slow zoom on hover. */
+export function Shot({ image, className, eager }: { image: Image; className?: string; eager?: boolean }) {
   return (
     <motion.div
       className={cn('overflow-hidden', image.matte ? 'bg-paper p-3 md:p-5' : 'bg-ink-2', className)}
@@ -33,7 +34,7 @@ export function Shot({ image, className, eager, color }: { image: Image; classNa
         height={image.height}
         loading={eager ? 'eager' : 'lazy'}
         decoding="async"
-        className={cn('block h-auto w-full transition-[filter,transform] duration-700 ease-out-expo md:group-hover:scale-[1.025]', !image.matte && !color && 'grayscale-[85%] group-hover:grayscale-0')}
+        className="block h-auto w-full transition-transform duration-700 ease-out-expo md:group-hover:scale-[1.025]"
       />
     </motion.div>
   );
@@ -58,7 +59,7 @@ export function DatasetPanel() {
             key={f}
             className={cn(
               'truncate transition-colors duration-500 group-hover:text-fg',
-              f === 'churn' && 'w-fit bg-fg px-1.5 text-ink group-hover:text-ink',
+              f === 'churn' && 'w-fit bg-accent px-1.5 text-ink group-hover:text-ink',
             )}
           >
             {f}
@@ -81,9 +82,12 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
     <article className="border-t border-line py-12 md:py-24" aria-labelledby={`p-${project.slug}`}>
       <Reveal className="label mb-6 flex items-center justify-between gap-4 text-faint md:mb-12">
         <span className="shrink-0 whitespace-nowrap">
-          <span className="text-fg">{number}</span> / {String(FEATURED.length).padStart(2, '0')}
+          <span className="text-accent">{number}</span> / {String(FEATURED.length).padStart(2, '0')}
         </span>
-        <span className="text-right">{project.category}</span>
+        <span className="flex items-center gap-2 text-right">
+          <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-accent" />
+          {project.category}
+        </span>
       </Reveal>
 
       <div className="grid gap-8 md:grid-cols-12 md:gap-12 lg:gap-16">
@@ -96,7 +100,7 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
           {project.cover ? <Shot image={project.cover} /> : <DatasetPanel />}
           <span
             aria-hidden
-            className="absolute top-4 right-4 flex size-11 scale-90 items-center justify-center rounded-full bg-fg text-ink opacity-0 transition-[opacity,transform] duration-300 ease-out-expo group-hover:scale-100 group-hover:opacity-100"
+            className="absolute top-4 right-4 flex size-11 scale-90 items-center justify-center rounded-full bg-accent text-ink opacity-0 transition-[opacity,transform] duration-300 ease-out-expo group-hover:scale-100 group-hover:opacity-100"
           >
             <ArrowUpRight size={18} strokeWidth={1.75} />
           </span>
@@ -132,7 +136,14 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
             )}
 
             <div className="mt-8 md:mt-auto md:pt-10">
-              <p className="font-mono text-[0.8125rem] leading-relaxed text-muted">{project.stack.join('  /  ')}</p>
+              <ul className="flex flex-wrap gap-2" aria-label="Stack">
+                {project.stack.map((s) => (
+                  <li key={s} className="flex items-center gap-2 rounded-full border border-line bg-ink-2 py-1 pr-3 pl-2.5 text-[0.8125rem] leading-6 text-muted">
+                    <SkillIcon name={s} size={14} />
+                    {s}
+                  </li>
+                ))}
+              </ul>
               <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-3 text-[0.9375rem]">
                 <a
                   href={href}
@@ -176,14 +187,14 @@ function Archive() {
                   rel="noopener noreferrer"
                   className="group grid grid-cols-[2.25rem_1fr_auto] items-baseline gap-x-4 border-t border-line py-5 transition-colors duration-200 hover:bg-ink-2 md:grid-cols-[3rem_minmax(0,4fr)_minmax(0,5fr)_minmax(0,2fr)_2rem] md:gap-x-6 md:px-2 md:py-6"
                 >
-                  <span className="font-mono text-xs text-faint">{String(i + FEATURED.length + 1).padStart(2, '0')}</span>
+                  <span className="font-mono text-xs text-faint transition-colors group-hover:text-accent">{String(i + FEATURED.length + 1).padStart(2, '0')}</span>
                   <span className="text-lg font-medium tracking-[-0.02em] transition-transform duration-300 ease-out-expo group-hover:translate-x-1 md:text-xl">
                     {p.title}
                     <span className="mt-1.5 block text-[0.9375rem] leading-snug font-normal tracking-normal text-muted md:hidden">{p.outcome}</span>
                   </span>
                   <span className="hidden text-sm leading-relaxed text-muted md:block">{p.outcome}</span>
                   <span className="label hidden text-faint md:block">{p.category}</span>
-                  <span className="flex justify-end text-muted transition-colors group-hover:text-fg">
+                  <span className="flex justify-end text-muted transition-colors group-hover:text-accent">
                     <ArrowUpRight aria-hidden size={18} strokeWidth={1.5} />
                     <span className="sr-only">{link.label} (opens in a new tab)</span>
                   </span>
