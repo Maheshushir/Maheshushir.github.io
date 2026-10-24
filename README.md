@@ -1,7 +1,7 @@
 # Mahesh Ushir: Portfolio
 
 Personal portfolio of Mahesh Ushir, Data Analyst & Strategist. Live at
-[maheshushir.vercel.app](https://maheshushir.vercel.app).
+[maheshushir.online](https://maheshushir.online).
 
 ## Stack
 

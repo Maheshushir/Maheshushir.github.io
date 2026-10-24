@@ -2,7 +2,7 @@
 // site, the project repositories or the dashboards themselves; nothing is
 // estimated. When a number changes, change it here only.
 
-export const SITE_URL = 'https://maheshushir.vercel.app';
+export const SITE_URL = 'https://maheshushir.online';
 
 export const PROFILE = {
   name: 'Mahesh Ushir',

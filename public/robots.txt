@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://maheshushir.vercel.app/sitemap.xml
+Sitemap: https://maheshushir.online/sitemap.xml

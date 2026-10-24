@@ -12,10 +12,10 @@ import { cn } from '@/lib/utils';
 type Milestone = { x: number; y: number; year: string; title: string; note: string; now?: boolean };
 
 const MILESTONES: Milestone[] = [
-  { x: 0.06, y: 0.14, year: '2018', title: 'Physics degree', note: 'Pune University' },
-  { x: 0.28, y: 0.38, year: '2022', title: 'Football stats', note: '925+ analyses, 2.4M views' },
+  { x: 0.06, y: 0.14, year: '2021', title: 'Physics graduate', note: 'B.Sc., Pune University' },
+  { x: 0.28, y: 0.38, year: '2022–25', title: 'Football stats', note: '925+ analyses, 2.4M views' },
   { x: 0.5, y: 0.54, year: '2024', title: 'First analyst role', note: 'AI Variant' },
-  { x: 0.72, y: 0.76, year: '2024', title: 'HyperScale', note: 'promoted in 3 months' },
+  { x: 0.72, y: 0.76, year: '2025', title: 'HyperScale', note: 'promoted in 3 months' },
   { x: 0.94, y: 0.92, year: 'Now', title: 'You are here', note: 'M.Sc. Data Science in progress', now: true },
 ];
 
