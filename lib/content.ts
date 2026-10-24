@@ -44,6 +44,65 @@ export const HERO_METRICS: Metric[] = [
   { value: 141, suffix: 'M', label: 'Rows of IMDb data queried in pure SQL' },
 ];
 
+// The hero's "Ask the data" card: real questions, answered with figures from the projects below.
+export type DataQuestion = {
+  question: string;
+  answer: string;
+  detail: string;
+  bars: { label: string; value: number; display: string; highlight?: boolean }[];
+  source: string;
+  href: string;
+};
+
+export const ASK_THE_DATA: DataQuestion[] = [
+  {
+    question: 'Which taxi rides make the most money?',
+    answer: 'Airport runs.',
+    detail: 'They are 9.3% of trips but 26.3% of revenue, and earn 44% more per minute.',
+    bars: [
+      { label: 'Share of trips', value: 9.3, display: '9.3%' },
+      { label: 'Share of revenue', value: 26.3, display: '26.3%', highlight: true },
+    ],
+    source: 'NYC Taxi ETL Pipeline · 9.55M trips',
+    href: '/work/nyc-taxi-etl-pipeline',
+  },
+  {
+    question: 'Which loan grade holds the most money?',
+    answer: 'Grade B.',
+    detail: 'It carries the largest revolving balance of any grade, well ahead of A and C.',
+    bars: [
+      { label: 'Grade A', value: 114.58, display: '$114.58M' },
+      { label: 'Grade B', value: 160.89, display: '$160.89M', highlight: true },
+      { label: 'Grade C', value: 109.97, display: '$109.97M' },
+    ],
+    source: 'Bank Analytics · ~30,000 loan accounts',
+    href: '/work/bank-analytics',
+  },
+  {
+    question: 'How many countries are on Netflix?',
+    answer: '117, not 681.',
+    detail: 'The country column packs several countries into one cell, so a naive count invents 564 extra.',
+    bars: [
+      { label: 'Naive count', value: 681, display: '681' },
+      { label: 'After cleaning', value: 117, display: '117', highlight: true },
+    ],
+    source: 'Netflix ELT & Data Cleaning · 10 data tests',
+    href: 'https://github.com/Maheshushir/netflix-elt-data-cleaning',
+  },
+  {
+    question: 'Which EURO drew the biggest crowd?',
+    answer: 'EURO 2024.',
+    detail: '2.7M fans attended, ahead of 2016 and more than four times the average edition.',
+    bars: [
+      { label: 'Average edition', value: 0.634, display: '634K' },
+      { label: 'EURO 2016', value: 2.4, display: '2.4M' },
+      { label: 'EURO 2024', value: 2.7, display: '2.7M', highlight: true },
+    ],
+    source: 'UEFA EURO 1960–2024 · client dashboard',
+    href: '/work/uefa-euro-dashboard',
+  },
+];
+
 export const ABOUT = {
   intro:
     'I’m a Data Analyst with 2.5+ years of turning raw business data into revenue and decisions across D2C, retail and financial-services data.',
