@@ -17,6 +17,7 @@
   /* Accent: a highlighter lime. Text on ink; fills and marks on paper. */
   --color-accent: #c8f03c;
   --color-accent-ink: #3f5a00; /* accent for text on paper, 7.4:1 */
+  --color-flag: #ff6b5b; /* rows a validation rule rejects */
 
   /* Paper (light surfaces) */
   --color-paper: #f7f7f5;

@@ -9,8 +9,8 @@ Personal portfolio of Mahesh Ushir, Data Analyst & Strategist. Live at
 - Tailwind CSS v4 (design tokens in `styles/index.css`)
 - Motion for React (`motion/react`) for reveals and transitions
 - `AnimatedCounter` from [Rare UI](https://rareui.com) (live fit readout and results), in `components/ui/`
-- "Ask the data" hero card: business questions answered with real figures from the projects,
-  each linking to its case study (`components/AskTheData.tsx`, questions in `lib/content.ts`)
+- Self-building hero dashboard: raw rows are validated, cleaned and turned into KPIs, charts and an
+  insight, replaying three real projects (`components/DashboardBuild.tsx`, data in `lib/content.ts`)
 - Self-hosted Geist, Geist Mono and Instrument Serif via Fontsource
 
 ## Structure

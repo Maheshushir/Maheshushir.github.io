@@ -44,61 +44,142 @@ export const HERO_METRICS: Metric[] = [
   { value: 141, suffix: 'M', label: 'Rows of IMDb data queried in pure SQL' },
 ];
 
-// The hero's "Ask the data" card: real questions, answered with figures from the projects below.
-export type DataQuestion = {
-  question: string;
-  answer: string;
-  detail: string;
-  bars: { label: string; value: number; display: string; highlight?: boolean }[];
+// The hero's self-building dashboard: each dataset replays a project from raw rows
+// to a finished view. KPIs, charts and insights are the projects' real figures; the
+// raw rows are illustrative examples of the problems each project actually cleaned.
+export type BuildBar = { label: string; value: number; display: string; highlight?: boolean };
+export type BuildDataset = {
+  name: string;
+  file: string;
+  rows: string;
+  columns: string[];
+  raw: { cells: string[]; issue?: string }[];
+  removed: string;
+  kpis: Metric[];
+  charts: { title: string; bars: BuildBar[] }[];
+  insight: string;
   source: string;
   href: string;
 };
 
-export const ASK_THE_DATA: DataQuestion[] = [
+export const HERO_BUILDS: BuildDataset[] = [
   {
-    question: 'Which taxi rides make the most money?',
-    answer: 'Airport runs.',
-    detail: 'They are 9.3% of trips but 26.3% of revenue, and earn 44% more per minute.',
-    bars: [
-      { label: 'Share of trips', value: 9.3, display: '9.3%' },
-      { label: 'Share of revenue', value: 26.3, display: '26.3%', highlight: true },
+    name: 'NYC Taxi',
+    file: 'yellow_tripdata_2024_q1.parquet',
+    rows: '9,554,778 rows',
+    columns: ['pickup', 'zone', 'miles', 'fare', 'mph'],
+    raw: [
+      { cells: ['Jan 11 18:02', 'JFK Airport', '17.40', '$70.00', '24.1'] },
+      { cells: ['Jan 09 03:14', 'Midtown', '0.00', '$3.00', '0.0'], issue: 'zero distance' },
+      { cells: ['Feb 15 18:07', 'LaGuardia', '9.80', '$41.50', '19.6'] },
+      { cells: ['Mar 02 11:40', 'SoHo', '1.20', '-$9.80', '8.7'], issue: 'negative money' },
+      { cells: ['Jan 23 15:21', 'Upper East Side', '2.10', '$14.90', '8.7'] },
+      { cells: ['Feb 29 09:05', 'Astoria', '3.60', '$18.20', '1,443,334'], issue: 'sub-minute trip' },
     ],
-    source: 'NYC Taxi ETL Pipeline · 9.55M trips',
+    removed: '369,850 rows quarantined',
+    kpis: [
+      { value: 9.55, decimals: 2, suffix: 'M', label: 'Trips validated' },
+      { value: 369850, label: 'Rows quarantined' },
+      { value: 53134, label: 'Rows per second' },
+    ],
+    charts: [
+      {
+        title: 'Airport runs',
+        bars: [
+          { label: 'Share of trips', value: 9.3, display: '9.3%' },
+          { label: 'Share of revenue', value: 26.3, display: '26.3%', highlight: true },
+        ],
+      },
+      {
+        title: 'Manhattan speed',
+        bars: [
+          { label: '05:00', value: 18.2, display: '18.2 mph' },
+          { label: '15:00', value: 8.7, display: '8.7 mph', highlight: true },
+        ],
+      },
+    ],
+    insight: 'Airport runs are 9.3% of trips but bring in 26.3% of revenue.',
+    source: 'NYC Taxi ETL Pipeline',
     href: '/work/nyc-taxi-etl-pipeline',
   },
   {
-    question: 'Which loan grade holds the most money?',
-    answer: 'Grade B.',
-    detail: 'It carries the largest revolving balance of any grade, well ahead of A and C.',
-    bars: [
-      { label: 'Grade A', value: 114.58, display: '$114.58M' },
-      { label: 'Grade B', value: 160.89, display: '$160.89M', highlight: true },
-      { label: 'Grade C', value: 109.97, display: '$109.97M' },
+    name: 'Bank loans',
+    file: 'loan_book.xlsx',
+    rows: '~30,000 accounts',
+    columns: ['loan_id', 'grade', 'state', 'amount', 'verified'],
+    raw: [
+      { cells: ['1077501', 'B', 'AZ', '$5,000', 'Verified'] },
+      { cells: ['1077430', '', 'GA', '$2,500', 'Source verified'], issue: 'missing grade' },
+      { cells: ['1077175', 'C', 'IL', '$2,400', 'Not verified'] },
+      { cells: ['1076863', 'C', 'CA', 'N/A', 'Source verified'], issue: 'amount not numeric' },
+      { cells: ['1075358', 'A', 'TX', '$3,000', 'Verified'] },
+      { cells: ['1077501', 'B', 'AZ', '$5,000', 'Verified'], issue: 'duplicate id' },
     ],
-    source: 'Bank Analytics · ~30,000 loan accounts',
+    removed: 'Cleaned in Excel, checked in SQL',
+    kpis: [
+      { value: 444.54, decimals: 2, prefix: '$', suffix: 'M', label: 'Loan amount' },
+      { value: 433.8, decimals: 2, prefix: '$', suffix: 'M', label: 'Funded amount' },
+      { value: 530.32, decimals: 2, prefix: '$', suffix: 'M', label: 'Revolving balance' },
+    ],
+    charts: [
+      {
+        title: 'Revolving balance by grade',
+        bars: [
+          { label: 'Grade A', value: 114.58, display: '$114.58M' },
+          { label: 'Grade B', value: 160.89, display: '$160.89M', highlight: true },
+          { label: 'Grade C', value: 109.97, display: '$109.97M' },
+        ],
+      },
+      {
+        title: 'Payments by verification',
+        bars: [
+          { label: 'Verified', value: 58.9, display: '58.9%', highlight: true },
+          { label: 'Unverified', value: 41.1, display: '41.1%' },
+        ],
+      },
+    ],
+    insight: 'Grade B carries $160.89M of revolving balance, more than any other grade.',
+    source: 'Bank Analytics',
     href: '/work/bank-analytics',
   },
   {
-    question: 'How many countries are on Netflix?',
-    answer: '117, not 681.',
-    detail: 'The country column packs several countries into one cell, so a naive count invents 564 extra.',
-    bars: [
-      { label: 'Naive count', value: 681, display: '681' },
-      { label: 'After cleaning', value: 117, display: '117', highlight: true },
+    name: 'UEFA EURO',
+    file: 'euro_1960_2024.xlsx',
+    rows: '17 tournaments',
+    columns: ['edition', 'stage', 'match', 'score'],
+    raw: [
+      { cells: ['2024', 'Final', 'ESP – ENG', '2–1'] },
+      { cells: ['1972', 'Final', 'W. Germany – URS', '3–0'], issue: 'inconsistent team name' },
+      { cells: ['2016', 'Final', 'POR – FRA', '1–0'] },
+      { cells: ['2024', 'Final', 'ESP – ENG', '2–1'], issue: 'duplicate match' },
+      { cells: ['2020', 'Final', 'ITA – ENG', '1–1'] },
+      { cells: ['1968', 'Final', 'ITA – YUG', ' 1-1 '], issue: 'malformed score' },
     ],
-    source: 'Netflix ELT & Data Cleaning · 10 data tests',
-    href: 'https://github.com/Maheshushir/netflix-elt-data-cleaning',
-  },
-  {
-    question: 'Which EURO drew the biggest crowd?',
-    answer: 'EURO 2024.',
-    detail: '2.7M fans attended, ahead of 2016 and more than four times the average edition.',
-    bars: [
-      { label: 'Average edition', value: 0.634, display: '634K' },
-      { label: 'EURO 2016', value: 2.4, display: '2.4M' },
-      { label: 'EURO 2024', value: 2.7, display: '2.7M', highlight: true },
+    removed: 'Cleaned and modelled in Power BI',
+    kpis: [
+      { value: 17, label: 'Tournaments' },
+      { value: 634.2, decimals: 2, suffix: 'K', label: 'Avg attendance' },
+      { value: 44.61, decimals: 2, label: 'Avg goals per EURO' },
     ],
-    source: 'UEFA EURO 1960–2024 · client dashboard',
+    charts: [
+      {
+        title: 'Total attendance',
+        bars: [
+          { label: 'Average', value: 0.634, display: '634K' },
+          { label: 'EURO 2016', value: 2.4, display: '2.4M' },
+          { label: 'EURO 2024', value: 2.7, display: '2.7M', highlight: true },
+        ],
+      },
+      {
+        title: 'Goals in a tournament',
+        bars: [
+          { label: 'EURO 1968', value: 7, display: '7' },
+          { label: 'EURO 2020', value: 142, display: '142', highlight: true },
+        ],
+      },
+    ],
+    insight: 'EURO 2024 drew 2.7M fans, the biggest crowd of any edition.',
+    source: 'UEFA EURO dashboard',
     href: '/work/uefa-euro-dashboard',
   },
 ];
